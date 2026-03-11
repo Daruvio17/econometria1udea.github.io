@@ -1,1 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+:root {
+    --primary: #3498db;
+    --primary-dark: #2980b9;
+    --secondary: #2c3e50;
+    --accent: #e74c3c;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --light: #ecf0f1;
+    --dark: #34495e;
+    --gray: #7f8c8d;
+    --light-gray: #f8f9fa;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light-gray);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+.tab-content {
+    display: none; 
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block !important; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar {
+    background-color: white;
+    box-shadow: var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.project-card, .project-card-detailed {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.code-container {
+    background: #282c34;
+    border-radius: 8px;
+    margin: 20px 0;
+    max-height: 450px;
+    overflow: auto;
+    border: 1px solid #444;
+}
+
+pre {
+    padding: 15px;
+    margin: 0;
+}
+
+code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #abb2bf;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; 
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
