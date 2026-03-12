@@ -146,7 +146,7 @@
                         <h3>Clase 1</h3>
                     </div>
                     <div class="project-body-detailed">
-                        <p><strong>Regresión Lineal Simple:</strong></p>
+                        <p>Regresión Lineal Simple</p>
                         <p>Introducción a los Mínimos Cuadrados Ordinarios (MCO).</p>
                         <br>
                         <a onclick="showTab('Clase1-detalle')" class="project-btn">Ver Clase 1 →</a>
@@ -154,6 +154,13 @@
                 </div>
             </div> 
         </div>
+
+
+
+
+
+
+
         
 <div id="presentacion-detalle" class="tab-content">
             <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
@@ -191,6 +198,22 @@
             </section>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
 <div id="Clase1-detalle" class="tab-content">
             <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
                 <i class="fas fa-arrow-left"></i> Volver a Clases
@@ -216,24 +239,40 @@
     </footer>
 
     <script>
+    // 1. CONFIGURACIÓN DE MATHJAX (Para que entienda el símbolo $)
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true
+        }
+    };
+
+    // 2. LÓGICA DE NAVEGACIÓN
     function showTab(tabId, saveHistory = true) {
+        // Ocultar todas las pestañas
         const tabs = document.querySelectorAll('.tab-content');
         tabs.forEach(tab => {
             tab.style.display = 'none';
             tab.classList.remove('active');
         });
         
+        // Mostrar la pestaña seleccionada
         const targetTab = document.getElementById(tabId);
         if (targetTab) {
             targetTab.style.display = 'block';
+            // Delay para la animación CSS
             setTimeout(() => { targetTab.classList.add('active'); }, 10);
             
+            // RE-RENDERIZAR MATEMÁTICAS:
+            // Esto es vital para que al cambiar de pestaña los símbolos se procesen
             if (window.MathJax && window.MathJax.typeset) {
                 window.MathJax.typeset();
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
+            // Gestión del historial
             if (saveHistory) {
                 if (!history.state || history.state.tabId !== tabId) {
                     history.pushState({ tabId: tabId }, "", "#" + tabId);
@@ -242,6 +281,7 @@
         }
     }
 
+    // Escuchar el botón "Atrás" del navegador
     window.addEventListener('popstate', function(event) {
         if (event.state && event.state.tabId) {
             showTab(event.state.tabId, false);
@@ -250,6 +290,7 @@
         }
     });
 
+    // Carga inicial basada en la URL (#)
     document.addEventListener('DOMContentLoaded', () => {
         const hash = window.location.hash.replace('#', '') || 'inicio';
         showTab(hash, false);
