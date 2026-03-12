@@ -47,7 +47,7 @@
             align-items: center;
         }
 
-        .logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+        .logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); text-decoration: none; cursor: pointer; }
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; cursor: pointer; padding: 5px 10px; }
         .nav-links a:hover { color: var(--primary); }
@@ -92,7 +92,6 @@
         .project-body-detailed { padding: 20px; flex-grow: 1; }
         .project-btn { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
 
-        /* ESTILOS DE INFO-CARDS (DENTRO DE PRESENTACIÓN) */
         .info-card {
             background: #f8f9fa;
             padding: 30px;
@@ -105,7 +104,7 @@
 <body>
 
     <nav class="navbar">
-        <a href="#" class="logo" onclick="showTab('inicio')">Econometría I</a>
+        <a class="logo" onclick="showTab('inicio')">Econometría I</a>
         <div class="nav-links">
             <a onclick="showTab('inicio')">Inicio</a>
             <a onclick="showTab('proyectos')">Clases</a>
@@ -125,10 +124,10 @@
                 </div>
             </div>
         </div>
-    <!------------------------------------------------------------------------------------------------------Tarjetas -------------------------------------------------------------------------------------------------------->
-       <div id="proyectos" class="tab-content">
+
+    <div id="proyectos" class="tab-content">
             <h2 style="color: var(--secondary); margin-bottom: 10px;">Clases de Econometría 1</h2>
-            <p style="color: #666; margin-bottom: 30px;">Explora el contenido temático y modelos implementados.</p>
+            <p style="color: #666; margin-bottom: 30px;">Selecciona una sesión para ver los detalles, fórmulas y aplicaciones.</p>
             
             <div class="projects-grid">
                 <div class="project-card-detailed">
@@ -141,9 +140,22 @@
                         <a onclick="showTab('presentacion-detalle')" class="project-btn">Ver presentación del curso →</a>
                     </div>
                 </div>
+
+                <div class="project-card-detailed">
+                    <div class="project-header-detailed" style="background: linear-gradient(135deg, #2ecc71, #2c3e50);">
+                        <h3>Clase 1</h3>
+                    </div>
+                    <div class="project-body-detailed">
+                        <p><strong>Regresión Lineal Simple:</strong></p>
+                        <p>Introducción a los Mínimos Cuadrados Ordinarios (MCO).</p>
+                        <br>
+                        <a onclick="showTab('Clase1-detalle')" class="project-btn">Ver Clase 1 →</a>
+                    </div>
+                </div>
+            </div> 
+        </div>
         
-<!-----------------------------------------------------------------------------------------------Presentación--------------------------------------------------------------------------------------------------------------->
-        <div id="presentacion-detalle" class="tab-content">
+<div id="presentacion-detalle" class="tab-content">
             <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
                 <i class="fas fa-arrow-left"></i> Volver a Clases
             </a>
@@ -152,37 +164,50 @@
                 <h2 style="color: var(--secondary); text-align: center; margin-bottom: 40px; font-size: 2.2rem;">Fundamentos de la Econometría</h2>
 
                 <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
-                    
                     <div class="info-card" style="border-top: 5px solid var(--primary);">
                         <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"><i class="fas fa-microscope"></i></div>
                         <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Qué es la Econometría?</h3>
-                        <p>Es la amalgama de la <strong>teoría económica, la matemática y la estadística</strong>. Su objetivo es dar contenido empírico a las relaciones económicas para que sean verificables mediante datos.</p>
+                        <p>Es la amalgama de la <strong>teoría económica, la matemática y la estadística</strong>. Su objetivo es dar contenido empírico a las relaciones económicas.</p>
                     </div>
 
                     <div class="info-card" style="border-top: 5px solid var(--success);">
                         <div style="font-size: 2.5rem; color: var(--success); margin-bottom: 15px;"><i class="fas fa-chart-line"></i></div>
                         <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Para qué sirve?</h3>
-                        <p>Se utiliza para tres propósitos fundamentales:</p>
-                        <ul style="margin-left: 20px; margin-top: 10px;">
-                            <li><strong>Prueba de teorías:</strong> Respaldar leyes económicas con evidencia.</li>
-                            <li><strong>Estimación:</strong> Medir magnitudes y elasticidades.</li>
-                            <li><strong>Predicción:</strong> Pronosticar variables macro y micro.</li>
-                        </ul>
+                        <p>Sirve para probar teorías económicas, estimar relaciones entre variables y predecir eventos futuros mediante el uso de datos.</p>
                     </div>
 
                     <div class="info-card" style="border-top: 5px solid var(--warning);">
                         <div style="font-size: 2.5rem; color: var(--warning); margin-bottom: 15px;"><i class="fas fa-balance-scale"></i></div>
                         <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Por qué es importante?</h3>
-                        <p>Es la herramienta fundamental para el <strong>diseño de políticas públicas</strong> y la toma de decisiones basadas en evidencia científica y no solo en intuiciones teóricas.</p>
+                        <p>Permite tomar decisiones informadas y diseñar políticas públicas basadas en evidencia científica, reduciendo la incertidumbre.</p>
                     </div>
                 </div>
 
                 <div style="background: #eef2f7; padding: 25px; border-radius: 10px; text-align: center; border-left: 5px solid var(--secondary);">
                     <p style="font-style: italic; color: #555; font-size: 1.1rem;">
-                        "Recuerden, lo más importante no es estimar un modelo y ya, sino entender los datos, entender el problema y saber con qué cuentan y con qué no."
+                        "Recuerden, lo más importante no es estimar un modelo y ya, sino entender los datos y el problema."
                     </p>
                 </div>
             </section>
+        </div>
+
+<div id="Clase1-detalle" class="tab-content">
+            <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
+                <i class="fas fa-arrow-left"></i> Volver a Clases
+            </a>
+            <h2 style="color: var(--secondary); margin-bottom: 20px;">Clase 1: Modelo de Regresión Lineal Simple</h2>
+            
+            <p style="margin-bottom: 20px;">El modelo de regresión lineal simple busca explicar una variable $Y$ en función de una única variable $X$:</p>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+                $$Y_i = \beta_0 + \beta_1 X_i + u_i$$
+            </div>
+
+            <h3 style="color: var(--secondary); margin-bottom: 15px;">Mínimos Cuadrados Ordinarios (MCO)</h3>
+            <p>La técnica de MCO consiste en minimizar la suma de los residuos al cuadrado ($\sum \hat{u}_i^2$). Los estimadores resultantes son:</p>
+            <div style="background: #e8f4fd; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                $$\hat{\beta}_1 = \frac{\sum (X_i - \bar{X})(Y_i - \bar{Y})}{\sum (X_i - \bar{X})^2} \quad \text{y} \quad \hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$$
+            </div>
         </div>
 
     </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
@@ -192,29 +217,23 @@
 
     <script>
     function showTab(tabId, saveHistory = true) {
-        // 1. Ocultar todas las pestañas
         const tabs = document.querySelectorAll('.tab-content');
         tabs.forEach(tab => {
             tab.style.display = 'none';
             tab.classList.remove('active');
         });
         
-        // 2. Mostrar la pestaña actual
         const targetTab = document.getElementById(tabId);
         if (targetTab) {
             targetTab.style.display = 'block';
-            // Pequeño delay para la animación
             setTimeout(() => { targetTab.classList.add('active'); }, 10);
             
-            // Re-procesar fórmulas matemáticas si existen
             if (window.MathJax && window.MathJax.typeset) {
                 window.MathJax.typeset();
             }
 
-            // Subir el scroll al inicio
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // 3. Gestionar historial del navegador (botón atrás)
             if (saveHistory) {
                 if (!history.state || history.state.tabId !== tabId) {
                     history.pushState({ tabId: tabId }, "", "#" + tabId);
@@ -223,7 +242,6 @@
         }
     }
 
-    // Detectar cuando el usuario usa las flechas del navegador
     window.addEventListener('popstate', function(event) {
         if (event.state && event.state.tabId) {
             showTab(event.state.tabId, false);
@@ -232,7 +250,6 @@
         }
     });
 
-    // Iniciar en la pestaña correcta al cargar
     document.addEventListener('DOMContentLoaded', () => {
         const hash = window.location.hash.replace('#', '') || 'inicio';
         showTab(hash, false);
