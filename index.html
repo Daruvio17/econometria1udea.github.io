@@ -1,39 +1,243 @@
-<div id="presentacion-detalle" class="tab-content">
-    <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px;">
-        <i class="fas fa-arrow-left"></i> Volver a Clases
-    </a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Econometría I - UdeA</title>
+    
+    <link rel="icon" type="image/png" href="dataicon.png.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 
-    <section class="intro-econometria">
-        <h2 style="color: var(--secondary); text-align: center; margin-bottom: 40px; font-size: 2.2rem;">Fundamentos de la Econometría</h2>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light-bg: #f0f2f5;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-        <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
-            
-            <div class="info-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; border-top: 5px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"><i class="fas fa-microscope"></i></div>
-                <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Qué es la Econometría?</h3>
-                <p>Es la amalgama de la teoría económica, la matemática y la estadística. Su objetivo es dar contenido empírico a las relaciones económicas, permitiendo que las teorías dejen de ser abstractas y pasen a ser verificables mediante datos.</p>
-            </div>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
 
-            <div class="info-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; border-top: 5px solid var(--success); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <div style="font-size: 2.5rem; color: var(--success); margin-bottom: 15px;"><i class="fas fa-chart-line"></i></div>
-                <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Para qué sirve?</h3>
-                <p>Se utiliza principalmente para tres propósitos:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Prueba de teorías:</strong> Ver si los datos respaldan la teoría económica.</li>
-                    <li><strong>Estimación:</strong> Medir magnitudes (ej. Elasticidades).</li>
-                    <li><strong>Predicción:</strong> Pronosticar variables como el PIB o la inflación.</li>
-                </ul>
-            </div>
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
 
-            <div class="info-card" style="background: #f8f9fa; padding: 30px; border-radius: 12px; border-top: 5px solid var(--warning); box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <div style="font-size: 2.5rem; color: var(--warning); margin-bottom: 15px;"><i class="fas fa-balance-scale"></i></div>
-                <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Por qué es importante?</h3>
-                <p>Es la herramienta fundamental para el diseño de políticas públicas y la toma de decisiones basadas en evidencia científica y no en meras intuiciones.</p>
-            </div>
-        </div> <div style="background: #eef2f7; padding: 25px; border-radius: 10px; text-align: center; border-left: 5px solid var(--secondary);">
-            <p style="font-style: italic; color: #555; font-size: 1.1rem;">
-                "Recuerden, lo más importante no es estimar un modelo y ya, sino entender los datos, entender el problema y saber con qué cuentan y con qué no."
-            </p>
+        /* NAVEGACIÓN */
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-weight: 700; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; cursor: pointer; padding: 5px 10px; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* SISTEMA DE PESTAÑAS */
+        .tab-container { max-width: 1200px; margin: 20px auto 50px; padding: 0 20px; }
+        .tab-content { 
+            display: none; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+        }
+        .tab-content.active { display: block !important; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* DISEÑO DE TARJETAS (GRID) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .project-card-detailed {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .project-card-detailed:hover { transform: translateY(-5px); }
+        .project-header-detailed { padding: 20px; color: white; background: linear-gradient(135deg, #3498db, #2c3e50); }
+        .project-body-detailed { padding: 20px; flex-grow: 1; }
+        .project-btn { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
+
+        /* ESTILOS DE INFO-CARDS (DENTRO DE PRESENTACIÓN) */
+        .info-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo" onclick="showTab('inicio')">Econometría I</a>
+        <div class="nav-links">
+            <a onclick="showTab('inicio')">Inicio</a>
+            <a onclick="showTab('proyectos')">Clases</a>
         </div>
-    </section>
-</div>
+    </nav>
+
+    <div class="tab-container">
+        
+        <div id="inicio" class="tab-content active">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h2 style="color: var(--secondary); margin-bottom: 20px; font-size: 2rem;">Econometría I - UdeA</h2>
+                <p style="color: #666; font-size: 1.1rem; margin-bottom: 20px;">
+                    Esta página fue desarrollada como fuente del marco teórico y práctico de la asignatura Econometría 1, principalmente para los estudiantes de la Universidad de Antioquia, con el fin de que tengan a la mano una página de estudio con ejercicios aplicativos.
+                </p>
+                <div style="background: #fff8e1; padding: 25px; border-left: 5px solid #ffca28; text-align: left; border-radius: 5px; color: #856404;">
+                    <strong>Nota:</strong> Esta página no puede ni pretende reemplazar las clases de los profesores encargados de la asignatura. Es deber de cada estudiante asistir oportunamente y complementar con el libro guía.
+                </div>
+            </div>
+        </div>
+
+        <div id="proyectos" class="tab-content">
+            <h2 style="color: var(--secondary); margin-bottom: 10px;">Clases de Econometría 1</h2>
+            <p style="color: #666; margin-bottom: 30px;">Explora el contenido temático y modelos implementados.</p>
+            
+            <div class="projects-grid">
+                <div class="project-card-detailed">
+                    <div class="project-header-detailed">
+                        <h3>Presentación del curso</h3>
+                    </div>
+                    <div class="project-body-detailed">
+                        <p>¿Qué es la econometría, para qué nos sirve y por qué es importante?</p>
+                        <br>
+                        <a onclick="showTab('presentacion-detalle')" class="project-btn">Ver presentación del curso →</a>
+                    </div>
+                </div>
+                </div> 
+        </div>
+
+        <div id="presentacion-detalle" class="tab-content">
+            <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
+                <i class="fas fa-arrow-left"></i> Volver a Clases
+            </a>
+
+            <section class="intro-econometria">
+                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 40px; font-size: 2.2rem;">Fundamentos de la Econometría</h2>
+
+                <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    
+                    <div class="info-card" style="border-top: 5px solid var(--primary);">
+                        <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"><i class="fas fa-microscope"></i></div>
+                        <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Qué es la Econometría?</h3>
+                        <p>Es la amalgama de la <strong>teoría económica, la matemática y la estadística</strong>. Su objetivo es dar contenido empírico a las relaciones económicas para que sean verificables mediante datos.</p>
+                    </div>
+
+                    <div class="info-card" style="border-top: 5px solid var(--success);">
+                        <div style="font-size: 2.5rem; color: var(--success); margin-bottom: 15px;"><i class="fas fa-chart-line"></i></div>
+                        <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Para qué sirve?</h3>
+                        <p>Se utiliza para tres propósitos fundamentales:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Prueba de teorías:</strong> Respaldar leyes económicas con evidencia.</li>
+                            <li><strong>Estimación:</strong> Medir magnitudes y elasticidades.</li>
+                            <li><strong>Predicción:</strong> Pronosticar variables macro y micro.</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card" style="border-top: 5px solid var(--warning);">
+                        <div style="font-size: 2.5rem; color: var(--warning); margin-bottom: 15px;"><i class="fas fa-balance-scale"></i></div>
+                        <h3 style="margin-bottom: 15px; color: var(--secondary);">¿Por qué es importante?</h3>
+                        <p>Es la herramienta fundamental para el <strong>diseño de políticas públicas</strong> y la toma de decisiones basadas en evidencia científica y no solo en intuiciones teóricas.</p>
+                    </div>
+                </div>
+
+                <div style="background: #eef2f7; padding: 25px; border-radius: 10px; text-align: center; border-left: 5px solid var(--secondary);">
+                    <p style="font-style: italic; color: #555; font-size: 1.1rem;">
+                        "Recuerden, lo más importante no es estimar un modelo y ya, sino entender los datos, entender el problema y saber con qué cuentan y con qué no."
+                    </p>
+                </div>
+            </section>
+        </div>
+
+    </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
+        <hr style="max-width: 100px; margin: 0 auto 20px; border: 0; border-top: 2px solid #eee;">
+        <p>&copy; Desarrollado por Sergio Restrepo, Mauricio Lopera & David Rubio</p>
+    </footer>
+
+    <script>
+    function showTab(tabId, saveHistory = true) {
+        // 1. Ocultar todas las pestañas
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.style.display = 'none';
+            tab.classList.remove('active');
+        });
+        
+        // 2. Mostrar la pestaña actual
+        const targetTab = document.getElementById(tabId);
+        if (targetTab) {
+            targetTab.style.display = 'block';
+            // Pequeño delay para la animación
+            setTimeout(() => { targetTab.classList.add('active'); }, 10);
+            
+            // Re-procesar fórmulas matemáticas si existen
+            if (window.MathJax && window.MathJax.typeset) {
+                window.MathJax.typeset();
+            }
+
+            // Subir el scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // 3. Gestionar historial del navegador (botón atrás)
+            if (saveHistory) {
+                if (!history.state || history.state.tabId !== tabId) {
+                    history.pushState({ tabId: tabId }, "", "#" + tabId);
+                }
+            }
+        }
+    }
+
+    // Detectar cuando el usuario usa las flechas del navegador
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.tabId) {
+            showTab(event.state.tabId, false);
+        } else {
+            showTab('inicio', false);
+        }
+    });
+
+    // Iniciar en la pestaña correcta al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        const hash = window.location.hash.replace('#', '') || 'inicio';
+        showTab(hash, false);
+    });
+    </script>
+</body>
+</html>
