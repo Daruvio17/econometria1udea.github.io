@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Econometría 1 | Curso Académico</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <header>
+        <h1>Fundamentos de Econometría I</h1>
+        <p>Docentes: Prof. A, Prof. B & Tu Nombre</p>
+        <nav>
+            <ul>
+                <li><a href="#introduccion">Introducción</a></li>
+                <li><a href="#mco">MCO</a></li>
+                <li><a href="#supuestos">Supuestos</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduccion">
+            <h2>1. Introducción al Modelo Lineal</h2>
+            <p>La econometría busca cuantificar las relaciones económicas utilizando datos empíricos.</p>
+        </section>
+
+        <section id="mco">
+            <h2>2. Mínimos Cuadrados Ordinarios (MCO)</h2>
+            <p>El estimador de MCO busca minimizar la suma de los residuos al cuadrado:</p>
+            <div class="formula">
+                $$\hat{\beta} = (X'X)^{-1}X'y$$
+            </div>
+        </section>
+
+        <section id="supuestos">
+            <h2>3. Supuestos de Gauss-Markov</h2>
+            <ul>
+                <li><strong>Linealidad:</strong> El modelo es lineal en los parámetros.</li>
+                <li><strong>Exogeneidad:</strong> $E(u|X) = 0$.</li>
+                <li><strong>Homocedasticidad:</strong> Varianza constante del error.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Repositorio alojado en GitHub Pages</p>
+    </footer>
+
+</body>
+</html>
