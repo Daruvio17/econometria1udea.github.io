@@ -372,6 +372,66 @@ plot(salario,educacion)
         <strong>Conclusión:</strong> MCO encuentra los parámetros que minimizan esa distancia total, dándonos la línea que mejor "atraviesa" la nube de puntos. En otras palabras, la línea resultante es la "mejor" porque es la que, en promedio, está más cerca de todos los datos observados simultáneamente..
     </p>
 </div>
+
+    <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">El Modelo en forma matricial</h3>
+    
+    <p>Cuando pasamos de una sola observación a todo nuestro conjunto de datos, la forma más elegante y eficiente de trabajar es mediante matrices. El modelo se resume en una expresión sencilla:</p>
+    
+    <div style="text-align: center; margin: 25px 0;">
+        <img src="https://latex.codecogs.com/svg.image?\large&space;y&space;=&space;X\beta&space;&plus;&space;u" title="y = X\beta + u" />
+    </div>
+
+    <p>Para entender qué hay "dentro" de estas letras, veamos cómo se organizan los datos:</p>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px; margin-bottom: 30px; align-items: center;">
+        <div style="text-align: center;">
+            <img src="https://latex.codecogs.com/svg.image?y&space;=&space;\begin{bmatrix}&space;y_1&space;\\&space;y_2&space;\\&space;\vdots&space;\\&space;y_n&space;\end{bmatrix}" />
+            <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $y$:</strong><br>Contiene tus $n$ datos<br>de la variable dependiente.</p>
+        </div>
+        <div style="font-size: 1.5em; color: #ccc;">=</div>
+        <div style="text-align: center;">
+            <img src="https://latex.codecogs.com/svg.image?X&space;=&space;\begin{bmatrix}&space;1&space;&&&space;x_1&space;\\&space;1&space;&&&space;x_2&space;\\&space;\vdots&space;&&&space;\vdots&space;\\&space;1&space;&&&space;x_n&space;\end{bmatrix}" />
+            <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Matriz $X$:</strong><br>La primera columna de 1s<br>permite estimar el intercepto.</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://latex.codecogs.com/svg.image?\beta&space;=&space;\begin{bmatrix}&space;\beta_1&space;\\&space;\beta_2&space;\end{bmatrix}" />
+            <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $\beta$:</strong><br>$\beta_1$: Intercepto<br>$\beta_2$: Pendiente</p>
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">⚡ 2. ¿Cómo llegamos a los estimadores?</h3>
+    <p>Nuestro objetivo es encontrar el "mejor" vector $\hat{\beta}$ (el que tenga los sombreros). Para lograrlo, seguimos estos pasos lógicos:</p>
+
+    <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; line-height: 1.8;">
+        <p><strong>Paso 1: Definir el error total</strong><br>
+        Queremos que la suma de los residuos al cuadrado ($SS$) sea mínima. En matrices, esto se escribe como el producto del vector de errores traspuesto por sí mismo:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?S(\hat{\beta})&space;=&space;(y&space;-&space;X\hat{\beta})'(y&space;-&space;X\hat{\beta})" />
+        </div>
+
+        <p><strong>Paso 2: Aplicar cálculo</strong><br>
+        Derivamos la expresión anterior respecto a $\hat{\beta}$ e igualamos a cero para encontrar el mínimo. Esto nos lleva a:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?X'X\hat{\beta}&space;=&space;X'y" />
+        </div>
+
+        <p><strong>Paso 3: El resultado final</strong><br>
+        Para despejar $\hat{\beta}$, multiplicamos por la inversa de $(X'X)$. Esta es la fórmula "mágica" que R o Python calculan internamente:</p>
+        <div style="text-align: center; margin: 25px 0; background: #e8f4fd; padding: 20px; border-radius: 10px; border: 2px solid #3498db;">
+            <img src="https://latex.codecogs.com/svg.image?\Large&space;\hat{\beta}&space;=&space;(X'X)^{-1}X'y" title="\hat{\beta} = (X'X)^{-1}X'y" />
+        </div>
+    </div>
+
+    <p style="margin-top: 25px; padding: 15px; background: #fff4e5; border-left: 5px solid #ffa000; font-size: 0.95em;">
+        <strong>Nota para el estudiante:</strong> Recuerda que para poder aplicar la inversa $(X'X)^{-1}$, la matriz no puede tener multicolinealidad perfecta (es decir, debe ser de rango completo). Si no, el software te lanzará un error porque no podrá "dividir" por esa matriz.
+    </p>
+</div>
+
+
+    
     
     
       </div>
