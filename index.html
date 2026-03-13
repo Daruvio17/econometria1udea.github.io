@@ -244,8 +244,50 @@
     </div>
     
     <p style="background: #fff4e5; padding: 15px; border-radius: 8px; margin-top: 25px; border-left: 5px solid #ffcc00; font-size: 0.9em;">
-        <strong>Nota importante:</strong> En econometría, siempre nos preguntamos si la relación es causal (X causa Y) o simplemente una correlación. Recuerden que correlación no implica causalidad
+        <strong>Nota importante:</strong> En econometría, siempre nos preguntamos si la relación es causal (X causa Y) o simplemente una correlación. Recuerden que correlación no implica causalidad.
     </p>
+</div>
+
+    <div style="margin-top: 40px; padding: 25px; background: #fdfdfd; border: 1px solid #e0e0e0; border-radius: 10px;">
+    <h3 style="color: var(--secondary); margin-top: 0;">Revisar el comportamiento de los datos</h3>
+    
+    <p style="line-height: 1.6;">
+        Antes de correr el comando <code>lm()</code> en R o cualquier estimación de MCO, es obligatorio realizar un análisis visual. El supuesto de Linealidad en los Parámetros (Que detallaremos un unos momentos) exige que la relación entre nuestras variables siga una tendencia de línea recta.
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin: 20px 0;">
+        <div style="flex: 1; min-width: 300px; background: white; border: 1px dashed #ccc; padding: 15px; text-align: center; border-radius: 8px;">
+            <svg viewBox="0 0 200 120" style="max-width: 100%; height: auto;">
+                <line x1="20" y1="100" x2="180" y2="100" stroke="#333" stroke-width="2" />
+                <line x1="20" y1="100" x2="20" y2="20" stroke="#333" stroke-width="2" />
+                <circle cx="40" cy="85" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="60" cy="78" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="80" cy="65" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="100" cy="55" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="120" cy="48" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="140" cy="35" r="3" fill="var(--primary)" opacity="0.6" />
+                <circle cx="160" cy="25" r="3" fill="var(--primary)" opacity="0.6" />
+                <line x1="30" y1="95" x2="170" y2="15" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4" />
+                <text x="100" y="115" font-size="8" text-anchor="middle">Años de Educación (X)</text>
+                <text x="10" y="60" font-size="8" text-anchor="middle" transform="rotate(-90 10,60)">Salario (Y)</text>
+            </svg>
+            <p style="font-size: 0.8em; color: #777; margin-top: 10px;">Figura 1. Diagrama de Dispersión (Nube de puntos)</p>
+        </div>
+
+        <div style="flex: 1; min-width: 300px;">
+            <p style="margin-top: 0;"><strong>Caso: Educación vs. Salarios</strong></p>
+            <ul style="padding-left: 20px; font-size: 0.95em; color: #444;">
+                <li><strong>Tendencia Positiva:</strong> A mayor educación, mayor salario esperado.</li>
+                <li><strong>Dispersión:</strong> Los puntos no están sobre la línea perfecta debido al error $u_i$.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 0.9em;">
+        <span style="color: #66d9ef;"># Código rápido en R para validar:</span><br>
+        <span style="color: #a6e22e;">plot</span>(data$educacion, data$salario, <span style="color: #e6db74;">main=</span><span style="color: #e6db74;">"Visualizando la Linealidad"</span>)<br>
+        <span style="color: #a6e22e;">abline</span>(<span style="color: #a6e22e;">lm</span>(salario ~ educacion, <span style="color: #e6db74;">data=</span>data), <span style="color: #e6db74;">col=</span><span style="color: #e6db74;">"red"</span>)
+    </div>
 </div>
 
     
