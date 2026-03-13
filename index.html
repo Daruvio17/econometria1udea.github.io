@@ -334,39 +334,44 @@ plot(salario,educacion)
 
 
 <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
-    <h3 style="color: var(--secondary); margin-bottom: 20px;">El residuo (û<sub>i</sub>)</h3>
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">El residuo</h3>
     
-    <p>En el mundo real, nunca conocemos los verdaderos β<sub>0</sub> y β<sub>1</sub>. Por eso, usamos <strong>estimadores</strong> (denotados con "sombreros" sobre la variable: β̂) para construir nuestra línea de predicción:</p>
+    <p>En el mundo real, nunca conocemos los verdaderos $\beta_0$ y $\beta_1$. Por eso, usamos <strong>estimadores</strong> para construir nuestra línea de predicción:</p>
     
-    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 1.4em;">
-        <span style="position: relative;">Y<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub> = <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub> + <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub> X<sub>i</sub>
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
+        <img src="https://latex.codecogs.com/svg.image?\large&space;\hat{Y}_i&space;=&space;\hat{\beta}_0&space;&plus;&space;\hat{\beta}_1&space;X_i" title="\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i" style="max-width: 100%; height: auto;" />
     </div>
 
     <h4 style="color: var(--primary);">1. ¿De dónde sale el residuo?</h4>
-    <p>El residuo (û<sub>i</sub>) es la diferencia entre el valor que observamos en los datos (Y<sub>i</sub>) y el valor que predice nuestro modelo (Ŷ<sub>i</sub>):</p>
+    <p>El residuo es la diferencia entre el valor observado y el predicho:</p>
     
-    <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 25px 0; flex-wrap: wrap;">
-        <div style="background: #fff4f4; border: 1px solid #f5c6cb; padding: 15px; border-radius: 8px; font-size: 1.1em;">
-            <strong><span style="position: relative;">u<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub> = Y<sub>i</sub> - <span style="position: relative;">Y<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub></strong>
-            <br><small>(Distancia vertical al punto)</small>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 25px 0; flex-wrap: wrap; text-align: center;">
+        <div style="background: #fff4f4; border: 1px solid #f5c6cb; padding: 15px; border-radius: 8px;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{u}_i&space;=&space;Y_i&space;-&space;\hat{Y}_i" title="\hat{u}_i = Y_i - \hat{Y}_i" />
+            <br><small style="display: block; margin-top: 10px;">(Distancia vertical)</small>
         </div>
-        <div style="font-size: 1.5em;">$\rightarrow$</div>
-        <div style="background: #e7f3ff; border: 1px solid #b8daff; padding: 15px; border-radius: 8px; font-size: 1.1em;">
-            <strong>RSS = $\sum_{i=1}^{n}$ (<span style="position: relative;">u<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub>)<sup>2</sup></strong>
-            <br><small>Suma de los Residuos al Cuadrado</small>
+        <div style="font-size: 1.5em; color: #ccc;">➔</div>
+        <div style="background: #e7f3ff; border: 1px solid #b8daff; padding: 15px; border-radius: 8px;">
+            <img src="https://latex.codecogs.com/svg.image?RSS&space;=&space;\sum_{i=1}^{n}&space;\hat{u}_i^2" title="RSS = \sum_{i=1}^{n} \hat{u}_i^2" />
+            <br><small style="display: block; margin-top: 10px;">Suma de Residuos al Cuadrado</small>
         </div>
     </div>
 
-    <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 8px; font-family: serif;">
-        <p style="margin: 0; color: #98c379; font-family: sans-serif; font-size: 0.8em; margin-bottom: 10px;"># El objetivo matemático:</p>
-        <span style="font-size: 1.3em;">min<span style="position: relative; font-size: 0.7em;"><sub><span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub>, <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub></sub></span></span> <span style="font-size: 1.5em; vertical-align: -0.3em;">∑</span><sup>n</sup><sub>i=1</sub> (Y<sub>i</sub> - <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub> - <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub> X<sub>i</sub>)<sup>2</sup>
+    <h4 style="color: var(--primary);">2. ¿Por qué elevamos al cuadrado?</h4>
+    <ul style="line-height: 1.6;">
+        <li><strong>Evitar cancelaciones:</strong> Los errores positivos y negativos no se anulan.</li>
+        <li><strong>Penalizar errores grandes:</strong> Un error grande castiga más al modelo que muchos pequeños.</li>
+    </ul>
+
+    <div style="background: #2d2d2d; padding: 25px; border-radius: 8px; text-align: center;">
+        <p style="margin: 0 0 15px 0; color: #98c379; font-family: monospace; font-size: 0.9em; text-align: left;"># El objetivo de MCO:</p>
+        <img src="https://latex.codecogs.com/svg.image?\color[RGB]{255,255,255}\min_{\hat{\beta}_0,&space;\hat{\beta}_1}&space;\sum_{i=1}^{n}&space;(Y_i&space;-&space;\hat{\beta}_0&space;-&space;\hat{\beta}_1&space;X_i)^2" title="Minimización MCO" />
     </div>
 
     <p style="margin-top: 20px; border-left: 4px solid #27ae60; padding-left: 15px; font-style: italic;">
-        <strong>Conclusión:</strong> La línea resultante es la "mejor" porque es la que, en promedio, está más cerca de todos los datos observados simultáneamente.
+        <strong>Conclusión:</strong> MCO encuentra los parámetros que minimizan esa distancia total, dándonos la línea que mejor "atraviesa" la nube de puntos. En otras palabras, la línea resultante es la "mejor" porque es la que, en promedio, está más cerca de todos los datos observados simultáneamente..
     </p>
 </div>
-
     
     
       </div>
