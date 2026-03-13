@@ -290,6 +290,47 @@ plot(salario,educacion)
         </code></pre>
         </div>
           </div>
+
+<div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #eee; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    
+    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px; background: #fff9f0; padding: 15px; border-radius: 8px;">
+        <div style="font-size: 2em;">🔭</div>
+        <div>
+            <h4 style="margin: 0; color: #856404;">Un origen estelar</h4>
+            <p style="margin: 5px 0; font-size: 0.95em; color: #666;">
+                A principios del siglo XIX, <strong>Carl Friedrich Gauss</strong> utilizó el método de Mínimos Cuadrados para predecir la órbita del asteroide <em>Ceres</em>. Al minimizar la suma de los errores al cuadrado, logró encontrar la trayectoria más probable a partir de observaciones imprecisas. Hoy, usamos esa misma lógica para predecir salarios o el PIB.
+            </p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">📜 Los Supuestos de Gauss-Markov</h3>
+    <p>Para que nuestro estimador de MCO sea el <strong>MELI</strong> (Mejor Estimador Lineal Insesgado), o <em>BLUE</em> en inglés, deben cumplirse las siguientes condiciones:</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div style="padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px;">
+            <strong>1. Linealidad</strong>
+            <p style="font-size: 0.85em; margin: 5px 0;">El modelo debe ser lineal en los parámetros ($\beta$). No importa si $X$ es cuadrática, pero $\beta$ debe ser simple.</p>
+        </div>
+        <div style="padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px;">
+            <strong>2. Muestreo Aleatorio</strong>
+            <p style="font-size: 0.85em; margin: 5px 0;">Los datos $(X_i, Y_i)$ provienen de una muestra representativa de la población.</p>
+        </div>
+        <div style="padding: 15px; background: #f8f9fa; border-left: 4px solid #e74c3c; border-radius: 4px;">
+            <strong>3. Exogeneidad ($E[u|X] = 0$)</strong>
+            <p style="font-size: 0.85em; margin: 5px 0;">Es el más importante: el error no debe estar correlacionado con la variable $X$.</p>
+        </div>
+        <div style="padding: 15px; background: #f8f9fa; border-left: 4px solid #3498db; border-radius: 4px;">
+            <strong>4. Homocedasticidad</strong>
+            <p style="font-size: 0.85em; margin: 5px 0;">La varianza del error $u$ debe ser constante para todos los niveles de $X$.</p>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-radius: 6px; font-style: italic; font-size: 0.9em; color: #2c3e50;">
+        "Si se cumplen estos supuestos, el Teorema de Gauss-Markov nos asegura que no existe otro estimador con menor varianza que MCO."
+    </div>
+</div>
+
+    
       </div>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
