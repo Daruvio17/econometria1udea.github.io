@@ -330,6 +330,52 @@ plot(salario,educacion)
     </div>
 </div>
 
+
+<div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px;">
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">El residuo ($\hat{u}$)</h3>
+    
+    <p>En el mundo real, nunca conocemos los verdaderos $\beta_0$ y $\beta_1$. Por eso, usamos <strong>estimadores</strong> (denotados con "sombreros": $\hat{\beta}$) para construir nuestra línea de predicción:</p>
+    
+    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 1.2em;">
+        $\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i$
+    </div>
+
+    <h4 style="color: var(--primary);">1. ¿De dónde sale el residuo?</h4>
+    <p>El residuo ($\hat{u}_i$) es la diferencia entre el valor que observamos en los datos ($Y_i$) y el valor que predice nuestro modelo ($\hat{Y}_i$):</p>
+    
+    <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 25px 0; flex-wrap: wrap;">
+        <div style="background: #fff4f4; border: 1px solid #f5c6cb; padding: 15px; border-radius: 8px;">
+            <strong>$\hat{u}_i = Y_i - \hat{Y}_i$</strong>
+            <br><small>(Distancia vertical al punto)</small>
+        </div>
+        <div style="font-size: 1.5em;">$\rightarrow$</div>
+        <div style="background: #e7f3ff; border: 1px solid #b8daff; padding: 15px; border-radius: 8px;">
+            <strong>$RSS = \sum_{i=1}^{n} \hat{u}_i^2$</strong>
+            <br><small>Suma de los Residuos al Cuadrado</small>
+        </div>
+    </div>
+
+    <h4 style="color: var(--primary);">2. ¿Por qué elevamos al cuadrado?</h4>
+    <ul style="line-height: 1.6;">
+        <li><strong>Evitar cancelaciones:</strong> Algunos errores son positivos (puntos arriba de la línea) y otros negativos (puntos abajo). Si solo los sumamos, se cancelarían entre sí dando un error total de cero, lo cual es falso.</li>
+        <li><strong>Penalizar errores grandes:</strong> Al elevar al cuadrado, un error de 10 unidades pesa mucho más ($100$) que diez errores de 1 unidad ($10 \times 1 = 10$). Queremos que la línea no esté muy lejos de ningún punto.</li>
+    </ul>
+
+    <h4 style="color: var(--primary);">3. El proceso de Minimización</h4>
+    <p>El método de <strong>Mínimos Cuadrados Ordinarios (MCO)</strong> busca los valores de $\hat{\beta}_0$ y $\hat{\beta}_1$ que hacen que la $RSS$ sea lo más pequeña posible. Matemáticamente, esto se hace usando cálculo (derivadas parciales):</p>
+    
+    <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 8px; font-family: serif;">
+        <p style="margin: 0; color: #98c379; font-family: sans-serif; font-size: 0.8em; margin-bottom: 10px;"># El objetivo matemático:</p>
+        $$\min_{\hat{\beta}_0, \hat{\beta}_1} \sum_{i=1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i)^2$$
+    </div>
+
+    <p style="margin-top: 20px; border-left: 4px solid #27ae60; padding-left: 15px; font-style: italic;">
+        <strong>Conclusión:</strong> La línea resultante es la "mejor" porque es la que, en promedio, está más cerca de todos los datos observados simultáneamente.
+    </p>
+</div>
+
+
+    
     
       </div>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
