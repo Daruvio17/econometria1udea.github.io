@@ -283,15 +283,14 @@
         </div>
     </div>
 
-    <div style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 0.9em;">
-        <span style="color: #66d9ef;"># Código rápido en R para validar:</span><br>
-        <span style="color: #a6e22e;">plot</span>(data$educacion, data$salario, <span style="color: #e6db74;">main=</span><span style="color: #e6db74;">"Visualizando la Linealidad"</span>)<br>
-        <span style="color: #a6e22e;">abline</span>(<span style="color: #a6e22e;">lm</span>(salario ~ educacion, <span style="color: #e6db74;">data=</span>data), <span style="color: #e6db74;">col=</span><span style="color: #e6db74;">"red"</span>)
-    </div>
-</div>
-
-    
+     <h3>Código en R para ver el diagrama de dispersión y ver si hay tendencia lineal en los datos</h3>
+    <div class="code-container">
+        <pre class="language-r"><code class="language-r">
+plot(salario,educacion)
+        </code></pre>
         </div>
+          </div>
+      </div>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
         <hr style="max-width: 100px; margin: 0 auto 20px; border: 0; border-top: 2px solid #eee;">
