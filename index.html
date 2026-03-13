@@ -450,11 +450,48 @@ plot(salario,educacion)
             <img src="https://latex.codecogs.com/svg.image?RSS(\hat{\beta})&space;=&space;(y&space;-&space;X\hat{\beta})'(y&space;-&space;X\hat{\beta})" />
         </div>
 
-        <p><strong>Paso 2: Aplicar cálculo</strong><br>
-        Derivamos la expresión anterior respecto a $\hat{\beta}$ e igualamos a cero para encontrar el mínimo. Esto nos lleva a:</p>
-        <div style="text-align: center; margin: 15px 0;">
-            <img src="https://latex.codecogs.com/svg.image?X'X\hat{\beta}&space;=&space;X'y" />
+        <div style="margin-top: 30px; padding: 25px; background: #fdfdfd; border-left: 5px solid #3498db; border-radius: 8px;">
+    <h4 style="color: var(--secondary); margin-top: 0;">Paso 2: El procedimiento algebraico</h4>
+    <p>Para encontrar el mínimo, primero debemos expandir la suma de residuos al cuadrado ($S$):</p>
+
+    <div style="background: #f1f3f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p style="margin-bottom: 15px;"><strong>A. Expandimos el producto:</strong></p>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="https://latex.codecogs.com/svg.image?S(\hat{\beta})&space;=&space;(y&space;-&space;X\hat{\beta})'(y&space;-&space;X\hat{\beta})" /><br>
+            <img src="https://latex.codecogs.com/svg.image?S(\hat{\beta})&space;=&space;y'y&space;-&space;\hat{\beta}'X'y&space;-&space;y'X\hat{\beta}&space;&plus;&space;\hat{\beta}'X'X\hat{\beta}" style="margin-top: 10px;" />
         </div>
+        
+        <p style="font-size: 0.9em; color: #555;">
+            Como el término $\hat{\beta}'X'y$ es un escalar (un número), es igual a su transpuesta ($y'X\hat{\beta}$). Por lo tanto, podemos agruparlos:
+        </p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?S(\hat{\beta})&space;=&space;y'y&space;-&space;2\hat{\beta}'X'y&space;&plus;&space;\hat{\beta}'X'X\hat{\beta}" />
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+
+        <p style="margin-bottom: 15px;"><strong>B. Derivamos respecto al vector $\hat{\beta}$:</strong></p>
+        <p style="font-size: 0.9em;">Aplicando las reglas de cálculo matricial ($\frac{\partial a'b}{\partial b} = a$ y $\frac{\partial b'Ab}{\partial b} = 2Ab$):</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;S}{\partial&space;\hat{\beta}}&space;=&space;-2X'y&space;&plus;&space;2X'X\hat{\beta}" />
+        </div>
+
+        <p style="margin-bottom: 15px;"><strong>C. Condición de Primer Orden (CPO):</strong></p>
+        <p style="font-size: 0.9em;">Igualamos la derivada a cero para encontrar el punto mínimo:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?-2X'y&space;&plus;&space;2X'X\hat{\beta}&space;=&space;0" />
+        </div>
+    </div>
+
+    <p>Al simplificar (dividiendo por 2 y trasponiendo), llegamos finalmente a las <strong>Ecuaciones Normales</strong>:</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="https://latex.codecogs.com/svg.image?\large&space;X'X\hat{\beta}&space;=&space;X'y" title="X'X\hat{\beta} = X'y" />
+    </div>
+
+    <p style="font-size: 0.9em; background: #fffbe6; padding: 10px; border-radius: 5px; border: 1px solid #ffe58f;">
+        <strong>Nota clave:</strong> Este sistema de ecuaciones nos dice que el error estimado es ortogonal a las variables explicativas, una propiedad fundamental de MCO.
+    </p>
+</div>
 
         <p><strong>Paso 3: El resultado final</strong><br>
         Para despejar $\hat{\beta}$, multiplicamos por la inversa de $(X'X)$. Esta es la fórmula "mágica" que R o Python calculan internamente:</p>
