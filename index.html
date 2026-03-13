@@ -506,6 +506,108 @@ plot(salario,educacion)
 </div>
 
 
+<div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">¿Qué sigue después de estimar?</h3>
+    
+    <p>Ya tenemos la fórmula para calcular $\hat{\beta}$, pero en econometría no basta con tener un número. Necesitamos saber si ese número es confiable. Según la ruta teórica clásica, ahora debemos estudiar dos dimensiones:</p>
+
+    <div style="margin-bottom: 30px;">
+        <h4 style="color: var(--primary); display: flex; align-items: center; gap: 10px;">
+            <span style="background: var(--primary); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; font-size: 0.7em;">1</span>
+            Insesgadez (Unbiasedness)
+        </h4>
+        <p>Debemos demostrar que, en promedio, nuestro estimador le "pega" al verdadero valor poblacional. Bajo los supuestos de Gauss-Markov:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?E[\hat{\beta}]&space;=&space;\beta" title="E[\hat{\beta}] = \beta" />
+        </div>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+        <h4 style="color: var(--primary); display: flex; align-items: center; gap: 10px;">
+            <span style="background: var(--primary); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; font-size: 0.7em;">2</span>
+            Precisión (Varianza del Estimador)
+        </h4>
+        <p>¿Qué tan dispersos están nuestros estimados? Para hacer inferencia (test t, intervalos de confianza), necesitamos la <strong>Matriz de Varianza-Covarianza</strong> de $\hat{\beta}$:</p>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?Var(\hat{\beta})&space;=&space;\sigma^2&space;(X'X)^{-1}" title="Var(\hat{\beta}) = \sigma^2 (X'X)^{-1}" />
+        </div>
+
+        <p style="font-size: 0.9em; color: #666;">
+            Donde $\sigma^2$ es la varianza de los errores poblacionales. Como no la conocemos, el siguiente sub-paso es estimarla usando la varianza residual:
+        </p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{\sigma}^2&space;=&space;\frac{\hat{u}'\hat{u}}{n&space;-&space;k}" title="\hat{\sigma}^2 = \frac{\hat{u}'\hat{u}}{n - k}" />
+        </div>
+    </div>
+
+    <div style="background: #f0f9ff; border-left: 5px solid #007bff; padding: 15px; border-radius: 4px;">
+        <strong>🚀 Teorema de Gauss-Markov:</strong> 
+        Al llegar a este punto, se demuestra que MCO es el <strong>Mejor Estimador Lineal Insesgado (MELI)</strong>. "Mejor" significa que, entre todos los estimadores lineales e insesgados, el nuestro es el que tiene la <strong>mínima varianza</strong>.
+    </div>
+</div>
+
+
+
+
+        
+
+       <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
+    <h3 style="color: var(--secondary); margin-bottom: 25px;">Demostración de las Propiedades MCO</h3>
+    
+    <p>Para demostrar estas propiedades, el truco fundamental es reemplazar $y$ en nuestra fórmula de estimación por el modelo real: <img src="https://latex.codecogs.com/svg.image?y&space;=&space;X\beta&space;&plus;&space;u" style="vertical-align: middle;" />.</p>
+
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid #2ecc71;">
+        <h4 style="color: #27ae60; margin-top: 0;">1. Insesgadez: ¿Por qué le pegamos al valor real?</h4>
+        <p style="font-size: 0.95em;">Sustituimos $y$ en la fórmula de MCO:</p>
+        
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{\beta}&space;=&space;(X'X)^{-1}X'(X\beta&space;&plus;&space;u)" /><br>
+            <img src="https://latex.codecogs.com/svg.image?\hat{\beta}&space;=&space;(X'X)^{-1}X'X\beta&space;&plus;&space;(X'X)^{-1}X'u" style="margin-top: 10px;" />
+        </div>
+
+        <p style="font-size: 0.95em;">Como <img src="https://latex.codecogs.com/svg.image?(X'X)^{-1}X'X&space;=&space;I" style="vertical-align: middle;" /> (la matriz identidad), la expresión se simplifica a:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{\beta}&space;=&space;\beta&space;&plus;&space;(X'X)^{-1}X'u" />
+        </div>
+
+        <p style="font-size: 0.95em;">Al aplicar el valor esperado, bajo el <strong>Supuesto de Exogeneidad</strong> ($E[u|X]=0$):</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?E[\hat{\beta}]&space;=&space;\beta&space;&plus;&space;(X'X)^{-1}X'E[u]&space;=&space;\beta" />
+        </div>
+        <p style="font-size: 0.85em; color: #666; font-style: italic;">Resultado: El estimador es insesgado.</p>
+    </div>
+
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 5px solid #3498db;">
+        <h4 style="color: #2980b9; margin-top: 0;">2. Precisión: Derivando la Varianza</h4>
+        <p style="font-size: 0.95em;">La varianza se define como <img src="https://latex.codecogs.com/svg.image?E[(\hat{\beta}-\beta)(\hat{\beta}-\beta)']" style="vertical-align: middle;" />. Usando nuestra igualdad anterior:</p>
+        
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{\beta}&space;-&space;\beta&space;=&space;(X'X)^{-1}X'u" />
+        </div>
+
+        <p style="font-size: 0.95em;">Multiplicamos por su transpuesta y aplicamos esperanza:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?Var(\hat{\beta})&space;=&space;E[(X'X)^{-1}X'uu'X(X'X)^{-1}]" />
+        </div>
+
+        <p style="font-size: 0.95em;">Bajo el <strong>Supuesto de Homocedasticidad</strong> ($E[uu'] = \sigma^2 I$):</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="https://latex.codecogs.com/svg.image?Var(\hat{\beta})&space;=&space;(X'X)^{-1}X'(\sigma^2&space;I)X(X'X)^{-1}" />
+        </div>
+
+        <p style="font-size: 0.95em;">Sacamos la constante $\sigma^2$ y simplificamos los términos $(X'X)$:</p>
+        <div style="text-align: center; margin: 20px 0; background: #e8f4fd; padding: 15px; border-radius: 8px; display: inline-block; width: 100%; box-sizing: border-box;">
+            <img src="https://latex.codecogs.com/svg.image?\Large&space;Var(\hat{\beta})&space;=&space;\sigma^2(X'X)^{-1}" title="Varianza de Beta" />
+        </div>
+    </div>
+
+    <p style="margin-top: 25px; font-size: 0.9em; color: #444; border-top: 1px solid #eee; padding-top: 15px;">
+        <strong>¿Qué acabamos de hacer?</strong> Hemos demostrado que para que MCO funcione bien, dependemos totalmente de los supuestos. Sin <strong>Exogeneidad</strong>, el primer paso falla y el estimador es sesgado. Sin <strong>Homocedasticidad</strong>, nuestra fórmula de varianza sería incorrecta.
+    </p>
+</div>
+
+
     
     
     
