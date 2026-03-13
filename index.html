@@ -334,32 +334,32 @@ plot(salario,educacion)
 
 
 <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
-    <h3 style="color: var(--secondary); margin-bottom: 20px;">El residuo ($\hat{u}_i$)</h3>
+    <h3 style="color: var(--secondary); margin-bottom: 20px;">El residuo (û<sub>i</sub>)</h3>
     
-    <p>En el mundo real, nunca conocemos los verdaderos $\beta_0$ y $\beta_1$. Por eso, usamos <strong>estimadores</strong> (denotados con "sombreros" sobre la variable: $\hat{\beta}$) para construir nuestra línea de predicción:</p>
+    <p>En el mundo real, nunca conocemos los verdaderos β<sub>0</sub> y β<sub>1</sub>. Por eso, usamos <strong>estimadores</strong> (denotados con "sombreros" sobre la variable: β̂) para construir nuestra línea de predicción:</p>
     
-    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 1.4em;">
-        $$\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i$$
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 1.4em;">
+        <span style="position: relative;">Y<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub> = <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub> + <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub> X<sub>i</sub>
     </div>
 
     <h4 style="color: var(--primary);">1. ¿De dónde sale el residuo?</h4>
-    <p>El residuo ($\hat{u}_i$) es la diferencia entre el valor que observamos en los datos ($Y_i$) y el valor que predice nuestro modelo ($\hat{Y}_i$):</p>
+    <p>El residuo (û<sub>i</sub>) es la diferencia entre el valor que observamos en los datos (Y<sub>i</sub>) y el valor que predice nuestro modelo (Ŷ<sub>i</sub>):</p>
     
     <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 25px 0; flex-wrap: wrap;">
         <div style="background: #fff4f4; border: 1px solid #f5c6cb; padding: 15px; border-radius: 8px; font-size: 1.1em;">
-            <strong>$\hat{u}_i = Y_i - \hat{Y}_i$</strong>
+            <strong><span style="position: relative;">u<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub> = Y<sub>i</sub> - <span style="position: relative;">Y<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub></strong>
             <br><small>(Distancia vertical al punto)</small>
         </div>
         <div style="font-size: 1.5em;">$\rightarrow$</div>
         <div style="background: #e7f3ff; border: 1px solid #b8daff; padding: 15px; border-radius: 8px; font-size: 1.1em;">
-            <strong>$RSS = \sum_{i=1}^{n} \hat{u}_i^2$</strong>
+            <strong>RSS = $\sum_{i=1}^{n}$ (<span style="position: relative;">u<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>i</sub>)<sup>2</sup></strong>
             <br><small>Suma de los Residuos al Cuadrado</small>
         </div>
     </div>
 
     <div style="background: #2d2d2d; color: #fff; padding: 20px; border-radius: 8px; font-family: serif;">
         <p style="margin: 0; color: #98c379; font-family: sans-serif; font-size: 0.8em; margin-bottom: 10px;"># El objetivo matemático:</p>
-        $$\min_{\hat{\beta}_0, \hat{\beta}_1} \sum_{i=1}^{n} (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i)^2$$
+        <span style="font-size: 1.3em;">min<span style="position: relative; font-size: 0.7em;"><sub><span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub>, <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub></sub></span></span> <span style="font-size: 1.5em; vertical-align: -0.3em;">∑</span><sup>n</sup><sub>i=1</sub> (Y<sub>i</sub> - <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>0</sub> - <span style="position: relative;">β<span style="position: absolute; top: -1.2em; left: 0;">^</span></span><sub>1</sub> X<sub>i</sub>)<sup>2</sup>
     </div>
 
     <p style="margin-top: 20px; border-left: 4px solid #27ae60; padding-left: 15px; font-style: italic;">
