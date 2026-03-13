@@ -407,11 +407,33 @@ plot(salario,educacion)
 
     <p>Para entender qué hay "dentro" de estas letras, veamos cómo se organizan los datos:</p>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 15px; margin-bottom: 30px; align-items: center;">
-        <div style="text-align: center;">
-            <img src="https://latex.codecogs.com/svg.image?y&space;=&space;\begin{bmatrix}&space;y_1&space;\\&space;y_2&space;\\&space;\vdots&space;\\&space;y_n&space;\end{bmatrix}" />
-            <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $y$:</strong><br>Contiene tus $n$ datos<br>de la variable dependiente.</p>
-        </div>
+   <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 10px; margin-bottom: 30px; align-items: center; background: #fdfdfd; padding: 20px; border-radius: 10px;">
+    
+    <div style="text-align: center;">
+        <img src="https://latex.codecogs.com/svg.image?y&space;=&space;\begin{bmatrix}&space;y_1&space;\\&space;y_2&space;\\&space;\vdots&space;\\&space;y_n&space;\end{bmatrix}" />
+        <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $y$:</strong><br>Variable<br>Dependiente</p>
+    </div>
+
+    <div style="font-size: 1.2em; color: #666; font-weight: bold;">=</div>
+
+    <div style="text-align: center;">
+        <img src="https://latex.codecogs.com/svg.image?X&space;=&space;\begin{bmatrix}&space;1&space;&&&space;x_1&space;\\&space;1&space;&&&space;x_2&space;\\&space;\vdots&space;&&&space;\vdots&space;\\&space;1&space;&&&space;x_n&space;\end{bmatrix}" />
+        <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Matriz $X$:</strong><br>Regresores<br>(con constante)</p>
+    </div>
+
+    <div style="text-align: center;">
+        <img src="https://latex.codecogs.com/svg.image?\beta&space;=&space;\begin{bmatrix}&space;\beta_1&space;\\&space;\beta_2&space;\end{bmatrix}" />
+        <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $\beta$:</strong><br>Parámetros a<br>estimar</p>
+    </div>
+
+    <div style="font-size: 1.2em; color: #666; font-weight: bold;">+</div>
+
+    <div style="text-align: center;">
+        <img src="https://latex.codecogs.com/svg.image?u&space;=&space;\begin{bmatrix}&space;u_1&space;\\&space;u_2&space;\\&space;\vdots&space;\\&space;u_n&space;\end{bmatrix}" />
+        <p style="font-size: 0.8em; color: #666; margin-top: 10px;"><strong>Vector $u$:</strong><br>Perturbaciones<br>aleatorias</p>
+    </div>
+
+</div>
         <div style="font-size: 1.5em; color: #ccc;">=</div>
         <div style="text-align: center;">
             <img src="https://latex.codecogs.com/svg.image?X&space;=&space;\begin{bmatrix}&space;1&space;&&&space;x_1&space;\\&space;1&space;&&&space;x_2&space;\\&space;\vdots&space;&&&space;\vdots&space;\\&space;1&space;&&&space;x_n&space;\end{bmatrix}" />
