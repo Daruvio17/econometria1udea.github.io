@@ -645,6 +645,87 @@ plot(salario,educacion)
 
 
 
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+    <div id="Clase2-detalle" class="tab-content">
+    <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
+        <i class="fas fa-arrow-left"></i> Volver a Clases
+    </a>
+    <h2 style="color: var(--secondary); margin-bottom: 20px;">Clase 2: Inferencia y Pruebas de Hipótesis</h2>
+
+    <p style="margin-bottom: 25px;">Para realizar inferencia, DiNardo introduce un supuesto adicional: <strong>Las perturbaciones siguen una distribución normal</strong>:</p>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+        <img src="https://latex.codecogs.com/svg.image?u&space;\sim&space;N(0,&space;\sigma^2&space;I)" title="u ~ N(0, sigma^2 I)" />
+    </div>
+
+    <h3 style="color: var(--primary);">1. Significancia Individual (Test t)</h3>
+    <p>¿Es nuestra variable $X$ realmente distinta de cero en la población? Planteamos:</p>
+    <div style="background: #fff; border-left: 5px solid #3498db; padding: 15px; margin: 20px 0;">
+        <strong>$H_0: \beta_2 = 0$</strong> (La variable no tiene efecto)<br>
+        <strong>$H_1: \beta_2 \neq 0$</strong> (La variable sí tiene efecto)
+    </div>
+
+    <p>Construimos el estadístico $t$ de Student:</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="https://latex.codecogs.com/svg.image?t&space;=&space;\frac{\hat{\beta}_2&space;-&space;0}{ee(\hat{\beta}_2)}" title="t = beta_hat / ee(beta_hat)" />
+    </div>
+
+    <div style="margin: 30px 0; text-align: center; background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #eee;">
+        <h4 style="margin-top: 0;">Distribución t y p-valor</h4>
+        <svg viewBox="0 0 400 150" style="max-width: 100%;">
+            <path d="M 50,130 Q 200,10 350,130" fill="none" stroke="#3498db" stroke-width="2" />
+            <line x1="50" y1="130" x2="350" y2="130" stroke="#333" stroke-width="1" />
+            
+            <path d="M 310,130 Q 330,120 350,130 L 310,130" fill="#e74c3c" opacity="0.5" />
+            <path d="M 50,130 Q 70,120 90,130 L 50,130" fill="#e74c3c" opacity="0.5" />
+            
+            <text x="200" y="145" font-size="12" text-anchor="middle">Valores t</text>
+            <text x="330" y="110" font-size="10" fill="#e74c3c" text-anchor="middle">Zona de Rechazo</text>
+            <text x="200" y="80" font-size="10" fill="#2c3e50" text-anchor="middle">Área = Confianza (1-α)</text>
+        </svg>
+        <p style="font-size: 0.9em; color: #666; margin-top: 15px;">
+            El <strong>p-valor</strong> es la probabilidad de observar un valor de $t$ tan extremo como el que obtuvimos, asumiendo que $H_0$ es cierta. <br>
+            <strong>Regla de oro:</strong> Si p-valor < 0.05, rechazamos $H_0$.
+        </p>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+
+    <h3 style="color: var(--primary);">2. Significancia Global (Test F)</h3>
+    <p>En lugar de mirar una por una, el Test F evalúa si <strong>al menos una</strong> de las variables del modelo explica a $Y$. Comparamos el modelo con todas las variables frente a un modelo que solo tiene el intercepto.</p>
+    
+    <div style="background: #2d2d2d; color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p style="margin: 0 0 10px 0; color: #98c379;"># El estadístico F se basa en la descomposición de varianza:</p>
+        <img src="https://latex.codecogs.com/svg.image?\color[RGB]{255,255,255}F&space;=&space;\frac{(TSS&space;-&space;RSS)/(k-1)}{RSS/(n-k)}" title="F-statistic" />
+    </div>
+
+    <ul style="line-height: 1.8;">
+        <li><strong>TSS (Total Sum of Squares):</strong> Variación total de los datos.</li>
+        <li><strong>RSS (Residual Sum of Squares):</strong> Variación que el modelo NO pudo explicar.</li>
+        <li><strong>Grados de libertad:</strong> $n-k$ es el número de observaciones menos el número de parámetros estimados.</li>
+    </ul>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
+
+    <h3 style="color: var(--primary);">3. Bondad de Ajuste ($R^2$)</h3>
+    <p>El $R^2$ nos dice qué porcentaje de la variación de $Y$ es explicada por nuestro modelo:</p>
+    
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+        <div style="border: 2px solid #2ecc71; padding: 20px; border-radius: 10px;">
+            <img src="https://latex.codecogs.com/svg.image?R^2&space;=&space;1&space;-&space;\frac{RSS}{TSS}" title="R squared" />
+        </div>
+    </div>
+    
+    <div style="background: #fff4e5; border-left: 5px solid #ffa000; padding: 15px; margin-top: 20px;">
+        <strong>Advertencia:</strong> El $R^2$ siempre aumenta cuando añades más variables, incluso si son basura. Por lo tanto, hay que ser cuidadosos y críticos en esto también.
+    </div>
+
+</div>
     
 
      
