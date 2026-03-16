@@ -456,7 +456,34 @@ plot(salario,educacion)
        
        
     </div>
+<div style="margin-top: 20px; padding: 25px; background: #f8f9fa; border-left: 4px solid var(--secondary); border-radius: 8px; font-family: sans-serif;">
+    <h3 style="color: var(--secondary); margin-bottom: 15px;">¿Cómo se llega matricialmente a la RSS?</h3>
+    
+    <p>Para encontrar los mejores estimadores, primero debemos definir qué queremos "minimizar". El error o residuo de nuestro modelo para cada observación se define como la diferencia entre el valor real y el predicho:</p>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="https://latex.codecogs.com/svg.image?\large&space;\hat{u}&space;=&space;y&space;-&space;X\hat{\beta}" title="\hat{u} = y - X\hat{\beta}" />
+    </div>
 
+    <p>Sin embargo, no podemos minimizar la suma de los errores directamente (ya que los errores positivos y negativos se cancelarían). Por ello, buscamos minimizar la <strong>Suma de los Cuadrados de los Residuos (RSS)</strong>.</p>
+
+    <h4 style="color: #444;">El paso a la forma cuadrática matricial:</h4>
+    <p>En álgebra lineal, la suma de los cuadrados de los elementos de un vector se obtiene multiplicando el vector transpuesto por sí mismo ($v'v$). Aplicando esto a nuestro vector de residuos $\hat{u}$:</p>
+
+    <div style="background: #ffffff; padding: 15px; border-radius: 8px; border: 1px dashed #ccc; margin: 20px 0;">
+        <ol style="line-height: 1.8;">
+            <li><strong>Definición escalar:</strong> $RSS = \sum \hat{u}_i^2$</li>
+            <li><strong>Equivalencia matricial:</strong> $RSS = \hat{u}' \hat{u}$</li>
+            <li><strong>Sustitución del modelo:</strong> Como $\hat{u} = (y - X\hat{\beta})$, entonces:</li>
+        </ol>
+        
+        <div style="text-align: center; margin-top: 10px;">
+            <img src="https://latex.codecogs.com/svg.image?\large&space;RSS&space;=&space;(y&space;-&space;X\hat{\beta})'(y&space;-&space;X\hat{\beta})" title="RSS = (y - X\hat{\beta})'(y - X\hat{\beta})" />
+        </div>
+    </div>
+
+    <p style="font-size: 0.95em; color: #555;">Esta expresión escalar es la que derivaremos respecto a $\hat{\beta}$ para encontrar el punto mínimo donde la pendiente es cero.</p>
+</div>
     <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
 
     <h3 style="color: var(--secondary); margin-bottom: 20px;">2. ¿Cómo llegamos a los estimadores?</h3>
