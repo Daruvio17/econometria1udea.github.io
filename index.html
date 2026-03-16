@@ -455,33 +455,31 @@ plot(salario,educacion)
 </div>
        
        
-   <div style="margin-top: 20px; padding: 25px; background: #f8f9fa; border-left: 4px solid var(--secondary); border-radius: 8px; font-family: sans-serif;">
-    <h3 style="color: var(--secondary); margin-bottom: 15px;">¿Cómo llegamos matricialmente a la RSS?</h3>
+   <div style="margin-top: 20px; padding: 25px; background: #f8f9fa; border-left: 4px solid #2c3e50; border-radius: 8px; font-family: sans-serif;">
+    <h3 style="color: #2c3e50; margin-bottom: 15px;">Definiendo la Función de Pérdida: La RSS</h3>
     
-    <p>Para encontrar los mejores estimadores, primero debemos definir qué queremos "minimizar". El error o residuo de nuestro modelo para cada observación se define como la diferencia entre el valor real y el predicho:</p>
+    <p>Para encontrar los mejores estimadores, primero debemos definir qué queremos "minimizar". El residuo de nuestro modelo se define como:</p>
     
-    <div style="text-align: center; margin: 20px 0;">
-        <img src="https://latex.codecogs.com/svg.image?\hat{u}=y-X\hat{\beta}" title="\hat{u} = y - X\hat{\beta}" />
+    <div style="text-align: center; margin: 25px 0;">
+        <img src="https://latex.codecogs.com/svg.latex?%5Chat%7Bu%7D%20%3D%20y%20-%20X%5Chat%7B%5Cbeta%7D" alt="u_hat = y - X*beta_hat" />
     </div>
 
-    <p>Sin embargo, no podemos minimizar la suma de los errores directamente (ya que los errores positivos y negativos se cancelarían). Por ello, buscamos minimizar la <strong>Suma de los Cuadrados de los Residuos (RSS)</strong>.</p>
-
-    <h4 style="color: #444;">El paso a la forma cuadrática matricial:</h4>
-    <p>En álgebra lineal, la suma de los cuadrados de los elementos de un vector se obtiene multiplicando el vector transpuesto por sí mismo ($v'v$). Aplicando esto a nuestro vector de residuos $\hat{u}$:</p>
+    <p>Como no podemos minimizar la suma simple de errores, buscamos minimizar la <strong>Suma de los Cuadrados de los Residuos (RSS)</strong>.</p>
 
     <div style="background: #ffffff; padding: 15px; border-radius: 8px; border: 1px dashed #ccc; margin: 20px 0;">
-        <ol style="line-height: 1.8;">
-            <li><strong>Definición escalar:</strong> $RSS = \sum \hat{u}_i^2$</li>
-            <li><strong>Equivalencia matricial:</strong> $RSS = \hat{u}' \hat{u}$</li>
-            <li><strong>Sustitución del modelo:</strong> Como $\hat{u} = (y - X\hat{\beta})$, entonces:</li>
-        </ol>
+        <p style="margin-bottom: 10px;"><strong>El paso a la forma matricial:</strong></p>
+        <ul style="line-height: 1.8; list-style-type: none; padding-left: 10px;">
+            <li>1. Definición escalar: $RSS = \sum \hat{u}_i^2$</li>
+            <li>2. En matrices, esto equivale a: $RSS = \hat{u}' \hat{u}$</li>
+            <li>3. Sustituyendo $\hat{u}$ por su valor:</li>
+        </ul>
         
-        <div style="text-align: center; margin-top: 10px;">
-            <img src="https://latex.codecogs.com/svg.image?RSS=(y-X\hat{\beta})'(y-X\hat{\beta})" title="RSS = (y - X\hat{\beta})'(y - X\hat{\beta})" />
+        <div style="text-align: center; margin-top: 15px;">
+            <img src="https://latex.codecogs.com/svg.latex?RSS%20%3D%20%28y%20-%20X%5Chat%7B%5Cbeta%7D%29%27%28y%20-%20X%5Chat%7B%5Cbeta%7D%29" alt="RSS = (y - X*beta_hat)'(y - X*beta_hat)" />
         </div>
     </div>
 
-    <p style="font-size: 0.95em; color: #555;">Esta expresión escalar es la que derivaremos respecto a $\hat{\beta}$ para encontrar el punto mínimo donde la pendiente es cero.</p>
+    <p style="font-size: 0.95em; color: #555;">Esta expresión es un <strong>escalar</strong> (un número único), lo que nos permite derivarla respecto al vector $\hat{\beta}$ en el siguiente paso.</p>
 </div>
 
     <h3 style="color: var(--secondary); margin-bottom: 20px;">2. ¿Cómo llegamos a los estimadores?</h3>
