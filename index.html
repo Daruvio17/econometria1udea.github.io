@@ -455,14 +455,13 @@ plot(salario,educacion)
 </div>
        
        
-    </div>
-<div style="margin-top: 20px; padding: 25px; background: #f8f9fa; border-left: 4px solid var(--secondary); border-radius: 8px; font-family: sans-serif;">
-    <h3 style="color: var(--secondary); margin-bottom: 15px;">¿Cómo se llega matricialmente a la RSS?</h3>
+   <div style="margin-top: 20px; padding: 25px; background: #f8f9fa; border-left: 4px solid var(--secondary); border-radius: 8px; font-family: sans-serif;">
+    <h3 style="color: var(--secondary); margin-bottom: 15px;">¿Cómo llegamos matricialmente a la RSS?</h3>
     
     <p>Para encontrar los mejores estimadores, primero debemos definir qué queremos "minimizar". El error o residuo de nuestro modelo para cada observación se define como la diferencia entre el valor real y el predicho:</p>
     
     <div style="text-align: center; margin: 20px 0;">
-        <img src="https://latex.codecogs.com/svg.image?\large&space;\hat{u}&space;=&space;y&space;-&space;X\hat{\beta}" title="\hat{u} = y - X\hat{\beta}" />
+        <img src="https://latex.codecogs.com/svg.image?\hat{u}=y-X\hat{\beta}" title="\hat{u} = y - X\hat{\beta}" />
     </div>
 
     <p>Sin embargo, no podemos minimizar la suma de los errores directamente (ya que los errores positivos y negativos se cancelarían). Por ello, buscamos minimizar la <strong>Suma de los Cuadrados de los Residuos (RSS)</strong>.</p>
@@ -478,13 +477,12 @@ plot(salario,educacion)
         </ol>
         
         <div style="text-align: center; margin-top: 10px;">
-            <img src="https://latex.codecogs.com/svg.image?\large&space;RSS&space;=&space;(y&space;-&space;X\hat{\beta})'(y&space;-&space;X\hat{\beta})" title="RSS = (y - X\hat{\beta})'(y - X\hat{\beta})" />
+            <img src="https://latex.codecogs.com/svg.image?RSS=(y-X\hat{\beta})'(y-X\hat{\beta})" title="RSS = (y - X\hat{\beta})'(y - X\hat{\beta})" />
         </div>
     </div>
 
     <p style="font-size: 0.95em; color: #555;">Esta expresión escalar es la que derivaremos respecto a $\hat{\beta}$ para encontrar el punto mínimo donde la pendiente es cero.</p>
 </div>
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
 
     <h3 style="color: var(--secondary); margin-bottom: 20px;">2. ¿Cómo llegamos a los estimadores?</h3>
     <p>Nuestro objetivo es encontrar el "mejor" vector $\hat{\beta}$ (el que tenga los sombreros). Para lograrlo, seguimos estos pasos lógicos:</p>
@@ -498,7 +496,7 @@ plot(salario,educacion)
 
     <div style="margin-top: 30px; padding: 25px; background: #fdfdfd; border-left: 5px solid #3498db; border-radius: 8px;">
         <h4 style="color: var(--secondary); margin-top: 0;">Paso 2: El procedimiento algebraico</h4>
-        <p>Para encontrar el mínimo, primero debemos expandir la suma de residuos al cuadrado ($S$):</p>
+        <p>Para encontrar el mínimo, primero debemos expandir la suma de residuos al cuadrado ($RSS$):</p>
 
         <div style="background: #f1f3f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p style="margin-bottom: 15px;"><strong>A. Expandimos el producto:</strong></p>
