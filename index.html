@@ -460,18 +460,18 @@ plot(salario,educacion)
     <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
 
     <h3 style="color: var(--secondary); margin-bottom: 20px;">2. ¿Cómo llegamos a los estimadores?</h3>
-<p>Nuestro objetivo es encontrar el "mejor" vector $\hat{\beta}$ (el que tenga los sombreros). Para lograrlo, seguimos estos pasos:</p>
+    <p>Nuestro objetivo es encontrar el "mejor" vector $\hat{\beta}$ (el que tenga los sombreros). Para lograrlo, seguimos estos pasos lógicos:</p>
 
-<div style="background: #f9f9f9; padding: 25px; border-radius: 8px; line-height: 1.8;">
+    <div style="background: #f9f9f9; padding: 25px; border-radius: 8px; line-height: 1.8;">
     <p><strong>Paso 1: Definir el error total</strong><br>
-    Queremos que la suma de los residuos al cuadrado $RSS$ sea mínima. En matrices, esto se escribe como el producto del vector de errores traspuesto por sí mismo:</p>
+    Queremos que la suma de los residuos al cuadrado ($RSS$) sea mínima. En matrices, esto se escribe como el producto del vector de errores traspuesto por sí mismo:</p>
     <div style="text-align: center; margin: 15px 0;">
         <img src="https://latex.codecogs.com/svg.image?RSS(\beta)&space;=&space;(y&space;-&space;X\beta)'(y&space;-&space;X\beta)" />
     </div>
 
     <div style="margin-top: 30px; padding: 25px; background: #fdfdfd; border-left: 5px solid #3498db; border-radius: 8px;">
         <h4 style="color: var(--secondary); margin-top: 0;">Paso 2: El procedimiento algebraico</h4>
-        <p>Para encontrar el mínimo, primero debemos expandir la suma de residuos al cuadrado ($S$):</p>
+        <p>Para encontrar el mínimo, primero debemos expandir la suma de residuos al cuadrado ($RSS$):</p>
 
         <div style="background: #f1f3f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p style="margin-bottom: 15px;"><strong>A. Expandimos el producto:</strong></p>
@@ -492,14 +492,13 @@ plot(salario,educacion)
             <p style="margin-bottom: 15px;"><strong>B. Derivamos respecto al vector $\beta$:</strong></p>
             <p style="font-size: 0.9em;">Aplicando las reglas de cálculo matricial ($\frac{\partial a'b}{\partial b} = a$ y $\frac{\partial b'Ab}{\partial b} = 2Ab$):</p>
             <div style="text-align: center; margin: 15px 0;">
-                <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;RSS}{\partial&space;\beta}&space;=&space;-2X'y&space;&plus;&space;2X'X\hat{\beta}" />
+                <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;RSS}{\partial&space;\beta}&space;=&space;-2X'y&space;&plus;&space;2X'X\beta" />
             </div>
         </div>
     </div>
 </div>
-
         <p style="margin-bottom: 15px;"><strong>C. Condición de Primer Orden (CPO):</strong></p>
-        <p style="font-size: 0.9em;">Igualamos la derivada a cero para encontrar el punto mínimo (Cuando derivamos ya escribimos beta gorro):</p>
+        <p style="font-size: 0.9em;">Igualamos la derivada a cero para encontrar el punto mínimo (Al hacer CPO ya no escribimos Beta, sino Beta gorro)</p>
         <div style="text-align: center; margin: 15px 0;">
             <img src="https://latex.codecogs.com/svg.image?-2X'y&space;&plus;&space;2X'X\hat{\beta}&space;=&space;0" />
         </div>
@@ -510,9 +509,6 @@ plot(salario,educacion)
         <img src="https://latex.codecogs.com/svg.image?\large&space;X'X\hat{\beta}&space;=&space;X'y" title="X'X\hat{\beta} = X'y" />
     </div>
 
-    <p style="font-size: 0.9em; background: #fffbe6; padding: 10px; border-radius: 5px; border: 1px solid #ffe58f;">
-        <strong>Nota clave:</strong> Este sistema de ecuaciones nos dice que el error estimado es ortogonal a las variables explicativas, una propiedad fundamental de MCO.
-    </p>
 </div>
 
         <p><strong>Paso 3: El resultado final</strong><br>
@@ -523,9 +519,10 @@ plot(salario,educacion)
     </div>
 
     <p style="margin-top: 25px; padding: 15px; background: #fff4e5; border-left: 5px solid #ffa000; font-size: 0.95em;">
-        <strong>Nota para el estudiante:</strong> Recuerda que para poder aplicar la inversa $(X'X)^{-1}$, la matriz no puede tener multicolinealidad perfecta (es decir, debe ser de rango completo). Esto, ya que si cumple lo anterior, no es linealmente independiente y su determinante sera igual a cero. Así que presentará problemas.
+        <strong>Nota para el estudiante:</strong> Recuerda que para poder aplicar la inversa $(X'X)^{-1}$, la matriz no puede tener multicolinealidad perfecta (es decir, deber ser linealmente independiente). Si no, su determinante será igual a cero y no será invertible, por lo que no se podrá estimar los Beta.
     </p>
-    <p> Cabe aclarar que algunos paquetes en R y Python tienen algoritmos complejos para calcular inversas a matrices no invertibles, pero siempre es mejor ser consciente y revisar estos detalles.
+    <p>
+    Si bien, algunos paquetes de R o Python tienen consigo algoritmos complejos para poder calcular matrices no invertibles, siempre es importante estar al tanto y revisar este detalle, entre otros.
     </p>
 
 <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
@@ -746,10 +743,8 @@ plot(salario,educacion)
     
 
      
-<!----------------------------------------------------------------- <p>&copy; Desarrollado por Sergio Restrepo, Mauricio Lopera & David Rubio</p>-------------------------------------------------------------------------------------------------------------------------------------------->
-    </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
-        <hr style="max-width: 100px; margin: 0 auto 20px; border: 0; border-top: 2px solid #eee;">
-    </footer>
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    </div>
 
     <script>
     // 1. CONFIGURACIÓN DE MATHJAX (Para que entienda el símbolo $)
