@@ -496,21 +496,15 @@ plot(salario,educacion)
             </div>
 
             <p style="margin-bottom: 15px;"><strong>C. Condición de Primer Orden (CPO):</strong></p>
-            <p style="font-size: 0.9em;">Igualamos la derivada a cero para encontrar el punto mínimo:</p>
-            <div style="text-align: center; margin: 15px 0;">
-                <img src="https://latex.codecogs.com/svg.image?-2X'y&space;&plus;&space;2X'X\beta&space;=&space;0" />
-            </div>
-        </div>
+<p style="font-size: 0.9em;">Igualamos la derivada a cero para encontrar el punto mínimo (Cuando derivamos e igualamos a cero ya escribimos Beta con el gorro o Beta estimado):</p>
+<div style="text-align: center; margin: 15px 0;">
+    <img src="https://latex.codecogs.com/svg.image?-2X'y&space;&plus;&space;2X'X\hat{\beta}&space;=&space;0" />
+</div>
 
-        <p>Al simplificar (dividiendo por 2 y trasponiendo), llegamos finalmente a:</p>
-        <div style="text-align: center; margin: 20px 0;">
-            <img src="https://latex.codecogs.com/svg.image?\large&space;X'X\beta&space;=&space;X'y" title="X'X\beta = X'y" />
-        </div>
-
-        <p style="font-size: 0.9em; background: #fffbe6; padding: 10px; border-radius: 5px; border: 1px solid #ffe58f;">
-            <strong>Nota clave:</strong> Este sistema de ecuaciones nos dice que el error estimado es ortogonal a las variables explicativas, una propiedad fundamental de MCO.
-        </p>
-    </div>
+<p>Al simplificar (dividiendo por 2 y trasponiendo), llegamos finalmente a:</p>
+<div style="text-align: center; margin: 20px 0;">
+    <img src="https://latex.codecogs.com/svg.image?\large&space;X'X\hat{\beta}&space;=&space;X'y" title="X'X\hat{\beta} = X'y" />
+</div>
 
     <p><strong>Paso 3: El resultado final</strong><br>
     Para despejar $\beta$, multiplicamos por la inversa de $(X'X)$. Esta es la fórmula que R o Python calculan internamente:</p>
