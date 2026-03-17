@@ -9,21 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']], // Permite usar $...$ para fórmulas en la misma línea
-      displayMath: [['$$', '$$'], ['\\[', '\\]']], // Permite usar $$...$$ para fórmulas centradas
-      processEscapes: true, // Permite usar el signo de dólar normal (\$100) sin que se confunda con math
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // Ignora etiquetas donde no debe haber math
-    }
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/external/tex-mml-chtml.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
@@ -466,6 +453,53 @@ plot(salario,educacion)
     </div>
 
 </div>
+       <div style="margin-top: 40px; padding: 30px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333;">
+    
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+        Paso a paso: De la ecuación al residuo matricial
+    </h3>
+    
+    <p>Para minimizar los errores de nuestro modelo, primero debemos construir matemáticamente la función de pérdida. Aquí detallamos el proceso:</p>
+
+    <div style="margin-bottom: 25px;">
+        <h4 style="color: #34495e; margin-bottom: 5px;">1. El vector de residuos (û)</h4>
+        <p>El residuo es la diferencia entre lo observado y lo predicho por el modelo. En forma matricial, restamos el vector <b>y</b> del producto de la matriz de datos <b>X</b> por los coeficientes <b>β</b>:</p>
+        <div style="text-align: center; font-size: 1.5em; padding: 15px; background: #f8f9fa; border-radius: 8px; font-family: 'Times New Roman', serif;">
+            û = y − Xβ̂
+        </div>
+    </div>
+
+    <div style="margin-bottom: 25px;">
+        <h4 style="color: #34495e; margin-bottom: 5px;">2. Suma de Cuadrados (RSS)</h4>
+        <p>Buscamos minimizar la suma de cada error al cuadrado (Σuᵢ²). En álgebra lineal, elevar al cuadrado los elementos de un vector y sumarlos equivale a realizar el <b>producto escalar</b> del vector por sí mismo.</p>
+    </div>
+
+    <div style="background: #fffdf0; border-left: 4px solid #f1c40f; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+        <p style="margin-top: 0;"><b>La clave matricial:</b> Para multiplicar un vector por sí mismo y obtener un solo número (escalar), debemos trasponer el primero:</p>
+        <div style="text-align: center; font-size: 1.3em; font-family: 'Times New Roman', serif; margin: 10px 0;">
+            RSS = Σ ûᵢ²  &nbsp; ➔ &nbsp; <b>RSS = û' û</b>
+        </div>
+        <p style="font-size: 0.9em; margin-bottom: 0; color: #666;">
+            <i>(Donde <b>û'</b> es el vector fila y <b>û</b> es el vector columna).</i>
+        </p>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h4 style="color: #34495e;">3. Expresión Final</h4>
+        <p>Ahora, sustituimos la definición del paso 1 (û = y − Xβ̂) dentro de la estructura del paso 3:</p>
+        
+        <div style="background: #2c3e50; color: #ffffff; padding: 30px; border-radius: 10px; text-align: center; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #bdc3c7;">Función Objetivo a Minimizar:</div>
+            <div style="font-size: 2em; font-family: 'Times New Roman', serif; font-weight: bold;">
+                RSS = (y − Xβ̂)' (y − Xβ̂)
+            </div>
+        </div>
+    </div>
+
+    <p style="font-size: 0.95em; color: #555; border-top: 1px solid #eee; padding-top: 15px;">
+        <b>¿Qué sigue?</b> Al ser esta una forma cuadrática, podemos expandir el producto y aplicar derivadas vectoriales para despejar <b>β̂</b>, que es el bloque que ya tienes preparado.
+    </p>
+</div>
         
     <h3 style="color: var(--secondary); margin-bottom: 20px;">2. ¿Cómo llegamos a los estimadores?</h3>
     <p>Nuestro objetivo es encontrar el "mejor" vector $\hat{\beta}$ (el que tenga los sombreros). Para lograrlo, seguimos estos pasos lógicos:</p>
@@ -524,57 +558,6 @@ plot(salario,educacion)
     <p style="margin-top: 25px; padding: 15px; background: #fff4e5; border-left: 5px solid #ffa000; font-size: 0.95em;">
         <strong>Nota para el estudiante:</strong> Recuerda que para poder aplicar la inversa $(X'X)^{-1}$, la matriz no puede tener multicolinealidad perfecta (es decir, debe ser L.I). Si no, su determinante será igual a cero y no será invertible.
     </p>
-
-
-        
-   <div style="background: #ffffff; padding: 30px; border: 1px solid #ddd; border-radius: 10px; line-height: 1.8; font-family: 'Segoe UI', Arial, sans-serif; max-width: 900px; margin: auto;">
-    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/external/tex-mml-chtml.js"></script>
-
-    <h2 style="color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Derivación de los Estimadores MCO de forma puntual</h2>
-    
-    <p>Para comprender cómo se obtienen los estimadores, se debe considerar el modelo de regresión lineal simple: \( y_i = \beta_1 + \beta_2 x_i + u_i \). El objetivo es encontrar los valores numéricos \( \hat{\beta}_1 \) y \( \hat{\beta}_2 \) que minimicen la suma de los errores al cuadrado.</p>
-
-    <h3 style="color: #2980b9;">Definición de la RSS extendida</h3>
-    <p>Se define el residuo para cada observación como la diferencia entre el valor observado y el valor predicho por el modelo:</p>
-    <div style="text-align: center; margin: 20px 0; font-size: 1.2em;">
-        \[ e_i = y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i \]
-    </div>
-    <p>La suma de los residuos al cuadrado (\( RSS \)) es la función que se desea minimizar:</p>
-    <div style="text-align: center; margin: 20px 0; font-size: 1.2em;">
-        \[ RSS(\hat{\beta}_1, \hat{\beta}_2) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i)^2 \]
-    </div>
-
-    <h3 style="color: #2980b9;">2. Condiciones de Primer Orden (CPO)</h3>
-    <p>Para hallar el mínimo, se aplican las reglas del cálculo diferencial. Se deriva la función \( RSS \) respecto a cada uno de los parámetros desconocidos e igualamos a cero:</p>
-    
-    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <p><strong>Respecto al intercepto (\( \hat{\beta}_1 \)):</strong></p>
-        \[ \frac{\partial RSS}{\partial \hat{\beta}_1} = -2 \sum_{i=1}^{n} (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i) = 0 \]
-        
-        <p style="margin-top: 20px;"><strong>Respecto a la pendiente (\( \hat{\beta}_2 \)):</strong></p>
-        \[ \frac{\partial RSS}{\partial \hat{\beta}_2} = -2 \sum_{i=1}^{n} x_i (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i) = 0 \]
-    </div>
-
-    <h3 style="color: #2980b9;">3. Despeje del Intercepto (\( \hat{\beta}_1 \))</h3>
-    <p>Si se toma la primera ecuación y se divide entre \( n \), se obtiene una propiedad fundamental: la línea de regresión pasa por las medias muestrales.</p>
-    <div style="text-align: center; margin: 20px 0;">
-        \[ \frac{\sum y_i}{n} - \frac{n\hat{\beta}_1}{n} - \hat{\beta}_2 \frac{\sum x_i}{n} = 0 \implies \bar{y} - \hat{\beta}_1 - \hat{\beta}_2 \bar{x} = 0 \]
-    </div>
-    <p>De aquí, el autor despeja directamente el estimador del intercepto:</p>
-    <div style="text-align: center; margin: 20px 0; background: #fff5f5; padding: 15px; border: 1px solid #feb2b2; border-radius: 8px; font-size: 1.3em;">
-        \[ \hat{\beta}_1 = \bar{y} - \hat{\beta}_2 \bar{x} \]
-    </div>
-
-    <h3 style="color: #2980b9;">4. Despeje de la Pendiente (\( \hat{\beta}_2 \))</h3>
-    <p>Sustituyendo el valor de \( \hat{\beta}_1 \) en la segunda ecuación y utilizando la propiedad de las desviaciones respecto a la media (\( \sum (x_i - \bar{x}) = 0 \)), se llega a la solución de la pendiente:</p>
-    <div style="text-align: center; margin: 20px 0; background: #f0fff4; padding: 15px; border: 1px solid #9ae6b4; border-radius: 8px; font-size: 1.3em;">
-        \[ \hat{\beta}_2 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} \]
-    </div>
-</div>
-
-        
 
 <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
     <h3 style="color: var(--secondary); margin-bottom: 20px;">¿Qué sigue después de estimar?</h3>
