@@ -514,48 +514,54 @@ plot(salario,educacion)
 
 
         
-    <div style="background: #ffffff; padding: 30px; border: 1px solid #ddd; border-radius: 10px; line-height: 1.8; font-family: 'Segoe UI', Arial, sans-serif;">
-    <h2 style="color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Derivación de los Estimadores MCO (Modelo Simple)</h2>
+   <div style="background: #ffffff; padding: 30px; border: 1px solid #ddd; border-radius: 10px; line-height: 1.8; font-family: 'Segoe UI', Arial, sans-serif; max-width: 900px; margin: auto;">
     
-    <p>Según la teoría de <strong>Johnston y DiNardo</strong>, el objetivo es encontrar los valores numéricos de los estimadores que minimizan la suma de los cuadrados de los residuos. Consideramos el modelo: \( y_i = \beta_1 + \beta_2 x_i + u_i \).</p>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/external/tex-mml-chtml.js"></script>
 
-    <h3 style="color: #2980b9;">Paso 1: Definir la función a minimizar</h3>
-    <p>Se define la función \(S\) como la suma de los residuos al cuadrado. El residuo es la diferencia entre el valor real y el estimado (\( e_i = y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i \)):</p>
+    <h2 style="color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Derivación de los Estimadores MCO de forma puntual</h2>
+    
+    <p>Para comprender cómo se obtienen los estimadores, se debe considerar el modelo de regresión lineal simple: \( y_i = \beta_1 + \beta_2 x_i + u_i \). El objetivo es encontrar los valores numéricos \( \hat{\beta}_1 \) y \( \hat{\beta}_2 \) que minimicen la suma de los errores al cuadrado.</p>
+
+    <h3 style="color: #2980b9;">1. Definición de la RSS extendida</h3>
+    <p>Se define el residuo para cada observación como la diferencia entre el valor observado y el valor predicho por el modelo:</p>
+    <div style="text-align: center; margin: 20px 0; font-size: 1.2em;">
+        \[ e_i = y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i \]
+    </div>
+    <p>La suma de los residuos al cuadrado (\( S \)) es la función que se desea minimizar:</p>
+    <div style="text-align: center; margin: 20px 0; font-size: 1.2em;">
+        \[ S(\hat{\beta}_1, \hat{\beta}_2) = \sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i)^2 \]
+    </div>
+
+    <h3 style="color: #2980b9;">2. Condiciones de Primer Orden (CPO)</h3>
+    <p>Para hallar el mínimo, se aplican las reglas del cálculo diferencial. Se deriva la función \( S \) respecto a cada uno de los parámetros desconocidos e igualamos a cero:</p>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <p><strong>Respecto al intercepto (\( \hat{\beta}_1 \)):</strong></p>
+        \[ \frac{\partial S}{\partial \hat{\beta}_1} = -2 \sum_{i=1}^{n} (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i) = 0 \]
+        
+        <p style="margin-top: 20px;"><strong>Respecto a la pendiente (\( \hat{\beta}_2 \)):</strong></p>
+        \[ \frac{\partial S}{\partial \hat{\beta}_2} = -2 \sum_{i=1}^{n} x_i (y_i - \hat{\beta}_1 - \hat{\beta}_2 x_i) = 0 \]
+    </div>
+
+    <h3 style="color: #2980b9;">3. Despeje del Intercepto (\( \hat{\beta}_1 \))</h3>
+    <p>Si se toma la primera ecuación y se divide entre \( n \), se obtiene una propiedad fundamental: la línea de regresión pasa por las medias muestrales.</p>
     <div style="text-align: center; margin: 20px 0;">
-        <img src="https://latex.codecogs.com/svg.image?S(\hat{\beta}_1,&space;\hat{\beta}_2)&space;=&space;\sum_{i=1}^{n}&space;(y_i&space;-&space;\hat{\beta}_1&space;-&space;\hat{\beta}_2&space;x_i)^2" />
+        \[ \frac{\sum y_i}{n} - \frac{n\hat{\beta}_1}{n} - \hat{\beta}_2 \frac{\sum x_i}{n} = 0 \implies \bar{y} - \hat{\beta}_1 - \hat{\beta}_2 \bar{x} = 0 \]
+    </div>
+    <p>De aquí, el autor despeja directamente el estimador del intercepto:</p>
+    <div style="text-align: center; margin: 20px 0; background: #fff5f5; padding: 15px; border: 1px solid #feb2b2; border-radius: 8px; font-size: 1.3em;">
+        \[ \hat{\beta}_1 = \bar{y} - \hat{\beta}_2 \bar{x} \]
     </div>
 
-    <h3 style="color: #2980b9;">Paso 2: Las Condiciones de Primer Orden</h3>
-    <p>Para minimizar esta función, se toman las derivadas parciales respecto a cada estimador y se igualan a cero. Esto genera las llamadas <strong>Ecuaciones Normales</strong>.</p>
-    
-    <p><strong>A. Derivando respecto a \(\hat{\beta}_1\):</strong></p>
-    <div style="text-align: center; margin: 15px 0;">
-        <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;S}{\partial&space;\hat{\beta}_1}&space;=&space;-2&space;\sum&space;(y_i&space;-&space;\hat{\beta}_1&space;-&space;\hat{\beta}_2&space;x_i)&space;=&&space;0" />
-    </div>
-    
-    <p><strong>B. Derivando respecto a \(\hat{\beta}_2\):</strong></p>
-    <div style="text-align: center; margin: 15px 0;">
-        <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;S}{\partial&space;\hat{\beta}_2}&space;=&space;-2&space;\sum&space;x_i(y_i&space;-&space;\hat{\beta}_1&space;-&space;\hat{\beta}_2&space;x_i)&space;=&&space;0" />
-    </div>
-
-    <h3 style="color: #2980b9;">Paso 3: Obtención de \(\hat{\beta}_1\) (El Intercepto)</h3>
-    <p>Si se toma la primera ecuación normal y se divide por \(n\), se observa que:</p>
-    <div style="text-align: center; margin: 15px 0;">
-        <img src="https://latex.codecogs.com/svg.image?\frac{\sum&space;y_i}{n}&space;-&space;\frac{n\hat{\beta}_1}{n}&space;-&space;\hat{\beta}_2&space;\frac{\sum&space;x_i}{n}&space;=&space;0&space;\quad&space;\Rightarrow&space;\quad&space;\bar{y}&space;-&space;\hat{\beta}_1&space;-&space;\hat{\beta}_2\bar{x}&space;=&space;0" />
-    </div>
-    <p>Despejando el intercepto, se obtiene que este depende de la pendiente y de las medias de los datos:</p>
-    <div style="text-align: center; margin: 20px 0; background: #fff5f5; padding: 15px; border: 1px solid #feb2b2; border-radius: 8px;">
-        <img src="https://latex.codecogs.com/svg.image?\hat{\beta}_1&space;=&space;\bar{y}&space;-&space;\hat{\beta}_2\bar{x}" />
-    </div>
-
-    <h3 style="color: #2980b9;">Paso 4: Obtención de \(\hat{\beta}_2\) (La Pendiente)</h3>
-    <p>Sustituyendo el valor de \(\hat{\beta}_1\) en la segunda ecuación normal y aplicando álgebra de sumatorias (propiedad de desviaciones respecto a la media), Johnston y DiNardo demuestran que la pendiente se reduce a:</p>
-    <div style="text-align: center; margin: 20px 0; background: #f0fff4; padding: 15px; border: 1px solid #9ae6b4; border-radius: 8px;">
-        <img src="https://latex.codecogs.com/svg.image?\hat{\beta}_2&space;=&space;\frac{\sum&space;(x_i&space;-&space;\bar{x})(y_i&space;-&space;\bar{y})}{\sum&space;(x_i&space;-&space;\bar{x})^2}" />
+    <h3 style="color: #2980b9;">4. Despeje de la Pendiente (\( \hat{\beta}_2 \))</h3>
+    <p>Sustituyendo el valor de \( \hat{\beta}_1 \) en la segunda ecuación normal y utilizando la propiedad de las desviaciones respecto a la media (\( \sum (x_i - \bar{x}) = 0 \)), se llega a la solución de la pendiente:</p>
+    <div style="text-align: center; margin: 20px 0; background: #f0fff4; padding: 15px; border: 1px solid #9ae6b4; border-radius: 8px; font-size: 1.3em;">
+        \[ \hat{\beta}_2 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} \]
     </div>
 
     <div style="background: #ebf8ff; padding: 15px; border-left: 5px solid #3182ce; margin-top: 25px;">
-        <p style="margin: 0; font-size: 0.95em;"><strong>Interpretación Económica:</strong> El estimador \(\hat{\beta}_2\) mide cuánto cambia <i>y</i> ante un cambio unitario en <i>x</i>. El método asegura que la línea resultante sea la que "mejor ajusta" a la nube de puntos observada.</p>
+        <p style="margin: 0; font-size: 0.95em;"><strong>Interpretación según Johnston:</strong> El estimador \( \hat{\beta}_2 \) representa la covarianza de las variables dividida por la varianza de la variable independiente. Esto garantiza que la suma de los residuos sea exactamente cero.</p>
     </div>
 </div>
 
