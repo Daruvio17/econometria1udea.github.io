@@ -512,6 +512,42 @@ plot(salario,educacion)
         <strong>Nota para el estudiante:</strong> Recuerda que para poder aplicar la inversa $(X'X)^{-1}$, la matriz no puede tener multicolinealidad perfecta (es decir, debe ser L.I). Si no, su determinante será igual a cero y no será invertible.
     </p>
 
+
+        
+        <div style="background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; line-height: 1.6; font-family: sans-serif;">
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Cálculo de los estimadores $\beta_1$ y $\beta_2$</h3>
+    
+    <p>Ahora, la estimación puntual, tanto del beta 1 como del beta 2. La anterior es la estimación matricial:</p>
+    <ol>
+        <li>\(\sum y_i = n\hat{\beta}_1 + \hat{\beta}_2 \sum x_i\)</li>
+        <li>\(\sum x_i y_i = \hat{\beta}_1 \sum x_i + \hat{\beta}_2 \sum x_i^2\)</li>
+    </ol>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+    <h4 style="color: #2980b9;">1. Calculando la pendiente ($\hat{\beta}_2$)</h4>
+    <p>Despejando y sustituyendo para eliminar \(\hat{\beta}_1\), llegamos a la fórmula basada en covarianzas:</p>
+    <div style="text-align: center; margin: 20px 0; background: #fcfcfc; padding: 15px; border-radius: 5px;">
+        <img src="https://latex.codecogs.com/svg.image?\hat{\beta}_2&space;=&space;\frac{\sum&space;(x_i&space;-&space;\bar{x})(y_i&space;-&space;\bar{y})}{\sum&space;(x_i&space;-&space;\bar{x})^2}" title="\hat{\beta}_2 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}" />
+    </div>
+    <p style="font-size: 0.9em;">Este paso representa la relación entre la variabilidad conjunta de \(X\) y \(Y\) sobre la variabilidad propia de \(X\).</p>
+
+    <h4 style="color: #2980b9; margin-top: 25px;">2. Calculando el intercepto ($\hat{\beta}_1$)</h4>
+    <p>Una vez que tenemos el valor de \(\hat{\beta}_2\), utilizamos la primera ecuación normal dividida por \(n\) (la propiedad de que la línea de regresión siempre pasa por las medias):</p>
+    
+    <div style="background: #f1f3f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
+        <p style="text-align: center; margin: 5px 0;">
+            \(\bar{y} = \hat{\beta}_1 + \hat{\beta}_2 \bar{x}\)
+        </p>
+        <p style="text-align: center; margin: 10px 0; font-weight: bold; color: #d35400;">Despejando:</p>
+        <div style="text-align: center;">
+            <img src="https://latex.codecogs.com/svg.image?\hat{\beta}_1&space;=&space;\bar{y}&space;-&space;\hat{\beta}_2&space;\bar{x}" title="\hat{\beta}_1 = \bar{y} - \hat{\beta}_2 \bar{x}" />
+        </div>
+    </div>
+</div>
+
+        
+
 <div style="margin-top: 40px; padding: 25px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif;">
     <h3 style="color: var(--secondary); margin-bottom: 20px;">¿Qué sigue después de estimar?</h3>
     
