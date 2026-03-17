@@ -453,41 +453,51 @@ plot(salario,educacion)
     </div>
 
 </div>
-       <div style="margin-top: 40px; padding: 30px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: sans-serif; line-height: 1.6; color: #333;">
+       <div style="margin-top: 40px; padding: 30px; background: #ffffff; border: 1px solid #e1e4e8; border-radius: 12px; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333;">
     
-    <h3 style="color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px;">Derivación de la Suma de Cuadrados de los Residuos (RSS)</h3>
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+        Paso a paso: De la ecuación al residuo matricial
+    </h3>
     
-    <p>Para obtener los estimadores de Mínimos Cuadrados Ordinarios, debemos minimizar la "distancia" entre nuestros datos y el modelo. Este es el proceso detallado:</p>
+    <p>Para minimizar los errores de nuestro modelo, primero debemos construir matemáticamente la función de pérdida. Aquí detallamos el proceso:</p>
 
-    <h4 style="color: #34495e;">1. El concepto de Residuo</h4>
-    <p>Llamamos residuo ($\hat{u}$) a la diferencia entre el valor real y el predicho. En forma matricial:</p>
-    <div style="font-size: 1.2em; text-align: center; margin: 20px 0; background: #f8f9fa; padding: 10px; border-radius: 8px;">
-        $$\hat{u} = y - X\hat{\beta}$$
+    <div style="margin-bottom: 25px;">
+        <h4 style="color: #34495e; margin-bottom: 5px;">1. El vector de residuos (û)</h4>
+        <p>El residuo es la diferencia entre lo observado y lo predicho por el modelo. En forma matricial, restamos el vector <b>y</b> del producto de la matriz de datos <b>X</b> por los coeficientes <b>β</b>:</p>
+        <div style="text-align: center; font-size: 1.5em; padding: 15px; background: #f8f9fa; border-radius: 8px; font-family: 'Times New Roman', serif;">
+            û = y − Xβ̂
+        </div>
     </div>
 
-    <h4 style="color: #34495e;">2. ¿Por qué elevar al cuadrado?</h4>
-    <p>Si sumáramos los residuos directamente, los valores positivos y negativos se compensarían, dando una falsa sensación de precisión. Al elevar al cuadrado, nos aseguramos de que todos los errores penalicen positivamente:</p>
-    <div style="font-size: 1.1em; text-align: center; margin: 15px 0;">
-        $$RSS = \sum_{i=1}^{n} \hat{u}_i^2$$
+    <div style="margin-bottom: 25px;">
+        <h4 style="color: #34495e; margin-bottom: 5px;">2. Suma de Cuadrados (RSS)</h4>
+        <p>Buscamos minimizar la suma de cada error al cuadrado (Σuᵢ²). En álgebra lineal, elevar al cuadrado los elementos de un vector y sumarlos equivale a realizar el <b>producto escalar</b> del vector por sí mismo.</p>
     </div>
 
-    <h4 style="color: #34495e;">3. La transformación a matrices</h4>
-    <p>Aquí es donde ocurre la magia del álgebra lineal. La suma de cuadrados de un vector columna es idéntica al producto del vector por su propia transpuesta:</p>
-    
-    <div style="background: #fffdf0; border-left: 4px solid #f1c40f; padding: 15px; margin: 20px 0;">
-        <strong>Propiedad fundamental:</strong> La suma de cuadrados de los elementos de $\hat{u}$ es el producto escalar de $\hat{u}$ consigo mismo:
-        $$\sum \hat{u}_i^2 = \hat{u}' \hat{u}$$
+    <div style="background: #fffdf0; border-left: 4px solid #f1c40f; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+        <p style="margin-top: 0;"><b>La clave matricial:</b> Para multiplicar un vector por sí mismo y obtener un solo número (escalar), debemos trasponer el primero:</p>
+        <div style="text-align: center; font-size: 1.3em; font-family: 'Times New Roman', serif; margin: 10px 0;">
+            RSS = Σ ûᵢ²  &nbsp; ➔ &nbsp; <b>RSS = û' û</b>
+        </div>
+        <p style="font-size: 0.9em; margin-bottom: 0; color: #666;">
+            <i>(Donde <b>û'</b> es el vector fila y <b>û</b> es el vector columna).</i>
+        </p>
     </div>
 
-    <h4 style="color: #34495e;">4. Expresión Final de la RSS</h4>
-    <p>Sustituyendo nuestra definición de residuo del paso 1 en la forma matricial, llegamos a la función que vamos a minimizar:</p>
-
-    <div style="background: #2c3e50; color: #ffffff; padding: 25px; border-radius: 10px; text-align: center; margin: 25px 0; font-size: 1.4em;">
-        $$RSS = (y - X\hat{\beta})' (y - X\hat{\beta})$$
+    <div style="margin-top: 30px;">
+        <h4 style="color: #34495e;">3. Expresión Final</h4>
+        <p>Ahora, sustituimos la definición del paso 1 (û = y − Xβ̂) dentro de la estructura del paso 3:</p>
+        
+        <div style="background: #2c3e50; color: #ffffff; padding: 30px; border-radius: 10px; text-align: center; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #bdc3c7;">Función Objetivo a Minimizar:</div>
+            <div style="font-size: 2em; font-family: 'Times New Roman', serif; font-weight: bold;">
+                RSS = (y − Xβ̂)' (y − Xβ̂)
+            </div>
+        </div>
     </div>
 
-    <p style="font-size: 0.9em; color: #666; font-style: italic;">
-        Esta es una forma cuadrática. Al ser un escalar (un número solo), podemos derivarla respecto al vector de parámetros para encontrar el mínimo.
+    <p style="font-size: 0.95em; color: #555; border-top: 1px solid #eee; padding-top: 15px;">
+        <b>¿Qué sigue?</b> Al ser esta una forma cuadrática, podemos expandir el producto y aplicar derivadas vectoriales para despejar <b>β̂</b>, que es el bloque que ya tienes preparado.
     </p>
 </div>
         
