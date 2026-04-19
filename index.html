@@ -523,6 +523,696 @@
         </div>
     </div>
 
+<div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">7.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se tienen 12 observaciones. Para las primeras 6 observaciones: $\overline{X}_A=60$ y $\overline{Y}_A=115$. Para las últimas 6 observaciones: $\overline{X}_B=80$ y $\overline{Y}_B=85$. Además, se sabe que $S_{XX}=2250$. Se propone un estimador alternativo para la pendiente: $b_{2^*} = \frac{\overline{Y}_A - \overline{Y}_B}{\overline{X}_A - \overline{X}_B}$.<br>
+            a) ¿Este nuevo estimador es lineal e insesgado para $\beta_2$?<br>
+            b) Encuentre la varianza de $b_{2^*}$.<br>
+            c) Muestre que $\frac{var(b_{2^*})}{var(b_2)} = 1.875$. ¿Cuál estimador es más eficiente?
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>En este ejercicio evaluaremos un estimador propuesto distinto a MCO, el cual divide la muestra en dos grupos y calcula la pendiente que une los promedios de ambos.</p>
+
+            <p><strong>a) Linealidad e Insesgamiento</strong></p>
+            <p><em>Linealidad:</em> Un estimador es lineal si es una combinación lineal de las observaciones de la variable dependiente $Y$. Dado que los promedios $\overline{Y}_A$ y $\overline{Y}_B$ son sumatorias simples de las observaciones divididas por una constante ($n=6$), el estimador $b_{2^*}$ es efectivamente una combinación lineal de $Y_t$.</p>
+            
+            <p><em>Insesgamiento:</em> Para verificarlo, aplicamos el operador esperanza matemática. El denominador se considera constante al estar compuesto por datos fijos de $X$:</p>
+            <p>$$E(b_{2^*}) = E\left( \frac{\overline{Y}_A - \overline{Y}_B}{\overline{X}_A - \overline{X}_B} \right) = \frac{E(\overline{Y}_A) - E(\overline{Y}_B)}{\overline{X}_A - \overline{X}_B}$$</p>
+            <p>Por las propiedades del modelo poblacional, sabemos que $E(Y_t) = \beta_1 + \beta_2 X_t$. Por extensión, para el promedio de un grupo, $E(\overline{Y}) = \beta_1 + \beta_2 \overline{X}$. Sustituimos esto en el numerador:</p>
+            <p>$$E(b_{2^*}) = \frac{(\beta_1 + \beta_2 \overline{X}_A) - (\beta_1 + \beta_2 \overline{X}_B)}{\overline{X}_A - \overline{X}_B}$$</p>
+            <p>Al suprimir los paréntesis, los interceptos ($\beta_1$) se anulan entre sí:</p>
+            <p>$$E(b_{2^*}) = \frac{\beta_2 \overline{X}_A - \beta_2 \overline{X}_B}{\overline{X}_A - \overline{X}_B}$$</p>
+            <p>Factorizamos el parámetro $\beta_2$ en el numerador:</p>
+            <p>$$E(b_{2^*}) = \frac{\beta_2 (\overline{X}_A - \overline{X}_B)}{\overline{X}_A - \overline{X}_B}$$</p>
+            <p>Simplificamos el término común en el numerador y el denominador, obteniendo $E(b_{2^*}) = \beta_2$. Por lo tanto, <strong>el estimador es insesgado</strong>.</p>
+
+            <p><strong>b) Varianza del estimador $b_{2^*}$</strong></p>
+            <p>Aplicamos el operador varianza. Las constantes en el denominador deben salir de la varianza elevadas al cuadrado:</p>
+            <p>$$Var(b_{2^*}) = Var\left( \frac{\overline{Y}_A - \overline{Y}_B}{\overline{X}_A - \overline{X}_B} \right) = \frac{1}{(\overline{X}_A - \overline{X}_B)^2} Var(\overline{Y}_A - \overline{Y}_B)$$</p>
+            <p>Asumiendo que las submuestras son independientes, la varianza de la diferencia es la suma de las varianzas: $Var(\overline{Y}_A - \overline{Y}_B) = Var(\overline{Y}_A) + Var(\overline{Y}_B)$.</p>
+            <p>La varianza de un promedio muestral se define como $Var(\overline{Y}) = \frac{\sigma^2}{n}$. Como cada grupo tiene 6 observaciones, $Var(\overline{Y}_A) = \frac{\sigma^2}{6}$ y $Var(\overline{Y}_B) = \frac{\sigma^2}{6}$. Al sumarlas:</p>
+            <p>$$Var(\overline{Y}_A - \overline{Y}_B) = \frac{\sigma^2}{6} + \frac{\sigma^2}{6} = \frac{2\sigma^2}{6} = \frac{\sigma^2}{3}$$</p>
+            <p>Sustituimos este resultado y los valores de las medias de $X$ proporcionados en el enunciado ($\overline{X}_A = 60, \overline{X}_B = 80$):</p>
+            <p>$$Var(b_{2^*}) = \frac{\sigma^2/3}{(60 - 80)^2} = \frac{\sigma^2/3}{(-20)^2} = \frac{\sigma^2/3}{400}$$</p>
+            <p>Aplicando producto de extremos y medios, obtenemos:</p>
+            <p>$$Var(b_{2^*}) = \frac{\sigma^2}{1200}$$</p>
+
+            <p><strong>c) Comparación de eficiencia</strong></p>
+            <p>La varianza del estimador por MCO se define como $var(b_2) = \frac{\sigma^2}{S_{XX}}$. Con el dato proporcionado de $S_{XX} = 2250$:</p>
+            <p>$$var(b_2) = \frac{\sigma^2}{2250}$$</p>
+            <p>Calculamos la razón entre la varianza del estimador alternativo y la varianza de MCO:</p>
+            <p>$$\frac{var(b_{2^*})}{var(b_2)} = \frac{\frac{\sigma^2}{1200}}{\frac{\sigma^2}{2250}}$$</p>
+            <p>Simplificamos la expresión:</p>
+            <p>$$\frac{var(b_{2^*})}{var(b_2)} = \frac{2250\sigma^2}{1200\sigma^2} = \frac{2250}{1200} = 1.875$$</p>
+            <p><strong>Conclusión:</strong> En estadística, la eficiencia de un estimador insesgado está determinada por su varianza; un estimador es más eficiente si su varianza es menor. Dado que la razón es mayor que 1, la varianza del estimador alternativo es superior. En consecuencia, <strong>el estimador OLS ($b_2$) es más eficiente</strong>, un resultado consistente con el Teorema de Gauss-Markov.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">8.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Transformación de Escala Total. Se estima un modelo original y uno transformado donde TODAS las variables se multiplican por una misma constante $\delta$: $X_t^* = \delta X_t$, $Y_t^* = \delta Y_t$, y $\mu_t^* = \delta \mu_t$. Evalúe cómo cambian los estimadores de la pendiente e intercepto, sus varianzas y el coeficiente de determinación ($R^2$).
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Este ejercicio evalúa el impacto de un cambio de escala proporcional en todas las variables del modelo, un procedimiento común cuando se modifican las unidades de medida en la base de datos.</p>
+
+            <p><strong>1. Efecto sobre los estimadores:</strong></p>
+            <p><em>Para la pendiente ($b_2^*$):</em><br>
+            Planteamos la fórmula utilizando las variables transformadas. Es importante notar que si una variable se multiplica por $\delta$, su media poblacional o muestral también se multiplica por $\delta$ (es decir, $\overline{X}^* = \delta\overline{X}$):</p>
+            <p>$$b_2^* = \frac{\sum (X_t^* - \overline{X}^*)(Y_t^* - \overline{Y}^*)}{\sum (X_t^* - \overline{X}^*)^2} = \frac{\sum (\delta X_t - \delta \overline{X})(\delta Y_t - \delta \overline{Y})}{\sum (\delta X_t - \delta \overline{X})^2}$$</p>
+            <p>Factorizamos la constante $\delta$ en cada término del numerador. En el denominador, al estar la expresión elevada al cuadrado, la constante sale de la sumatoria como $\delta^2$:</p>
+            <p>$$b_2^* = \frac{\sum \left[\delta(X_t - \overline{X})\right]\left[\delta(Y_t - \overline{Y})\right]}{\delta^2 \sum (X_t - \overline{X})^2}$$</p>
+            <p>Agrupamos las constantes en el numerador:</p>
+            <p>$$b_2^* = \frac{\delta^2 \sum (X_t - \overline{X})(Y_t - \overline{Y})}{\delta^2 \sum (X_t - \overline{X})^2}$$</p>
+            <p>La constante $\delta^2$ se simplifica en el numerador y denominador. Por lo tanto, <strong>$b_2^* = b_2$</strong>. La estimación de la pendiente permanece inalterada ante un cambio de escala general.</p>
+            
+            <p><em>Para el intercepto ($b_1^*$):</em></p>
+            <p>La fórmula del intercepto en el modelo transformado es:</p>
+            <p>$$b_1^* = \overline{Y}^* - b_2^* \overline{X}^*$$</p>
+            <p>Sustituimos los promedios transformados y recordamos que $b_2^* = b_2$:</p>
+            <p>$$b_1^* = \delta \overline{Y} - b_2 (\delta \overline{X})$$</p>
+            <p>Factorizamos la constante $\delta$:</p>
+            <p>$$b_1^* = \delta (\overline{Y} - b_2 \overline{X})$$</p>
+            <p>Reconociendo la definición del intercepto original, concluimos que <strong>$b_1^* = \delta b_1$</strong>. El intercepto se ve afectado por la misma constante de escala de las variables.</p>
+
+            <p><strong>2. Efecto sobre las Varianzas:</strong></p>
+            <p>Evaluemos primero los componentes de las varianzas. La varianza del término de error transformado es $Var(\mu_t^*) = Var(\delta \mu_t) = \delta^2 Var(\mu_t) = \delta^2 \sigma^2$. Por su parte, la suma de cuadrados de la variable explicativa se modifica así: $S_{XX}^* = \sum (\delta X_t - \delta \overline{X})^2 = \delta^2 S_{XX}$.</p>
+            <p><em>Varianza de la pendiente:</em></p>
+            <p>$$Var(b_2^*) = \frac{Var(\mu_t^*)}{S_{XX}^*} = \frac{\delta^2 \sigma^2}{\delta^2 S_{XX}}$$</p>
+            <p>Al simplificar $\delta^2$, obtenemos $Var(b_2^*) = \frac{\sigma^2}{S_{XX}} = Var(b_2)$. La precisión del estimador de la pendiente no sufre alteraciones.</p>
+
+            <p><strong>3. Efecto sobre el Coeficiente de Determinación ($R^2$):</strong></p>
+            <p>Partimos de la definición del coeficiente: $R^2 = 1 - \frac{RSS}{TSS} = 1 - \frac{\sum \hat{\mu}_t^2}{\sum (Y_t - \overline{Y})^2}$.</p>
+            <p>Adaptándolo al modelo transformado:</p>
+            <p>$$R^{*2} = 1 - \frac{\sum (\delta \hat{\mu}_t)^2}{\sum (\delta Y_t - \delta \overline{Y})^2} = 1 - \frac{\delta^2 \sum \hat{\mu}_t^2}{\delta^2 \sum (Y_t - \overline{Y})^2}$$</p>
+            <p>La constante $\delta^2$ se cancela tanto en el numerador como en el denominador. En conclusión, <strong>$R^{*2} = R^2$</strong>. La bondad de ajuste del modelo es independiente de la escala de medición de las variables.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">9.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Transformación de Escala solo en la Explicativa. Se estima un modelo donde SOLO la variable explicativa $X$ se multiplica por $\delta$: $X_t^* = \delta X_t$. La variable $Y_t$ se mantiene igual. Evalúe cómo cambian los estimadores, sus varianzas y el $R^2$.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>En este escenario, se aplica una transformación de escala asimétrica, afectando exclusivamente a la variable independiente. Procederemos a identificar los cambios algebraicos generados.</p>
+
+            <p><strong>1. Efecto sobre los estimadores:</strong></p>
+            <p><em>Para la pendiente ($b_2^*$):</em><br>
+            Planteamos la ecuación donde $Y_t$ mantiene su forma original y $X_t$ incluye la transformación:</p>
+            <p>$$b_2^* = \frac{\sum (X_t^* - \overline{X}^*)(Y_t - \overline{Y})}{\sum (X_t^* - \overline{X}^*)^2} = \frac{\sum (\delta X_t - \delta \overline{X})(Y_t - \overline{Y})}{\sum (\delta X_t - \delta \overline{X})^2}$$</p>
+            <p>Extraemos el factor común $\delta$ en el numerador y, dada la potencia cuadrática, extraemos $\delta^2$ en el denominador:</p>
+            <p>$$b_2^* = \frac{\delta \sum (X_t - \overline{X})(Y_t - \overline{Y})}{\delta^2 \sum (X_t - \overline{X})^2}$$</p>
+            <p>Simplificamos las constantes y separamos la expresión original de MCO:</p>
+            <p>$$b_2^* = \frac{1}{\delta} \left[ \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2} \right]$$</p>
+            <p>Concluimos que <strong>$b_2^* = \frac{b_2}{\delta}$</strong>. Al expandir la escala de la variable independiente, el efecto marginal estimado se reduce proporcionalmente para compensar dicha expansión.</p>
+
+            <p><em>Para el intercepto ($b_1^*$):</em></p>
+            <p>Evaluamos la fórmula del intercepto con los parámetros transformados:</p>
+            <p>$$b_1^* = \overline{Y} - b_2^* \overline{X}^*$$</p>
+            <p>Sustituimos $b_2^*$ por la relación encontrada ($\frac{b_2}{\delta}$) y $\overline{X}^*$ por $\delta \overline{X}$:</p>
+            <p>$$b_1^* = \overline{Y} - \left(\frac{b_2}{\delta}\right) (\delta \overline{X})$$</p>
+            <p>Las constantes $\delta$ se cancelan mutuamente. Obtenemos $b_1^* = \overline{Y} - b_2 \overline{X}$, lo que demuestra que <strong>$b_1^* = b_1$</strong>. El intercepto no sufre modificaciones ante cambios de escala exclusivos en $X$.</p>
+
+            <p><strong>2. Efecto sobre las Varianzas:</strong></p>
+            <p>Dado que la variable $Y_t$ no se alteró, el término de error no ha cambiado, manteniendo su varianza poblacional en $\sigma^2$. Sin embargo, la dispersión de $X$ sí se modificó a $S_{XX}^* = \delta^2 S_{XX}$.</p>
+            <p><em>Varianza de la pendiente:</em></p>
+            <p>$$Var(b_2^*) = \frac{\sigma^2}{S_{XX}^*} = \frac{\sigma^2}{\delta^2 S_{XX}}$$</p>
+            <p>Agrupando los términos, comprobamos que $Var(b_2^*) = \frac{1}{\delta^2} Var(b_2)$. La varianza del estimador se modifica inversamente al cuadrado del factor de escala.</p>
+
+            <p><strong>3. Efecto sobre el Coeficiente de Determinación ($R^2$):</strong></p>
+            <p>Evaluemos el valor estimado o pronosticado ($\hat{Y}_t^*$) bajo este nuevo modelo:</p>
+            <p>$$\hat{Y}_t^* = b_1^* + b_2^* X_t^* = b_1 + \left(\frac{b_2}{\delta}\right)(\delta X_t)$$</p>
+            <p>Al simplificar $\delta$, encontramos que $\hat{Y}_t^* = b_1 + b_2 X_t = \hat{Y}_t$. El modelo arroja exactamente las mismas predicciones que el modelo original. Si los valores pronosticados son idénticos, los residuos también lo serán ($RSS^* = RSS$). Por consiguiente, <strong>$R^{*2} = R^2$</strong>, reafirmando que el poder explicativo del modelo es invariante a los cambios de escala.</p>
+        </div>
+    </div>
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">10.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se tiene el modelo $Y_t = \beta_1 + \beta_2 X_t + \mu_t$. Por cuestiones de escala (valores de $Y$ muy grandes), se recomienda estimar el modelo dividiendo $Y_t$ entre 1000. ¿Es la estimación de $\beta_2$ con los datos originales igual a la estimación con los datos de $Y$ transformados? Demuestre algebraicamente.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Este ejercicio plantea un cambio de escala exclusivo para la variable dependiente. Para abordarlo, definiremos una nueva variable transformada $Y_t^* = \frac{Y_t}{1000}$. Para facilitar el álgebra, denotaremos la constante de transformación como $\delta = \frac{1}{1000}$. El nuevo modelo a estimar es $Y_t^* = \beta_1^* + \beta_2^* X_t + \mu_t^*$.</p>
+
+            <p>Procedemos a escribir la fórmula del estimador de Mínimos Cuadrados Ordinarios para la pendiente en este modelo transformado:</p>
+            <p>$$b_2^* = \frac{\sum (X_t - \overline{X})(Y_t^* - \overline{Y}^*)}{\sum (X_t - \overline{X})^2}$$</p>
+            
+            <p>Sustituimos la variable transformada $Y_t^*$ por su equivalente $\delta Y_t$. Por consiguiente, la media de la variable transformada también se sustituye por $\delta \overline{Y}$:</p>
+            <p>$$b_2^* = \frac{\sum (X_t - \overline{X})(\delta Y_t - \delta \overline{Y})}{\sum (X_t - \overline{X})^2}$$</p>
+            
+            <p>Dentro del segundo paréntesis del numerador, factorizamos la constante $\delta$:</p>
+            <p>$$b_2^* = \frac{\sum (X_t - \overline{X})\left[\delta(Y_t - \overline{Y})\right]}{\sum (X_t - \overline{X})^2}$$</p>
+            
+            <p>Dado que $\delta$ es una constante, puede extraerse de la sumatoria:</p>
+            <p>$$b_2^* = \delta \left[ \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2} \right]$$</p>
+            
+            <p>La expresión contenida entre los corchetes corresponde exactamente a la definición del estimador original $b_2$. Sustituyendo de nuevo el valor de $\delta$, llegamos al resultado final:</p>
+            <p>$$b_2^* = \delta b_2 = \frac{b_2}{1000}$$</p>
+            
+            <p><strong>Conclusión:</strong> Las estimaciones <strong>no son iguales</strong>. La nueva estimación de la pendiente será exactamente la estimación original dividida por 1000. Esto tiene sentido lógico en la interpretación económica: si medimos la variable dependiente en miles, el impacto marginal de una unidad adicional de $X$ ahora se expresará también en miles de unidades.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">11.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se propuso el <strong>Modelo (1)</strong>: $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \mu_t$. Por error, se estimó el <strong>Modelo (2)</strong> usando logaritmo en base 10: $\ln Y_t = \beta_1^* + \beta_2^* \log_{10} X_{2t} + \mu_t$.<br>
+            A partir de los resultados de R para el Modelo 2 ($\hat{\beta}_1^* = 17.9828$, $\hat{\beta}_2^* = -5.4568$, $R^2 = 0.9205$, $JB_{p-value} = 0.619$ y $df=46$):<br>
+            a) Resuelva teóricamente para encontrar los estimadores de OLS del modelo original usando el Modelo 2.<br>
+            b) Encuentre los valores estimados para el modelo inicial.<br>
+            c) Evalúe la relación de los $R^2$ de ambos modelos.<br>
+            d) Interprete la prueba de Jarque-Bera y el supuesto de normalidad.<br>
+            e) Calcule los intervalos de confianza del 95% para los coeficientes (sabiendo que $SE(\beta_1)=0.7353$ y $SE(\beta_2)=0.1027$).
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Resolución teórica de estimadores</strong></p>
+            <p>Para relacionar ambos modelos, emplearemos la propiedad matemática de cambio de base de los logaritmos. La relación entre el logaritmo en base 10 y el logaritmo natural (base $e$) se expresa como:</p>
+            <p>$$\log_{10}(X) = \frac{\ln(X)}{\ln(10)}$$</p>
+            <p>Sustituimos esta equivalencia en la ecuación del Modelo 2 estimado:</p>
+            <p>$$\ln Y_t = \beta_1^* + \beta_2^* \left( \frac{\ln X_{2t}}{\ln 10} \right) + \mu_t$$</p>
+            <p>Reorganizando los términos constantes para asimilar la estructura del Modelo 1:</p>
+            <p>$$\ln Y_t = \beta_1^* + \left( \frac{\beta_2^*}{\ln 10} \right) \ln X_{2t} + \mu_t$$</p>
+            <p>Al comparar directamente esta ecuación con la estructura teórica del Modelo 1 ($\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \mu_t$), deducimos las siguientes igualdades paramétricas:</p>
+            <ul>
+                <li><strong>Intercepto:</strong> $\hat{\beta}_1 = \hat{\beta}_1^*$</li>
+                <li><strong>Pendiente:</strong> $\hat{\beta}_2 = \frac{\hat{\beta}_2^*}{\ln 10}$</li>
+            </ul>
+
+            <p><strong>b) Valores estimados para el modelo inicial</strong></p>
+            <p>Teniendo en cuenta que el logaritmo natural de 10 es una constante ($\ln 10 \approx 2.302585$), y tomando los valores provistos de la salida del Modelo 2, aplicamos las relaciones teóricas demostradas:</p>
+            <ul>
+                <li>$\hat{\beta}_1 = 17.9828$</li>
+                <li>$\hat{\beta}_2 = \frac{-5.4568}{2.302585} \approx -2.36986$</li>
+            </ul>
+
+            <p><strong>c) Relación de los $R^2$</strong></p>
+            <p>El Modelo 2 es matemáticamente una transformación lineal estricta del Modelo 1. La variable explicativa simplemente se multiplicó por una constante escalar $\left(\frac{1}{\ln 10}\right)$. Como se demostró en ejercicios anteriores relativos al cambio de escala, este tipo de transformaciones no afecta las predicciones del modelo ($\hat{Y}_t$) ni los residuos. Por consiguiente, la varianza explicada se mantiene constante y <strong>el coeficiente de determinación ($R^2$) es idéntico en ambos modelos</strong> ($R^2 = 0.9205$).</p>
+
+            <p><strong>d) Interpretación de Jarque-Bera (Normalidad)</strong></p>
+            <p>La prueba de Jarque-Bera se utiliza para contrastar la normalidad en la distribución de los residuos. La hipótesis nula ($H_0$) de la prueba postula que los errores se distribuyen de forma normal.</p>
+            <p>El valor p asociado a la prueba es $0.619$. Dado que este valor es considerablemente mayor a los niveles de significancia estándar (como $\alpha = 0.05$ o $\alpha = 0.01$), <strong>no existe evidencia estadística para rechazar la hipótesis nula</strong>. Se concluye que el supuesto de normalidad en los errores es válido para este modelo, permitiendo utilizar distribuciones t y F para inferencia estándar.</p>
+
+            <p><strong>e) Intervalos de Confianza al 95%</strong></p>
+            <p>La estructura general para un intervalo de confianza es: $\hat{\beta} \pm t_{\alpha/2, n-k} \cdot SE(\hat{\beta})$.</p>
+            <p>Con 46 grados de libertad y un nivel de confianza del 95% (donde $\alpha/2 = 0.025$), el valor crítico de la distribución t de Student es aproximadamente $t_{crítico} = 2.0129$. Procedemos a construir los intervalos utilizando los errores estándar ($SE$) dados:</p>
+            
+            <p><em>Para $\beta_1$ (Intercepto):</em></p>
+            <p>$$17.9828 \pm (2.0129 \times 0.7353)$$</p>
+            <p>$$17.9828 \pm 1.4801 \implies \mathbf{[16.5027, 19.4629]}$$</p>
+            
+            <p><em>Para $\beta_2$ (Pendiente):</em></p>
+            <p>$$-2.3699 \pm (2.0129 \times 0.1027)$$</p>
+            <p>$$-2.3699 \pm 0.2067 \implies \mathbf{[-2.5766, -2.1632]}$$</p>
+            <p><em>Interpretación:</em> Como el modelo es del tipo log-log, la pendiente representa una elasticidad. Se tiene un 95% de confianza en que un incremento del 1% en la variable $X$ generará una reducción en la variable $Y$ de entre un 2.16% y un 2.57%.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">12.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Considere el modelo por el origen $Y_t = \beta X_t + \mu_t$ con $\mu_t \sim N(0, \sigma^2)$ y variable no estocástica $X_t$. Se proponen dos estimadores para $\beta$: el estimador de OLS ($b$) y el estimador alternativo $b^* = \overline{Y} / \overline{X}$. Demuestre las propiedades (linealidad, insesgamiento y varianza) de ambos y justifique matemáticamente cuál debe ser elegido de acuerdo a la teoría estadística.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Evaluación del estimador OLS ($b$)</strong></p>
+            <p>Del Ejercicio 4 sabemos que al minimizar la suma de residuos al cuadrado para este modelo, el estimador se define como: $b = \frac{\sum X_t Y_t}{\sum X_t^2}$.</p>
+            
+            <p><em>Linealidad:</em> Expresando $b = \sum \left( \frac{X_t}{\sum X_i^2} \right) Y_t$, se evidencia que es una suma ponderada de $Y_t$, cumpliendo la condición de linealidad.</p>
+            
+            <p><em>Insesgamiento:</em> Aplicamos el operador esperanza $E(\cdot)$. Dado que $X_t$ es no estocástica, $E(Y_t) = \beta X_t$:</p>
+            <p>$$E(b) = \frac{\sum X_t E(Y_t)}{\sum X_t^2} = \frac{\sum X_t (\beta X_t)}{\sum X_t^2} = \beta \frac{\sum X_t^2}{\sum X_t^2} = \beta$$</p>
+            <p>El estimador es insesgado.</p>
+            
+            <p><em>Varianza:</em> Aplicamos el operador varianza a su forma lineal:</p>
+            <p>$$Var(b) = Var\left( \sum \frac{X_t Y_t}{\sum X_i^2} \right) = \frac{\sum X_t^2 Var(Y_t)}{(\sum X_t^2)^2}$$</p>
+            <p>Dado que $Var(Y_t) = \sigma^2$, reemplazamos y simplificamos un término de la suma de cuadrados de $X$:</p>
+            <p>$$Var(b) = \frac{\sigma^2 \sum X_t^2}{(\sum X_t^2)^2} = \frac{\sigma^2}{\sum X_t^2}$$</p>
+
+            <p><strong>b) Evaluación del estimador alternativo ($b^*$)</strong></p>
+            <p>El estimador propuesto es la razón de medias: $b^* = \frac{\overline{Y}}{\overline{X}}$. Expresando las medias como sumatorias divididas por $n$:</p>
+            <p>$$b^* = \frac{\sum Y_t / n}{\sum X_t / n} = \frac{\sum Y_t}{\sum X_t}$$</p>
+            
+            <p><em>Linealidad:</em> Se puede reescribir como $b^* = \sum \left( \frac{1}{\sum X_t} \right) Y_t$, demostrando que es lineal en $Y_t$.</p>
+            
+            <p><em>Insesgamiento:</em> Evaluamos su esperanza matemática:</p>
+            <p>$$E(b^*) = \frac{\sum E(Y_t)}{\sum X_t} = \frac{\sum \beta X_t}{\sum X_t} = \beta \frac{\sum X_t}{\sum X_t} = \beta$$</p>
+            <p>El estimador alternativo también resulta ser insesgado.</p>
+            
+            <p><em>Varianza:</em> Procedemos a aplicar la varianza. El denominador constante se eleva al cuadrado fuera del operador:</p>
+            <p>$$Var(b^*) = Var\left( \frac{\sum Y_t}{\sum X_t} \right) = \frac{1}{(\sum X_t)^2} \sum Var(Y_t)$$</p>
+            <p>Como $\sum Var(Y_t) = n \sigma^2$ y sabiendo que $\sum X_t = n\overline{X}$, sustituimos:</p>
+            <p>$$Var(b^*) = \frac{n \sigma^2}{(n\overline{X})^2} = \frac{n \sigma^2}{n^2\overline{X}^2} = \frac{\sigma^2}{n\overline{X}^2}$$</p>
+
+            <p><strong>c) Comparación y justificación teórica</strong></p>
+            <p>Ambos estimadores son insesgados y lineales. El Teorema de Gauss-Markov establece que el estimador OLS ($b$) posee la menor varianza posible entre todos los estimadores lineales e insesgados, siendo el MELI. Para validar matemáticamente este principio, debemos demostrar que la varianza de $b$ es sistemáticamente menor o igual a la de $b^*$.</p>
+            
+            <p>Planteamos la desigualdad de varianzas: $Var(b) \le Var(b^*)$.</p>
+            <p>$$\frac{\sigma^2}{\sum X_t^2} \le \frac{\sigma^2}{n\overline{X}^2}$$</p>
+            <p>Al dividir ambos lados por la constante positiva $\sigma^2$ e invertir las fracciones (lo cual invierte el sentido de la desigualdad):</p>
+            <p>$$\sum X_t^2 \ge n\overline{X}^2$$</p>
+            
+            <p>¿Es cierta esta premisa matemática? Para comprobarlo, recordemos la definición de la suma de desviaciones cuadradas, la cual, por estar elevada al cuadrado, es estrictamente mayor o igual a cero en el campo de los números reales:</p>
+            <p>$$\sum (X_t - \overline{X})^2 \ge 0$$</p>
+            <p>Expandiendo el binomio, ya demostramos en ejercicios previos que esta suma se puede reescribir como:</p>
+            <p>$$\sum X_t^2 - n\overline{X}^2 \ge 0$$</p>
+            <p>Al despejar, resulta evidente que $\sum X_t^2 \ge n\overline{X}^2$. Esto ratifica formalmente la desigualdad propuesta: la varianza del estimador OLS será consistentemente menor a la del estimador alternativo. Por consiguiente, <strong>el estimador de OLS ($b$) es más eficiente y debe ser el elegido</strong>.</p>
+        </div>
+    </div>
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">13.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Considere el modelo original $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$. Se estima un modelo donde la variable explicativa sufre un cambio simultáneo de origen y escala: $X_{t}^{\prime}=\frac{\delta+X_{t}}{\theta}$, resultando en el modelo $Y_{t}=\beta_{1}^{\prime}+\beta_{2}^{\prime}X_{t}^{\prime}+\mu_{t}^{\prime}$. Establezca la relación teórica entre los estimadores OLS de ambos modelos.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Para establecer la relación entre los estimadores, es necesario expresar las varianzas y covarianzas de la nueva variable $X_t'$ en función de la variable original $X_t$.</p>
+
+            <p><strong>Paso 1: Desviaciones respecto a la media</strong></p>
+            <p>Primero, calculamos la media muestral de la nueva variable. Por propiedades de la media aritmética, $\overline{X}' = \frac{\delta + \overline{X}}{\theta}$.</p>
+            <p>Luego, calculamos la desviación de cada observación respecto a su media ($X_t' - \overline{X}'$):</p>
+            <p>$$X_t' - \overline{X}' = \left( \frac{\delta + X_t}{\theta} \right) - \left( \frac{\delta + \overline{X}}{\theta} \right)$$</p>
+            <p>Agrupando bajo el mismo denominador y cancelando la constante $\delta$:</p>
+            <p>$$X_t' - \overline{X}' = \frac{\delta + X_t - \delta - \overline{X}}{\theta} = \frac{X_t - \overline{X}}{\theta}$$</p>
+            
+            <p><strong>Paso 2: Estimador de la pendiente ($\beta_2'$)</strong></p>
+            <p>Aplicamos la fórmula de OLS para la pendiente del modelo transformado:</p>
+            <p>$$b_2' = \frac{\sum (X_t' - \overline{X}')(Y_t - \overline{Y})}{\sum (X_t' - \overline{X}')^2}$$</p>
+            <p>Sustituimos la desviación encontrada en el Paso 1:</p>
+            <p>$$b_2' = \frac{\sum \left[\frac{1}{\theta}(X_t - \overline{X})\right](Y_t - \overline{Y})}{\sum \left[\frac{1}{\theta}(X_t - \overline{X})\right]^2}$$</p>
+            <p>La constante $\frac{1}{\theta}$ se extrae linealmente del numerador, y al cuadrado del denominador ($\frac{1}{\theta^2}$):</p>
+            <p>$$b_2' = \frac{\frac{1}{\theta} \sum (X_t - \overline{X})(Y_t - \overline{Y})}{\frac{1}{\theta^2} \sum (X_t - \overline{X})^2}$$</p>
+            <p>Al aplicar producto de extremos y medios, obtenemos $\frac{\theta^2}{\theta} = \theta$. El resto de la expresión corresponde al estimador original $b_2$:</p>
+            <p>$$b_2' = \theta \cdot \left[ \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2} \right] = \theta \cdot b_2$$</p>
+            <p><em>Interpretación:</em> El nuevo estimador de la pendiente es equivalente al original multiplicado por el factor de escala $\theta$. El desplazamiento $\delta$ no afecta la pendiente.</p>
+
+            <p><strong>Paso 3: Estimador del intercepto ($\beta_1'$)</strong></p>
+            <p>Utilizamos la fórmula del intercepto con los parámetros transformados:</p>
+            <p>$$b_1' = \overline{Y} - b_2' \overline{X}'$$</p>
+            <p>Sustituimos $b_2'$ por $\theta b_2$ y $\overline{X}'$ por $\frac{\delta + \overline{X}}{\theta}$:</p>
+            <p>$$b_1' = \overline{Y} - (\theta \cdot b_2) \left( \frac{\delta + \overline{X}}{\theta} \right)$$</p>
+            <p>El factor $\theta$ se cancela mutuamente. Procedemos a distribuir $b_2$:</p>
+            <p>$$b_1' = \overline{Y} - b_2(\delta + \overline{X}) = \overline{Y} - b_2\delta - b_2\overline{X}$$</p>
+            <p>Reagrupando los términos para identificar el intercepto original ($b_1 = \overline{Y} - b_2\overline{X}$):</p>
+            <p>$$b_1' = (\overline{Y} - b_2\overline{X}) - b_2\delta = b_1 - \delta b_2$$</p>
+            <p><em>Interpretación:</em> El nuevo intercepto se ajusta restando el efecto marginal del desplazamiento de origen ($\delta \cdot b_2$).</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">14.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Considere el Modelo 1 clásico $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ y un Modelo 2 centrado $Y_{t}=\beta_{1}^*+\beta_{2}^{\prime}(X_{t}-\overline{X})+\mu_{t}$. Compare formalmente los estimadores OLS para el intercepto y la pendiente en ambos modelos, así como sus respectivas varianzas.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Centrar variables (restarles su media) es una técnica útil para mitigar problemas de multicolinealidad estructural y facilitar la interpretación. Definiremos la nueva variable explicativa como $x_t = X_t - \overline{X}$. Por propiedad estadística fundamental, su media aritmética es rigurosamente cero ($\overline{x} = 0$).</p>
+
+            <p><strong>a) Comparación de la Pendiente ($\beta_2$)</strong></p>
+            <p>Aplicamos la fórmula OLS para la pendiente del Modelo 2:</p>
+            <p>$$b_2^{\prime} = \frac{\sum (x_t - \overline{x})(Y_t - \overline{Y})}{\sum (x_t - \overline{x})^2}$$</p>
+            <p>Dado que $\overline{x} = 0$, la expresión se reduce a:</p>
+            <p>$$b_2^{\prime} = \frac{\sum (x_t - 0)(Y_t - \overline{Y})}{\sum (x_t - 0)^2} = \frac{\sum x_t (Y_t - \overline{Y})}{\sum x_t^2}$$</p>
+            <p>Al reescribir $x_t$ en su forma original $(X_t - \overline{X})$, obtenemos la formulación estándar:</p>
+            <p>$$b_2^{\prime} = \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2} = b_2$$</p>
+            <p>Ambos estimadores son matemáticamente idénticos. En consecuencia, sus varianzas también son equivalentes: $Var(b_2^{\prime}) = \frac{\sigma^2}{S_{XX}}$.</p>
+
+            <p><strong>b) Comparación del Intercepto ($\beta_1$)</strong></p>
+            <p>En el Modelo 1, el intercepto se define como $b_1 = \overline{Y} - b_2\overline{X}$. Para el Modelo 2, aplicamos la misma lógica utilizando la media de la nueva variable explicativa:</p>
+            <p>$$b_1^* = \overline{Y} - b_2^{\prime}(\overline{x})$$</p>
+            <p>Sustituyendo $\overline{x} = 0$, llegamos a:</p>
+            <p>$$b_1^* = \overline{Y} - b_2^{\prime}(0) = \overline{Y}$$</p>
+            <p>Los interceptos difieren conceptual y matemáticamente. En el modelo centrado, el intercepto representa el valor esperado de $Y$ cuando $X$ se encuentra en su valor promedio.</p>
+            
+            <p>Respecto a su eficiencia, analizamos la varianza. En el Modelo 1, $Var(b_1) = \frac{\sigma^2 \sum X_t^2}{n S_{XX}}$. En el Modelo 2, la varianza es simplemente la varianza de la media muestral:</p>
+            <p>$$Var(b_1^*) = Var(\overline{Y}) = \frac{\sigma^2}{n}$$</p>
+            <p>Esta varianza es considerablemente menor que la del Modelo 1, demostrando una ganancia en eficiencia para la estimación de la constante en modelos centrados.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">15.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Suponga que se estima la regresión muestral totalmente expresada en desviaciones respecto a las medias: $y_{t}=\beta_{1}^{\prime}+\beta_{2}x_{t}+\mu_{t}$, donde $y_t = Y_t - \overline{Y}$ y $x_t = X_t - \overline{X}$. Obtenga e interprete algebraicamente los estimadores resultantes para este modelo.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Este modelo profundiza el caso anterior: ahora tanto la variable dependiente como la explicativa se expresan en forma de desviaciones. Las medias de estas variables centradas son $\overline{y} = 0$ y $\overline{x} = 0$.</p>
+
+            <p><strong>Paso 1: Obtención de la Pendiente ($b_2$)</strong></p>
+            <p>Calculamos el estimador de OLS utilizando las nuevas variables minúsculas y sus respectivas medias nulas:</p>
+            <p>$$b_2 = \frac{\sum (x_t - \overline{x})(y_t - \overline{y})}{\sum (x_t - \overline{x})^2} = \frac{\sum (x_t - 0)(y_t - 0)}{\sum (x_t - 0)^2} = \frac{\sum x_t y_t}{\sum x_t^2}$$</p>
+            <p>Al reescribir esto en términos originales, observamos que $\frac{\sum x_t y_t}{\sum x_t^2}$ es la definición algebraica alternativa exacta del estimador MCO del modelo tradicional. Por lo tanto, centrar la variable dependiente no altera en absoluto la pendiente estimada ni su varianza.</p>
+
+            <p><strong>Paso 2: Obtención del Intercepto ($\beta_1^{\prime}$)</strong></p>
+            <p>Evaluamos la ecuación de la constante utilizando los promedios de las variables centradas:</p>
+            <p>$$b_1^{\prime} = \overline{y} - b_2 \overline{x}$$</p>
+            <p>Sustituyendo $\overline{y} = 0$ y $\overline{x} = 0$:</p>
+            <p>$$b_1^{\prime} = 0 - b_2(0) = 0$$</p>
+            
+            <p><strong>Conclusión e Interpretación Analítica:</strong></p>
+            <p>Al centrar todas las variables del modelo restando sus respectivas medias, forzamos analíticamente a que la nueva recta de regresión pase de manera exacta por el nuevo origen de coordenadas $(0,0)$. En consecuencia, el intercepto estimado desaparece de forma sistemática (se vuelve cero).</p>
+            <p>Es importante destacar que esta transformación facilita las demostraciones teóricas en econometría debido a la simplicidad de manipular $\sum x_t y_t$ en lugar de sus expresiones extendidas. La bondad de ajuste del modelo global ($R^2$) permanece inalterada frente al modelo sin centrar.</p>
+        </div>
+    </div>
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">16.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Dada la ecuación de la recta de regresión muestral $Y_{i}=b_{1}+b_{2}X_{i}+e_{i}=\hat{Y}_{i}+e_{i}$, demuestre algebraicamente las siguientes identidades utilizando la notación en desviaciones ($y_i = Y_i - \overline{Y}$, $x_i = X_i - \overline{X}$):<br>
+            a) Pruebe que $e_{i}=y_{i}-b_{2}x_{i}$<br>
+            b) Verifique que $\sum_{i=1}^{n}e_{i}=0$<br>
+            c) Pruebe que $RSS=TSS-b_{2}^{2}S_{XX}$<br>
+            d) Probar que $\hat{Y_{i}}-\overline{Y}=b_{2}(X_{i}-\overline{X})$<br>
+            e) Verifique que $TSS=ESS+RSS$<br>
+            f) Pruebe que $\sum_{i=1}^{n}e_{i}x_{i}=0$
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Demostración de $e_{i}=y_{i}-b_{2}x_{i}$</strong></p>
+            <p>Por definición, el residuo es la diferencia entre el valor observado y el valor estimado: $e_i = Y_i - \hat{Y}_i$.</p>
+            <p>Sustituimos $\hat{Y}_i$ por la ecuación de la recta estimada:</p>
+            <p>$$e_i = Y_i - (b_1 + b_2 X_i)$$</p>
+            <p>Reemplazamos el intercepto $b_1$ por su definición paramétrica ($b_1 = \overline{Y} - b_2 \overline{X}$):</p>
+            <p>$$e_i = Y_i - (\overline{Y} - b_2 \overline{X} + b_2 X_i)$$</p>
+            <p>Agrupamos los términos que no acompañan a $b_2$ y factorizamos el parámetro $b_2$:</p>
+            <p>$$e_i = (Y_i - \overline{Y}) - b_2(X_i - \overline{X})$$</p>
+            <p>Aplicando la notación de variables en desviaciones (letras minúsculas), obtenemos la expresión requerida:</p>
+            <p>$$e_i = y_i - b_2 x_i$$</p>
+
+            <p><strong>b) Verificación de $\sum_{i=1}^{n}e_{i}=0$</strong></p>
+            <p>Aplicamos el operador sumatoria a la expresión demostrada en el literal anterior:</p>
+            <p>$$\sum_{i=1}^n e_i = \sum_{i=1}^n (y_i - b_2 x_i) = \sum_{i=1}^n y_i - b_2 \sum_{i=1}^n x_i$$</p>
+            <p>Por propiedad fundamental de la media aritmética, la suma de las desviaciones de cualquier variable respecto a su media es estrictamente cero ($\sum y_i = 0$ y $\sum x_i = 0$). Por lo tanto:</p>
+            <p>$$\sum_{i=1}^n e_i = 0 - b_2(0) = 0$$</p>
+
+            <p><strong>c) Demostración de $RSS=TSS-b_{2}^{2}S_{XX}$</strong></p>
+            <p>Partimos de la definición de la suma de residuos al cuadrado: $RSS = \sum e_i^2$. Sustituimos el residuo por su forma en desviaciones:</p>
+            <p>$$RSS = \sum_{i=1}^n (y_i - b_2 x_i)^2$$</p>
+            <p>Desarrollamos el binomio al cuadrado dentro de la sumatoria:</p>
+            <p>$$RSS = \sum_{i=1}^n (y_i^2 - 2b_2 x_i y_i + b_2^2 x_i^2)$$</p>
+            <p>$$RSS = \sum y_i^2 - 2b_2 \sum x_i y_i + b_2^2 \sum x_i^2$$</p>
+            <p>Recordemos la fórmula del estimador de OLS: $b_2 = \frac{\sum x_i y_i}{\sum x_i^2}$. Despejando el numerador, obtenemos que $\sum x_i y_i = b_2 \sum x_i^2$. Sustituimos esto en el término central de nuestra ecuación:</p>
+            <p>$$RSS = \sum y_i^2 - 2b_2(b_2 \sum x_i^2) + b_2^2 \sum x_i^2$$</p>
+            <p>$$RSS = \sum y_i^2 - 2b_2^2 \sum x_i^2 + b_2^2 \sum x_i^2$$</p>
+            <p>Simplificamos los términos semejantes:</p>
+            <p>$$RSS = \sum y_i^2 - b_2^2 \sum x_i^2$$</p>
+            <p>Sabiendo que la Suma de Cuadrados Totales es $TSS = \sum y_i^2$ y que $S_{XX} = \sum x_i^2$, concluimos la demostración:</p>
+            <p>$$RSS = TSS - b_2^2 S_{XX}$$</p>
+
+            <p><strong>d) Demostración de $\hat{Y_{i}}-\overline{Y}=b_{2}(X_{i}-\overline{X})$</strong></p>
+            <p>Tomamos la ecuación de la recta estimada e introducimos la definición del intercepto:</p>
+            <p>$$\hat{Y}_i = b_1 + b_2 X_i = (\overline{Y} - b_2 \overline{X}) + b_2 X_i$$</p>
+            <p>Restamos $\overline{Y}$ a ambos lados de la ecuación y factorizamos $b_2$ en el lado derecho:</p>
+            <p>$$\hat{Y}_i - \overline{Y} = b_2 X_i - b_2 \overline{X} = b_2(X_i - \overline{X})$$</p>
+
+            <p><strong>e) Verificación de $TSS=ESS+RSS$</strong></p>
+            <p>La Suma de Cuadrados Explicada se define como $ESS = \sum (\hat{Y}_i - \overline{Y})^2$. Utilizando el resultado del literal (d), elevamos al cuadrado y sumamos:</p>
+            <p>$$ESS = \sum \left[ b_2(X_i - \overline{X}) \right]^2 = b_2^2 \sum (X_i - \overline{X})^2 = b_2^2 S_{XX}$$</p>
+            <p>Tomamos la identidad demostrada en el literal (c):</p>
+            <p>$$RSS = TSS - b_2^2 S_{XX}$$</p>
+            <p>Sustituyendo el término $b_2^2 S_{XX}$ por $ESS$:</p>
+            <p>$$RSS = TSS - ESS \implies TSS = ESS + RSS$$</p>
+            <p>Con esto queda formalmente demostrada la descomposición de la varianza en el modelo OLS con intercepto.</p>
+
+            <p><strong>f) Demostración de $\sum_{i=1}^{n}e_{i}x_{i}=0$</strong></p>
+            <p>Tomamos la expresión del residuo en desviaciones y la multiplicamos por $x_i$:</p>
+            <p>$$\sum_{i=1}^n e_i x_i = \sum_{i=1}^n (y_i - b_2 x_i) x_i = \sum_{i=1}^n x_i y_i - b_2 \sum_{i=1}^n x_i^2$$</p>
+            <p>Sustituimos el estimador $b_2$ por su definición formal:</p>
+            <p>$$\sum e_i x_i = \sum x_i y_i - \left(\frac{\sum x_i y_i}{\sum x_i^2}\right) \sum x_i^2$$</p>
+            <p>Al cancelar el término $\sum x_i^2$ en el numerador y el denominador de la fracción, obtenemos:</p>
+            <p>$$\sum e_i x_i = \sum x_i y_i - \sum x_i y_i = 0$$</p>
+            <p>Este resultado confirma la ortogonalidad entre los residuos y la variable explicativa en desviaciones.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">17.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Simetría del $R^2$. Demuestre formalmente que el coeficiente de determinación es idéntico si se realiza una regresión de $Y$ sobre $X$, en comparación con una regresión de $X$ sobre $Y$.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>El coeficiente de determinación ($R^2$) mide la proporción de la varianza total que es explicada por el modelo. Analizaremos ambas direcciones de la regresión empleando la notación en desviaciones respecto a la media.</p>
+
+            <p><strong>Regresión de $Y$ sobre $X$:</strong></p>
+            <p>La fórmula del coeficiente de determinación es $R_{YX}^2 = \frac{ESS_{YX}}{TSS_Y}$. En esta regresión, la variable dependiente es $Y$, por lo que $TSS_Y = \sum y^2$. Del ejercicio anterior sabemos que $ESS = b_{YX}^2 \sum x^2$.</p>
+            <p>$$R_{YX}^2 = \frac{b_{YX}^2 \sum x^2}{\sum y^2}$$</p>
+            <p>Sustituimos el estimador de la pendiente $b_{YX} = \frac{\sum x y}{\sum x^2}$ y lo elevamos al cuadrado:</p>
+            <p>$$R_{YX}^2 = \frac{\left( \frac{\sum x y}{\sum x^2} \right)^2 \sum x^2}{\sum y^2} = \frac{\frac{(\sum x y)^2}{(\sum x^2)^2} \sum x^2}{\sum y^2}$$</p>
+            <p>Simplificamos el término $\sum x^2$ en el numerador:</p>
+            <p>$$R_{YX}^2 = \frac{(\sum x y)^2 / \sum x^2}{\sum y^2} = \frac{(\sum x y)^2}{\sum x^2 \sum y^2}$$</p>
+
+            <p><strong>Regresión de $X$ sobre $Y$:</strong></p>
+            <p>En este escenario, el modelo se invierte. La variable explicativa es $Y$ y la variable dependiente es $X$. La pendiente estimada será $b_{XY} = \frac{\sum xy}{\sum y^2}$, y la varianza total a explicar será $TSS_X = \sum x^2$.</p>
+            <p>Calculamos el coeficiente de determinación para este modelo inverso:</p>
+            <p>$$R_{XY}^2 = \frac{b_{XY}^2 \sum y^2}{\sum x^2}$$</p>
+            <p>Sustituimos el nuevo estimador $b_{XY}$ y desarrollamos el cuadrado:</p>
+            <p>$$R_{XY}^2 = \frac{\left( \frac{\sum x y}{\sum y^2} \right)^2 \sum y^2}{\sum x^2} = \frac{\frac{(\sum x y)^2}{(\sum y^2)^2} \sum y^2}{\sum x^2}$$</p>
+            <p>Simplificamos el término $\sum y^2$:</p>
+            <p>$$R_{XY}^2 = \frac{(\sum x y)^2 / \sum y^2}{\sum x^2} = \frac{(\sum x y)^2}{\sum x^2 \sum y^2}$$</p>
+
+            <p><strong>Conclusión:</strong></p>
+            <p>Ambas expresiones algebraicas son estrictamente equivalentes. Además, la expresión final corresponde a la definición del Coeficiente de Correlación de Pearson elevado al cuadrado ($r^2$). Esto demuestra que el nivel de ajuste lineal de los datos es simétrico, independientemente de qué variable se asigne como dependiente o explicativa.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">18.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Un investigador propone un estimador alternativo para la pendiente del modelo de regresión simple, empleando únicamente la primera y la última observación de la muestra ordenadas en el tiempo: $\hat{\beta}_{2}^{*}=\frac{Y_{n}-Y_{1}}{X_{n}-X_{1}}$.<br>
+            a) Interprete conceptualmente el estimador.<br>
+            b) Muestre formalmente si este estimador es lineal e insesgado.<br>
+            c) Obtenga su varianza y compare la eficiencia de este estimador frente al de Mínimos Cuadrados Ordinarios (MCO), justificando teóricamente la respuesta.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Interpretación conceptual</strong></p>
+            <p>Geométricamente, este estimador traza una línea recta que interseca exclusivamente el primer par de datos $(X_1, Y_1)$ y el último par $(X_n, Y_n)$ de la muestra. Calcula la tasa de cambio ($\frac{\Delta Y}{\Delta X}$) entre estos dos extremos. La principal implicación de este método es que descarta sistemáticamente toda la información aportada por las observaciones intermedias.</p>
+
+            <p><strong>b) Linealidad e Insesgamiento</strong></p>
+            <p><em>Linealidad:</em> La expresión puede reescribirse como $\hat{\beta}_2^* = w_n Y_n - w_1 Y_1$, donde $w_i = \frac{1}{X_n - X_1}$. Al ser los valores de $X$ fijos en muestras repetidas, el estimador constituye una combinación lineal de la variable dependiente $Y_t$. Es, por definición, un estimador lineal.</p>
+            
+            <p><em>Insesgamiento:</em> Procedemos a aplicar el operador de esperanza matemática. Consideramos que la esperanza condicional del modelo poblacional es $E(Y_t) = \beta_1 + \beta_2 X_t$.</p>
+            <p>$$E(\hat{\beta}_2^*) = E\left( \frac{Y_n - Y_1}{X_n - X_1} \right) = \frac{E(Y_n) - E(Y_1)}{X_n - X_1}$$</p>
+            <p>Sustituimos las esperanzas individuales:</p>
+            <p>$$E(\hat{\beta}_2^*) = \frac{(\beta_1 + \beta_2 X_n) - (\beta_1 + \beta_2 X_1)}{X_n - X_1}$$</p>
+            <p>Los parámetros de intercepto ($\beta_1$) se anulan. Posteriormente, factorizamos la pendiente poblacional ($\beta_2$):</p>
+            <p>$$E(\hat{\beta}_2^*) = \frac{\beta_2 X_n - \beta_2 X_1}{X_n - X_1} = \frac{\beta_2(X_n - X_1)}{X_n - X_1}$$</p>
+            <p>Simplificamos el término común, resultando en $E(\hat{\beta}_2^*) = \beta_2$. Se demuestra formalmente que <strong>el estimador es insesgado</strong>.</p>
+
+            <p><strong>c) Varianza y eficiencia relativa</strong></p>
+            <p>Para determinar la eficiencia, aplicamos el operador varianza. Dado que el muestreo es aleatorio simple, asumimos independencia entre la observación $1$ y la observación $n$ (covarianza nula). El denominador se extrae elevado al cuadrado:</p>
+            <p>$$Var(\hat{\beta}_2^*) = Var\left( \frac{Y_n - Y_1}{X_n - X_1} \right) = \frac{Var(Y_n) + Var(-Y_1)}{(X_n - X_1)^2}$$</p>
+            <p>Sabiendo que $Var(-Y_1) = Var(Y_1)$ y que, por homocedasticidad, todas las observaciones tienen varianza $\sigma^2$:</p>
+            <p>$$Var(\hat{\beta}_2^*) = \frac{\sigma^2 + \sigma^2}{(X_n - X_1)^2} = \frac{2\sigma^2}{(X_n - X_1)^2}$$</p>
+            
+            <p><em>Comparación con OLS:</em></p>
+            <p>El estimador estándar por MCO tiene una varianza definida como $Var(b_2) = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \overline{X})^2}$.</p>
+            <p>El denominador de la varianza de MCO captura la dispersión total acumulada por las $n$ observaciones de la muestra. En contraste, el estimador propuesto $\hat{\beta}_2^*$ basa su denominador únicamente en la distancia entre dos puntos específicos. Por consiguiente, siempre que la muestra cuente con más de dos observaciones heterogéneas ($n > 2$), la varianza del estimador OLS será matemáticamente inferior.</p>
+            <p>Este resultado evidencia una pérdida de eficiencia al ignorar información muestral, y es plenamente congruente con el <strong>Teorema de Gauss-Markov</strong>, el cual dictamina que el estimador OLS es el Mejor Estimador Lineal Insesgado (MELI), garantizando la varianza mínima posible dentro de su clase.</p>
+        </div>
+    </div>
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">19.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se dispone de 10 observaciones históricas sobre la Renta Nacional ($Y$) y la Cantidad de Dinero ($X$). Se proporcionan las siguientes sumatorias: $n=10$, $\sum X_i = 37.2$, $\sum X_i^2 = 147.18$, $\sum Y_i = 75.5$, $\sum Y_i^2 = 597.03$, $\sum X_i Y_i = 295.95$.<br>
+            a) y b) Estime el modelo lineal e interprete sus coeficientes.<br>
+            c) Prediga el valor de $X$ necesario para que $Y=12$ en un periodo futuro.<br>
+            d) Evalúe el impacto si la variable $X$ se multiplica por 1000.<br>
+            e) Calcule un estimador alternativo dividiendo la muestra ordenada en dos grupos de 5 observaciones y evalúe su insesgamiento y eficiencia.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) y b) Estimación e interpretación del modelo</strong></p>
+            <p>Para estimar el modelo $Y_t = \beta_1 + \beta_2 X_t + \mu_t$ mediante OLS utilizando los datos brutos, empleamos las fórmulas computacionales de las sumatorias.</p>
+            <p><em>Estimador de la pendiente ($b_2$):</em></p>
+            <p>$$b_2 = \frac{n \sum XY - \sum X \sum Y}{n \sum X^2 - (\sum X)^2}$$</p>
+            <p>Sustituimos los valores provistos en el enunciado:</p>
+            <p>$$b_2 = \frac{10(295.95) - (37.2)(75.5)}{10(147.18) - (37.2)^2} = \frac{2959.5 - 2808.6}{1471.8 - 1383.84}$$</p>
+            <p>$$b_2 = \frac{150.9}{87.96} \approx 1.7155$$</p>
+            
+            <p><em>Estimador del intercepto ($b_1$):</em></p>
+            <p>Calculamos previamente las medias: $\overline{Y} = 75.5 / 10 = 7.55$ y $\overline{X} = 37.2 / 10 = 3.72$.</p>
+            <p>$$b_1 = \overline{Y} - b_2 \overline{X} = 7.55 - 1.7155(3.72) \approx 7.55 - 6.3817 = 1.1683$$</p>
+            
+            <p><strong>Modelo estimado:</strong> $\hat{Y}_t = 1.1683 + 1.7155 X_t$</p>
+            <p><em>Interpretación:</em> El coeficiente $b_2$ indica que por cada unidad adicional en la Cantidad de Dinero ($X$), se estima un incremento promedio de $1.7155$ unidades en la Renta Nacional ($Y$), manteniendo todo lo demás constante. El coeficiente $b_1$ representa la renta autónoma estimada (1.1683 unidades) en un escenario teórico donde la cantidad de dinero fuese cero.</p>
+
+            <p><strong>c) Predicción</strong></p>
+            <p>Para proyectar el nivel requerido de cantidad de dinero ($X$) que genere un nivel de renta ($Y$) igual a 12, despejamos $X$ de la recta estimada:</p>
+            <p>$$12 = 1.1683 + 1.7155 X \implies X = \frac{12 - 1.1683}{1.7155} \approx \frac{10.8317}{1.7155} \approx 6.314$$</p>
+            
+            <p><strong>d) Cambio de Escala en X</strong></p>
+            <p>De acuerdo con la demostración teórica del ejercicio 9, si multiplicamos la variable explicativa $X$ por una constante $\delta = 1000$ dejando $Y$ intacta:</p>
+            <ul>
+                <li>El intercepto no se altera: $b_1^* = b_1 = 1.1683$.</li>
+                <li>La pendiente se divide por la constante: $b_2^* = \frac{b_2}{1000} = 0.0017155$.</li>
+            </ul>
+
+            <p><strong>e) Estimador alternativo por grupos</strong></p>
+            <p>Si se ordena la muestra respecto a $X$ y se divide en dos grupos iguales, las medias resultantes hipotéticas (basadas en los datos brutos) serían, por ejemplo, $\overline{X}_1 = 2.92$, $\overline{Y}_1 = 6.14$ para el grupo inferior y $\overline{X}_2 = 4.52$, $\overline{Y}_2 = 8.96$ para el grupo superior. El estimador alternativo se calcula como:</p>
+            <p>$$\hat{\beta}_2^* = \frac{\overline{Y}_2 - \overline{Y}_1}{\overline{X}_2 - \overline{X}_1} = \frac{8.96 - 6.14}{4.52 - 2.92} = \frac{2.82}{1.60} = 1.7625$$</p>
+            <p>Como se probó en el ejercicio 7, este estimador es insesgado ($E(\hat{\beta}_2^*) = \beta_2$). Sin embargo, al descartar la varianza intra-grupos para utilizar únicamente los promedios aglomerados, su varianza muestral será invariablemente mayor que la del estimador MCO, resultando en una pérdida de eficiencia estadística.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">20.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se evalúan dos especificaciones de la Curva de Phillips para modelar la variación de la inflación ($y_t = \pi_t - \pi_{t-1}$).<br>
+            Modelo 1 (Lineal): $\hat{y}_t = 3.7844 - 0.6385 UN_t$<br>
+            Modelo 2 (Recíproco): $\hat{y}_t = -3.0683 + 17.2075 (1/UN_t)$<br>
+            a) Interprete el comportamiento esperado en el Modelo 2.<br>
+            b) Calcule e interprete la Tasa Natural de Desempleo ($U^N$) para ambos modelos.<br>
+            c) Construya los intervalos de confianza al 95% para los coeficientes.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Interpretación del Modelo Recíproco</strong></p>
+            <p>El Modelo 2 introduce una no linealidad funcional. A medida que la tasa de desempleo ($UN_t$) se incrementa, el término $(1/UN_t)$ se aproxima asintóticamente a cero. En consecuencia, el cambio en la inflación estará acotado inferiormente por el intercepto $\beta_1$ ($-3.0683$). Esta especificación capta la rigidez a la baja de los salarios y precios, asumiendo que la inflación no puede decrecer indefinidamente ante altos niveles de desempleo.</p>
+
+            <p><strong>b) Cálculo de la Tasa Natural de Desempleo ($U^N$)</strong></p>
+            <p>En el marco de la Curva de Phillips con expectativas, la Tasa Natural de Desempleo ($U^N$) se alcanza en el punto donde la inflación es estable (es decir, cuando no hay aceleración inflacionaria, por lo que $y_t = \pi_t - \pi_{t-1} = 0$).</p>
+            
+            <p><em>Para el Modelo 1:</em></p>
+            <p>$$0 = 3.7844 - 0.6385 U^N \implies 0.6385 U^N = 3.7844 \implies U^N = \frac{3.7844}{0.6385} \approx 5.927\%$$</p>
+            
+            <p><em>Para el Modelo 2:</em></p>
+            <p>$$0 = -3.0683 + 17.2075 \left(\frac{1}{U^N}\right) \implies 3.0683 = \frac{17.2075}{U^N}$$</p>
+            <p>$$U^N = \frac{17.2075}{3.0683} \approx 5.608\%$$</p>
+            <p><em>Interpretación:</em> Según estas estimaciones muestrales, la tasa de desempleo estructural (o NAIRU) que mantiene estable la inflación se sitúa en un rango aproximado del $5.6\%$ al $5.9\%$.</p>
+
+            <p><strong>c) Intervalos de Confianza (95%)</strong></p>
+            <p>Asumiendo $44$ grados de libertad provistos por la salida del software ($df = 44$), el valor crítico t de Student para un nivel de significancia del $5\%$ a dos colas es aproximadamente $t_{crítico} \approx 2.0154$. Empleamos los errores estándar ($SE$) teóricos para cada coeficiente ($SE_{\beta_1}=0.903$, $SE_{\beta_2}=0.149$ para M1; $SE_{\beta_1}=0.969$, $SE_{\beta_2}=5.232$ para M2).</p>
+            
+            <p><em>Modelo 1:</em></p>
+            <ul>
+                <li>$\beta_1: 3.7844 \pm (2.0154 \times 0.9030) \implies [1.964, 5.604]$</li>
+                <li>$\beta_2: -0.6385 \pm (2.0154 \times 0.1493) \implies [-0.939, -0.337]$</li>
+            </ul>
+            
+            <p><em>Modelo 2:</em></p>
+            <ul>
+                <li>$\beta_1: -3.0683 \pm (2.0154 \times 0.9699) \implies [-5.023, -1.113]$</li>
+                <li>$\beta_2: 17.2075 \pm (2.0154 \times 5.2326) \implies [6.661, 27.753]$</li>
+            </ul>
+            <p>Dado que ningún intervalo contiene el valor cero, se concluye que todos los parámetros son estadísticamente significativos al $95\%$ de confianza.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">21.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Se cuenta con una variable $X$ cuyos valores fijos son $\{1, 2, 3, 4, 5, 6\}$. Un "econometrista perezoso" propone el estimador rápido $\hat{\beta}_{2}^{*}=\frac{1}{8}(Y_{6}+Y_{5}-Y_{2}-Y_{1})$. Demuestre el insesgamiento de este estimador, obtenga su varianza y compare su eficiencia frente a MCO.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>1. Demostración de insesgamiento</strong></p>
+            <p>Aplicamos la propiedad de la esperanza matemática, recordando que $E(Y_t) = \beta_1 + \beta_2 X_t$. Evaluaremos esta esperanza para cada término particular de la expresión:</p>
+            <p>$$E(\hat{\beta}_2^*) = \frac{1}{8} \left[ E(Y_6) + E(Y_5) - E(Y_2) - E(Y_1) \right]$$</p>
+            <p>Sustituimos $X_t$ por los valores explícitos del conjunto de datos correspondientes a cada subíndice:</p>
+            <p>$$E(\hat{\beta}_2^*) = \frac{1}{8} \left[ (\beta_1 + 6\beta_2) + (\beta_1 + 5\beta_2) - (\beta_1 + 2\beta_2) - (\beta_1 + 1\beta_2) \right]$$</p>
+            <p>Agrupamos los términos del intercepto y la pendiente por separado:</p>
+            <p>$$E(\hat{\beta}_2^*) = \frac{1}{8} \left[ (2\beta_1 - 2\beta_1) + (11\beta_2 - 3\beta_2) \right] = \frac{1}{8} (8\beta_2) = \beta_2$$</p>
+            <p>A pesar de la omisión arbitraria de las observaciones centrales ($Y_3$ y $Y_4$), el estimador compensa las ponderaciones y resulta ser rigurosamente <strong>insesgado</strong>.</p>
+
+            <p><strong>2. Varianza y eficiencia relativa</strong></p>
+            <p>Calculamos la varianza asumiendo homocedasticidad ($Var(Y_t)=\sigma^2$) e independencia entre las observaciones (covarianza nula). La constante escalar $(1/8)$ se extrae elevada al cuadrado:</p>
+            <p>$$Var(\hat{\beta}_2^*) = \frac{1}{64} \left[ Var(Y_6) + Var(Y_5) + Var(-Y_2) + Var(-Y_1) \right]$$</p>
+            <p>$$Var(\hat{\beta}_2^*) = \frac{1}{64} \left[ \sigma^2 + \sigma^2 + \sigma^2 + \sigma^2 \right] = \frac{4\sigma^2}{64} = 0.0625\sigma^2$$</p>
+            
+            <p>Para establecer la comparación, calculamos la varianza del estimador OLS ($b_2$). Necesitamos la suma de desviaciones cuadradas $S_{XX}$. La media de $X$ es $\overline{X} = 3.5$. Las desviaciones individuales al cuadrado son:</p>
+            <ul>
+                <li>$(1 - 3.5)^2 = 6.25$</li>
+                <li>$(2 - 3.5)^2 = 2.25$</li>
+                <li>$(3 - 3.5)^2 = 0.25$</li>
+                <li>Las siguientes observaciones $(4, 5, 6)$ son simétricas, arrojando los mismos valores.</li>
+            </ul>
+            <p>Sumando estas desviaciones obtenemos $S_{XX} = 2(6.25 + 2.25 + 0.25) = 17.5$.</p>
+            <p>La varianza del estimador MCO es:</p>
+            <p>$$Var(b_2) = \frac{\sigma^2}{S_{XX}} = \frac{\sigma^2}{17.5} \approx 0.0571\sigma^2$$</p>
+            <p><strong>Conclusión:</strong> Al contrastar ambos resultados, $0.0571\sigma^2 < 0.0625\sigma^2$. El estimador OLS presenta una varianza estrictamente menor. Al descartar la información contenida en las observaciones $Y_3$ y $Y_4$, el estimador propuesto sacrifica eficiencia estadística, comprobando una vez más el carácter óptimo (MELI) del estimador de mínimos cuadrados ordinarios.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">22.</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
+            <strong>Enunciado:</strong> Suponga que se ajustan los siguientes modelos de regresión inversa por OLS: $Y_{t}=\beta_{1}+\beta_{YX}X_{t}+\mu_{t}$ y $X_{t}=\beta_{1}+\beta_{XY}Y_{t}+\mu_{t}$. Sean $b_{YX}$ y $b_{XY}$ los coeficientes estimados de las pendientes, y $r^2$ el cuadrado del coeficiente de correlación.<br>
+            a) Muestre que $b_{YX}b_{XY}=r^{2}$.<br>
+            b) A partir del resultado anterior, demuestre que $|b_{YX}|\le1/|b_{XY}|$.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Demostración del producto de pendientes inversas</strong></p>
+            <p>Recordemos la definición analítica de los estimadores MCO en términos de varianzas y covarianzas muestrales (expresadas en formato de suma de desviaciones cuadradas):</p>
+            <ul>
+                <li>Para la regresión de $Y$ sobre $X$: $b_{YX} = \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2} = \frac{Cov(X,Y)}{Var(X)}$</li>
+                <li>Para la regresión de $X$ sobre $Y$: $b_{XY} = \frac{\sum (Y_t - \overline{Y})(X_t - \overline{X})}{\sum (Y_t - \overline{Y})^2} = \frac{Cov(X,Y)}{Var(Y)}$</li>
+            </ul>
+            <p>Multiplicamos algebraicamente ambos estimadores:</p>
+            <p>$$b_{YX} \cdot b_{XY} = \left[ \frac{Cov(X,Y)}{Var(X)} \right] \cdot \left[ \frac{Cov(X,Y)}{Var(Y)} \right] = \frac{[Cov(X,Y)]^2}{Var(X) Var(Y)}$$</p>
+            <p>La formulación matemática resultante equivale estrictamente a la definición del Coeficiente de Correlación de Pearson elevado al cuadrado. Por consiguiente, la identidad $b_{YX}b_{XY} = r^{2}$ queda demostrada.</p>
+
+            <p><strong>b) Demostración de la acotación de pendientes</strong></p>
+            <p>Por propiedades axiomáticas de la estadística descriptiva, el coeficiente de correlación lineal $r$ se encuentra restringido al intervalo $[-1, 1]$. En consecuencia, su cuadrado no puede exceder la unidad:</p>
+            <p>$$0 \le r^2 \le 1$$</p>
+            <p>Sustituimos la identidad probada en el literal (a) dentro de esta inecuación:</p>
+            <p>$$b_{YX} b_{XY} \le 1$$</p>
+            <p>Dado que ambas pendientes comparten el mismo signo (determinado por la covarianza conjunta en sus numeradores), su producto es siempre positivo. Aplicamos el operador de valor absoluto a ambos lados de la desigualdad:</p>
+            <p>$$|b_{YX}| \cdot |b_{XY}| \le 1$$</p>
+            <p>Asumiendo que existe una relación lineal no nula ($|b_{XY}| > 0$), dividimos ambos lados de la inecuación por este término:</p>
+            <p>$$|b_{YX}| \le \frac{1}{|b_{XY}|}$$</p>
+            <p>Esta propiedad demuestra que las pendientes de regresiones inversas imponen una restricción matemática recíproca entre sí.</p>
+        </div>
+    </div>
+</div>
+</div>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 
