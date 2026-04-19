@@ -138,18 +138,24 @@
                     <div class="project-body-detailed">
                         <p>Puntos del 1 al 22</p>
                         <br>
-                        <a onclick="showTab('presentacion-detalle')" class="project-btn">Ver taller 1 →</a>
+                        <a onclick="showTab('Taller1')" class="project-btn">Ver taller 1 →</a>
                     </div>
                 </div>
-
-               
-
-
-                
-
-                
-                
             </div> 
+        
+ <div class="projects-grid">
+                <div class="project-card-detailed">
+                    <div class="project-header-detailed">
+                        <h3>Taller 2: Modelo de regresión lineal de k variables</h3>
+                    </div>
+                    <div class="project-body-detailed">
+                        <p>Puntos del 1 al 8</p>
+                        <br>
+                        <a onclick="showTab('Taller2')" class="project-btn">Ver taller 2 →</a>
+                    </div>
+                </div>
+            </div> 
+        
         </div>
 
 
@@ -180,7 +186,7 @@
 
 
 <!------------------------------------------------------------------------------------------------------TALLER 1-------------------------------------------------------------------------------------------------------->
-<div id="presentacion-detalle" class="tab-content">
+<div id="Taller1" class="tab-content">
     <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
         <i class="fas fa-arrow-left"></i> Volver a Talleres
     </a>
@@ -1213,14 +1219,177 @@
     </div>
 </div>
 </div>
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 
+
+
+
+
+
+
+
+
+
+    
+<!------------------------------------------------------------------------------------------------------Taller 2-------------------------------------------------------------------------------------------------------->
+
+<div id="Taller2" class="tab-content">
+    <a onclick="showTab('proyectos')" style="color: #3498db; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px; font-weight: bold;">
+        <i class="fas fa-arrow-left"></i> Volver a Talleres
+    </a>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h2 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">EJERCICIOS DE ECONOMETRÍA I: EL MODELO DE REGRESIÓN LINEAL DE K VARIABLES</h2>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+            <strong>1.</strong> Para estudiar la demanda de cerveza se propone el siguiente modelo:<br>
+            $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + \beta_5 \ln X_{5t} + \mu_t, \quad t=1960,\cdots,2011 \quad (1)$<br><br>
+            $Y_t = Qt$: cantidad demandada de cerveza en litros por familia.<br>
+            $X_{2t} = PBt$: precio de la cerveza (en dólares) en el año $t$.<br>
+            $X_{3t} = PLt$: precio de los otros licores (en dólares) en el año $t$.<br>
+            $X_{4t} = PRt$: precio de los otros bienes y servicios (en dólares) en el año $t$.<br>
+            $X_{5t} = Mt$: ingreso familiar en el año $t$.<br><br>
+            También se ajustan los siguientes modelos restringidos:<br>
+            $\ln Y_t = \beta_1 + (-4\beta_4)\ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + \beta_5 \ln X_{5t} + \mu_t \quad (2)$<br>
+            $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + (-\beta_2-\beta_3-\beta_4)\ln X_{5t} + \mu_t \quad (3)$<br>
+            $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_5 \ln X_{5t} + \mu_t \quad (4)$<br><br>
+            
+            <strong>Resultados de las estimaciones (Salidas de R):</strong>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4;">
+MODELO (1) ESTIMADO
+eq1_ln = lm(Lny ~ Lnx2 + Lnx3 + Lnx4 + Lnx5)
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  -2.3232     3.0481   -0.76  0.44976
+Lnx2         -0.9821     0.2454   -4.00  0.00022 ***
+Lnx3         -0.4702     0.5342   -0.88  0.38320
+Lnx4          0.1663     0.0879    1.89  0.06472 .
+Lnx5          0.8079     0.3215    2.51  0.01545 *
+---
+Residual standard error: 0.0696 on 47 degrees of freedom
+Multiple R-squared: 0.725, Adjusted R-squared: 0.701
+
+LA MATRIZ DE VARIANZAS DE b ES:
+            (Intercept)     Lnx2     Lnx3     Lnx4     Lnx5
+(Intercept)     9.2910   0.53713 -0.0804  0.12857 -0.9372
+Lnx2            0.5371   0.06021 -0.0809  0.00405 -0.0417
+Lnx3           -0.0804  -0.08089  0.2854 -0.01082 -0.0417
+Lnx4            0.1286   0.00405 -0.0108  0.00773 -0.0108
+Lnx5           -0.9372  -0.04166 -0.0417 -0.01075  0.1033
+
+Prueba de Jarque-Bera:
+JB = 3, p-value = 0.1
+
+MODELO (2): Con la restricción $\beta_2 + 4\beta_4 = 0$
+"EL RSS RESTRINGIDO DEL MODELO 2 ES"
+0.23 (Calculado como RSS_m2 = 48 * 0.00479)
+
+MODELO (3): con la restricción $\beta_2 + \beta_3 + \beta_4 + \beta_5 = 0$
+"EL RSS RESTRINGIDO DEL MODELO 3 ES"
+0.24 (Calculado como RSS_m3 = 48 * 0.00499)
+
+MODELO (4): con la restricción $\beta_3 = \beta_4 = 0$
+"EL RSS RESTRINGIDO DEL MODELO 4 ES"
+0.24096 (Calculado como RSS_m4 = 48 * 0.00502)
+</pre>
+            <strong>Preguntas:</strong><br>
+            a) Explique el significado de los coeficientes del modelo propuesto.<br>
+            b) Explique los principales resultados del modelo estimado; ¿tienen los coeficientes estimados el signo esperado?<br>
+            c) ¿Se podrá aceptar que la elasticidad directa-precio de la demanda de cerveza es -1.6? Decida con base en el valor-p usando $\alpha=0.05$.<br>
+            d) Con base en el estadístico general F, deduzca para el modelo (1) el estadístico particular F para la prueba $H_0: \beta_2 + 4\beta_4 = 0$. Emplee $\alpha=0.05$.<br>
+            e) ¿Será cierto, estadísticamente al 5%, que la suma de todas las elasticidades es cero? Obtenga el modelo restringido para esta prueba. Muestre claramente los pasos.<br>
+            f) Pruebe la hipótesis $H_0: \beta_2 = \beta_3 = 0$ vs $H_A: \beta_2 \neq 0 \lor \beta_3 \neq 0$. Exprese la hipótesis en la forma $R\beta = r$.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Significado de los coeficientes</strong></p>
+            <p>Al tratarse de una especificación doble-logarítmica (o log-log), los parámetros $\beta$ no expresan tasas de cambio absolutas, sino que se interpretan directamente como las <strong>elasticidades</strong> de la demanda. Concretamente:</p>
+            <ul>
+                <li><strong>$\beta_2$:</strong> Es la <em>elasticidad precio-directa</em> de la cerveza. Señala en qué porcentaje varía la cantidad demandada ante una modificación del 1% en su propio precio ($PB_t$), manteniendo los demás factores constantes (ceteris paribus).</li>
+                <li><strong>$\beta_3$:</strong> Corresponde a la <em>elasticidad precio-cruzada</em> con los otros licores ($PL_t$). Indica el cambio porcentual en la demanda de cerveza cuando el precio de otras alternativas etílicas sube un 1%.</li>
+                <li><strong>$\beta_4$:</strong> Representa la <em>elasticidad precio-cruzada</em> frente al precio promedio de los demás bienes y servicios ($PR_t$) de la economía.</li>
+                <li><strong>$\beta_5$:</strong> Es la <em>elasticidad ingreso</em> de la demanda. Cuantifica el efecto porcentual en el consumo familiar de cerveza producto de un incremento del 1% en sus ingresos disponibles ($M_t$).</li>
+            </ul>
+
+            <p><strong>b) Resultados y signos esperados</strong></p>
+            <ul>
+                <li><strong>$\hat{\beta}_2 = -0.9821$:</strong> Es un parámetro estadísticamente significativo ($p < 0.01$). Tiene el <strong>signo esperado correcto</strong>; acorde a la ley de la demanda, la relación precio-cantidad debe ser inversa. Revela una demanda inelástica cercana a la unitaria.</li>
+                <li><strong>$\hat{\beta}_3 = -0.4702$:</strong> El coeficiente es negativo, lo cual denotaría que la cerveza y los otros licores son bienes complementarios en el consumo. Sin embargo, su <em>p-value</em> de 0.38320 nos impide rechazar la nulidad del parámetro. Al no ser estadísticamente significativo, se concluye que no hay evidencia suficiente de relación.</li>
+                <li><strong>$\hat{\beta}_4 = 0.1663$:</strong> Significativo marginalmente (al 10% de confianza, $p \approx 0.064$). Su signo positivo sugiere una posible relación de sustitución con el resto de los bienes.</li>
+                <li><strong>$\hat{\beta}_5 = 0.8079$:</strong> Coeficiente estadísticamente significativo al 5% ($p = 0.0154$). Exhibe el <strong>signo esperado correcto</strong> (positivo), confirmando teóricamente que la cerveza es un <em>bien normal</em> (una mayor renta induce a una mayor demanda familiar).</li>
+            </ul>
+
+            <p><strong>c) Prueba de hipótesis: Elasticidad directa igual a -1.6</strong></p>
+            <p>Se formula el contraste paramétrico bilateral: $H_0: \beta_2 = -1.6$ frente a $H_A: \beta_2 \neq -1.6$, fijando $\alpha = 0.05$.</p>
+            <p>Se construye el estadístico $t$ utilizando el error estándar estimado reportado para $\hat{\beta}_2$ ($SE = 0.2454$):</p>
+            <p>$$t = \frac{\hat{\beta}_2 - \beta_{2(H_0)}}{SE(\hat{\beta}_2)} = \frac{-0.9821 - (-1.6)}{0.2454} = \frac{0.6179}{0.2454} \approx 2.5179$$</p>
+            <p>Contamos con 47 grados de libertad para el modelo. A un nivel de confianza del 95% (prueba a dos colas), el valor crítico se sitúa en $t_{crítico} \approx 2.012$. Ya que $|2.518| > 2.012$, hay evidencia suficiente para <strong>rechazar la hipótesis nula</strong>.</p>
+            <p><em>Conclusión:</em> No es estadísticamente plausible aceptar que la elasticidad sea -1.6; el comportamiento real del mercado demuestra ser menos sensible al precio de lo que se hipotetiza.</p>
+
+            <p><strong>d) Estadístico F para $H_0: \beta_2 + 4\beta_4 = 0$</strong></p>
+            <p>Para aplicar la prueba F sobre restricciones lineales conjuntas, recurrimos a las sumas de cuadrados de los residuos del modelo Irrestricto ($RSS_{UR}$) y Restringido ($RSS_R$):</p>
+            <p>$$F = \frac{(RSS_R - RSS_{UR})/m}{RSS_{UR}/(n-k)}$$</p>
+            <p>1. Calculamos el $RSS_{UR}$ desde la tabla general usando el Error Estándar Residual ($RSE = 0.0696$) y sus grados de libertad ($df=47$):<br>
+            $RSS_{UR} = RSE^2 \times df = (0.0696)^2 \times 47 = 0.00484416 \times 47 \approx 0.22767$</p>
+            <p>2. El enunciado proporciona directamente el RSS del <strong>Modelo 2</strong> (que incorpora la restricción requerida): $RSS_R = 0.23$. El número de restricciones lineales es $m=1$.</p>
+            <p>3. Evaluamos la expresión F:</p>
+            <p>$$F = \frac{(0.23 - 0.22767)/1}{0.22767/47} = \frac{0.00233}{0.004844} \approx 0.481$$</p>
+            <p>Comparando este resultado contra el umbral crítico de la distribución ($F_{(1, 47)}^{0.05} \approx 4.05$), determinamos que $0.481 < 4.05$. Concluimos que <strong>no se rechaza $H_0$</strong>; la restricción planteada es compatible con los datos observados.</p>
+            
+            <p><em>(Nota: Si se resuelve matricialmente vía el vector T y la matriz de covarianzas dada: $t = \frac{-0.9821 + 4(0.1663)}{\sqrt{Var(\beta_2) + 16Var(\beta_4) + 8Cov(\beta_2, \beta_4)}} = -0.681$, y se sabe que $F = t^2 = 0.464$. La ligera discrepancia numérica radica meramente en el truncamiento de los decimales de la interfaz de R).</em></p>
+
+            <p><strong>e) Prueba de homogeneidad: Suma de todas las elasticidades igual a cero</strong></p>
+            <p>La hipótesis nula postula ausencia de ilusión monetaria: $H_0: \beta_2 + \beta_3 + \beta_4 + \beta_5 = 0$. Esta restricción estructural es estimada en el <strong>Modelo 3</strong>.</p>
+            <p>A partir del reporte de salida, este modelo restringido arroja un $RSS_R = 0.24$. Procedemos de igual manera aplicando el estadístico general F:</p>
+            <p>$$F = \frac{(0.24 - 0.22767)/1}{0.004844} = \frac{0.01233}{0.004844} \approx 2.545$$</p>
+            <p>Una vez más, contrastamos contra el estadístico límite teórico $F_{(1, 47)}^{0.05} \approx 4.05$. Dado que $2.545 < 4.05$, <strong>no podemos rechazar la hipótesis nula</strong>. Es estadísticamente correcto afirmar al nivel del 5% que la suma de las elasticidades es efectivamente cero, lo que implica que aumentos equiproporcionales y simultáneos en precios e ingresos no desvían la cantidad demandada de la familia.</p>
+
+            <p><strong>f) Contraste de $H_0: \beta_2 = \beta_3 = 0$ bajo formato matricial ($R\beta = r$)</strong></p>
+            <p>Esta hipótesis evalúa la significancia conjunta de dos variables explicativas específicas estableciendo simultáneamente dos restricciones lineales aisladas ($m=2$).</p>
+            <p>Definiendo el vector poblacional del modelo como el arreglo columna $\beta = [\beta_1, \beta_2, \beta_3, \beta_4, \beta_5]^T$, ensamblamos la matriz de restricciones $R$ de dimensiones $(2 \times 5)$ asignando un $1$ en la ubicación del parámetro que se desea anular y ceros en el resto, mientras que el vector resultante $r$ de $(2 \times 1)$ asimilará los escalares de validación:</p>
+            <p>
+            $$
+            \begin{bmatrix}
+            0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0
+            \end{bmatrix}
+            \begin{bmatrix}
+            \beta_1 \\
+            \beta_2 \\
+            \beta_3 \\
+            \beta_4 \\
+            \beta_5
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            0 \\
+            0
+            \end{bmatrix}
+            $$
+            </p>
+            <p>Esta expresión matricial resume en su totalidad la exclusión simultánea exigida en la hipótesis formulada.</p>
+        </div>
+    </div>
+</div>
 
 
         
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    </div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
+    
+
+
+
+
+
+
+
+
+
+
+
+</div> <footer style="text-align: center; padding: 40px; color: #999; font-size: 0.9rem;">
         <hr style="max-width: 100px; margin: 0 auto 20px; border: 0; border-top: 2px solid #eee;">
         <p>&copy; Desarrollado por Sergio Restrepo & David Rubio</p>
     </footer>
