@@ -155,170 +155,180 @@
 
 
 
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+<!------------------------------------------------------------------------------------------------------TALLER 1-------------------------------------------------------------------------------------------------------->
 
 <div id="presentacion-detalle" class="tab-content">
     <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
-        <i class="fas fa-arrow-left"></i> Volver a Clases
+        <i class="fas fa-arrow-left"></i> Volver a Talleres
     </a>
 
     <div class="introduccion-taller" style="margin-bottom: 30px;">
         <h2>Taller 1 de Econometría I: El Modelo de Regresión Lineal Simple</h2>
-        <p>¡Bienvenidos! En esta sección vamos a desglosar paso a paso las demostraciones matemáticas y estadísticas fundamentales de nuestro curso. Entender de dónde salen los estimadores de Mínimos Cuadrados Ordinarios (MCO) y Máxima Verosimilitud (MV) les dará toda la seguridad necesaria para interpretar cualquier modelo más adelante. ¡Vamos a ello!</p>
+        <p>Muchachos, qué más! Acá está el taller 1 resuelto que, o les servirá de guía, o bien como referencia total. Esto, con el fin de que también aprendan todo lo que puedan y se les minorice un poco lo abrupto a nivel teórico que puede ser la materia. Espero que les sirva mucho.</p>
     </div>
 
     <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">1. Estimadores de Máxima Verosimilitud (MV) y Mínimos Cuadrados Ordinarios (MCO)</h3>
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">1.</h3>
         
         <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-            <strong>Enunciado:</strong> Considere el modelo de regresión lineal normal $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ con $Y_{t}\sim N(\beta_{1}+\beta_{2}X_{t},\sigma^{2})$, $t=1,2,\cdot\cdot\cdot,n$[cite: 7]. Obtenga los estimadores de máxima verosimilitud para los parámetros $\beta_{1}$, $\sigma^{2}$[cite: 8]. Verifique que los estimadores de MV para $\beta_{1}y~\beta_{2}$ coinciden con los estimadores de mínimos cuadrados ordinarios[cite: 9].
+            <strong>Enunciado:</strong> Considere el modelo de regresión lineal normal $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ con $Y_{t}\sim N(\beta_{1}+\beta_{2}X_{t},\sigma^{2})$, $t=1,2,\cdot\cdot\cdot,n$. Obtenga los estimadores de máxima verosimilitud para los parámetros $\beta_{1}$, $\sigma^{2}$. Verifique que los estimadores de MV para $\beta_{1}$ y $\beta_{2}$ coinciden con los estimadores de mínimos cuadrados ordinarios.
         </div>
         
         <div class="solucion">
             <h4>Solución paso a paso:</h4>
             <p><strong>Paso 1: Construcción de la Función de Verosimilitud</strong></p>
-            <p>Dado que asumimos normalidad en los errores, $Y_t$ se distribuye normalmente. Su función de densidad de probabilidad es:</p>
+            <p>El enunciado nos dice que la variable dependiente $Y_t$ sigue una distribución normal. Recordemos de sus cursos de estadística que la función de densidad de probabilidad (pdf) de una distribución normal para una sola observación es:</p>
+            <p>$$f(Y_t) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{1}{2\sigma^2}(Y_t - \mu_y)^2\right)$$</p>
+            <p>En nuestro modelo de regresión, la media o valor esperado de $Y_t$ es precisamente la parte determinística del modelo: $\mu_y = \beta_1 + \beta_2 X_t$. Reemplazando esto en la densidad, nos queda:</p>
             <p>$$f(Y_t) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{1}{2\sigma^2}(Y_t - \beta_1 - \beta_2 X_t)^2\right)$$</p>
             
-            <p>Para $n$ observaciones que son independientes entre sí, la función de verosimilitud $L$ es simplemente el producto de las densidades individuales:</p>
-            <p>$$L(\beta_1, \beta_2, \sigma^2) = \prod_{t=1}^n f(Y_t) = \left(\frac{1}{2\pi\sigma^2}\right)^{n/2} \exp\left(-\frac{1}{2\sigma^2}\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2\right)$$</p>
+            <p>Ahora, nosotros no tenemos una sola observación, tenemos una muestra de tamaño $n$. Como asumimos que las observaciones son independientes, la probabilidad conjunta (la Función de Verosimilitud, $L$) es simplemente la multiplicación (productoria) de todas las densidades individuales:</p>
+            <p>$$L(\beta_1, \beta_2, \sigma^2) = \prod_{t=1}^n f(Y_t) = f(Y_1) \cdot f(Y_2) \cdots f(Y_n)$$</p>
+            <p>Al multiplicar la constante $\frac{1}{\sqrt{2\pi\sigma^2}}$ un total de $n$ veces, esta se eleva a la $n$. Por otro lado, al multiplicar exponenciales de la misma base, los exponentes se suman. Así, llegamos a:</p>
+            <p>$$L(\beta_1, \beta_2, \sigma^2) = \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right)^n \exp\left(-\frac{1}{2\sigma^2}\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2\right)$$</p>
             
             <p><strong>Paso 2: Función de Log-Verosimilitud</strong></p>
-            <p>Para maximizar esta función de forma más sencilla, aplicamos logaritmo natural ($\ln$). Al ser una transformación monótona creciente, el máximo se alcanzará en el mismo punto:</p>
+            <p>Maximizar esa función $L$ directamente es muy complejo por el exponente. Para facilitar las cosas, aplicamos logaritmo natural ($\ln$) a ambos lados. Como el logaritmo es una función que siempre crece, el punto máximo será exactamente el mismo. Usando las propiedades de los logaritmos ($\ln(A \cdot B) = \ln(A) + \ln(B)$ y $\ln(x^y) = y \ln(x)$), desarrollamos:</p>
+            <p>$$\ln L = \ln\left[ (2\pi\sigma^2)^{-n/2} \right] + \ln\left[ \exp\left(-\frac{1}{2\sigma^2}\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2\right) \right]$$</p>
+            <p>El logaritmo natural anula a la función exponencial (son inversas). Además, separamos el primer término:</p>
             <p>$$\ln L = -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2$$</p>
             
             <p><strong>Paso 3: Derivadas parciales y verificación con MCO</strong></p>
-            <p>Para encontrar los estimadores, derivamos respecto a cada parámetro y aplicamos la condición de primer orden (igualar a cero):</p>
+            <p>Para hallar los estimadores (a los que ahora pondremos un "gorrito" $\hat{\beta}$ porque ya son resultados de la optimización), debemos derivar parcialmente la función $\ln L$ con respecto a cada parámetro e igualar a cero. Fíjense muy bien en la regla de la cadena al derivar el paréntesis al cuadrado:</p>
             
-            <p><em>Para $\beta_1$:</em></p>
-            <p>$$\frac{\partial \ln L}{\partial \beta_1} = -\frac{1}{2\sigma^2}\sum_{t=1}^n 2(Y_t - \beta_1 - \beta_2 X_t)(-1) = 0$$</p>
+            <p><em>Derivando respecto a $\beta_1$:</em></p>
+            <p>El primer y segundo término de $\ln L$ no tienen $\beta_1$, así que su derivada es cero. Al derivar la sumatoria, bajamos el exponente $2$ a multiplicar, y multiplicamos por la derivada interna de $-\beta_1$, que es $-1$:</p>
+            <p>$$\frac{\partial \ln L}{\partial \beta_1} = -\frac{1}{2\sigma^2}\sum_{t=1}^n 2(Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t)(-1) = 0$$</p>
+            <p>Podemos simplificar multiplicando toda la ecuación por $\sigma^2$ (para desaparecer el denominador) y dividiendo por $2$. Los signos negativos se cancelan $(- \times - = +)$:</p>
             <p>$$\sum_{t=1}^n (Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t) = 0$$</p>
-            <p>Fíjense que esta es exactamente la <strong>primera ecuación normal de MCO</strong>, de la cual despejamos $\hat{\beta}_1 = \overline{Y} - \hat{\beta}_2\overline{X}$.</p>
+            <p>¡Noten esto! Esta es exactamente la <strong>primera ecuación normal</strong> que se obtiene por Mínimos Cuadrados Ordinarios (MCO) al minimizar los errores. De aquí es donde, al distribuir la sumatoria, llegamos a $\hat{\beta}_1 = \overline{Y} - \hat{\beta}_2\overline{X}$.</p>
             
-            <p><em>Para $\beta_2$:</em></p>
-            <p>$$\frac{\partial \ln L}{\partial \beta_2} = -\frac{1}{2\sigma^2}\sum_{t=1}^n 2(Y_t - \beta_1 - \beta_2 X_t)(-X_t) = 0$$</p>
+            <p><em>Derivando respecto a $\beta_2$:</em></p>
+            <p>Hacemos lo mismo, pero ahora la derivada interna respecto a $\beta_2$ es $-X_t$:</p>
+            <p>$$\frac{\partial \ln L}{\partial \beta_2} = -\frac{1}{2\sigma^2}\sum_{t=1}^n 2(Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t)(-X_t) = 0$$</p>
+            <p>Nuevamente, simplificamos las constantes (multiplicando por $\sigma^2$ y dividiendo entre $-2$ o como prefieran verlo, al estar igualado a cero esas constantes desaparecen):</p>
             <p>$$\sum_{t=1}^n X_t(Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t) = 0$$</p>
-            <p>Esta es la <strong>segunda ecuación normal de MCO</strong>. Dado que las condiciones para maximizar la verosimilitud son matemáticamente equivalentes a las condiciones para minimizar la suma de errores al cuadrado, queda demostrado que los estimadores son idénticos.</p>
+            <p>Esta es la <strong>segunda ecuación normal de MCO</strong>. Con esto queda comprobado: las condiciones matemáticas para maximizar la probabilidad de observar nuestra muestra (MV) son idénticas a las condiciones para minimizar la distancia de los errores al cuadrado (MCO).</p>
             
-            <p><em>Para $\sigma^2$ (Llamémoslo $\gamma$ para derivar fácil):</em></p>
+            <p><em>Derivando respecto a $\sigma^2$:</em></p>
+            <p>Para no confundirnos con el exponente, tratemos temporalmente a $\sigma^2$ como una sola variable, digamos $\gamma$. Vamos a derivar respecto a $\gamma$:</p>
+            <p>$$\frac{\partial \ln L}{\partial \gamma} = -\frac{n}{2}\left(\frac{1}{\gamma}\right) - \left(-\frac{1}{2\gamma^2}\right)\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2 = 0$$</p>
             <p>$$\frac{\partial \ln L}{\partial \gamma} = -\frac{n}{2\gamma} + \frac{1}{2\gamma^2}\sum_{t=1}^n(Y_t - \beta_1 - \beta_2 X_t)^2 = 0$$</p>
-            <p>Multiplicando toda la expresión por $2\gamma^2$ y recordando que el término al cuadrado son los residuos $\hat{\mu}_t^2$:</p>
-            <p>$$-n\gamma + \sum_{t=1}^n \hat{\mu}_t^2 = 0 \implies \hat{\sigma}^2_{MV} = \frac{\sum_{t=1}^n \hat{\mu}_t^2}{n}$$</p>
+            <p>Para limpiar la ecuación, vamos a multiplicar todo por el término $2\gamma^2$:</p>
+            <p>$$-n\gamma + \sum_{t=1}^n (Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t)^2 = 0$$</p>
+            <p>Recuerden que lo que está dentro de la sumatoria al cuadrado no es más que el residuo al cuadrado, $\hat{\mu}_t^2$. Reemplazamos y despejamos $\gamma$ (que es nuestro $\hat{\sigma}^2$ estimado):</p>
+            <p>$$n\hat{\sigma}^2 = \sum_{t=1}^n \hat{\mu}_t^2 \implies \hat{\sigma}^2_{MV} = \frac{\sum_{t=1}^n \hat{\mu}_t^2}{n}$$</p>
         </div>
     </div>
 
     <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">2. Demostración de las Medias de las Estimaciones</h3>
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">2.</h3>
         
         <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-            <strong>Enunciado:</strong> Considere el modelo de regresión lineal simple[cite: 10]. Verifique que $\overline{\overline{Y}}=\frac{\sum_{i=1}^{n}\overline{Y}_{i}}{n}=\overline{Y}$[cite: 11].<br>
-            <em>Nota aclaratoria:</em> En econometría, esta notación hace referencia a probar que la media de los valores estimados $\overline{\hat{Y}}$ es exactamente igual a la media de los valores reales observados $\overline{Y}$.
+            <strong>Enunciado:</strong> Considere el modelo de regresión lineal simple. Verifique que $\overline{\hat{Y}}=\frac{\sum_{i=1}^{n}\hat{Y}_{i}}{n}=\overline{Y}$.<br>
+            <em>(Nota: Esta notación nos pide demostrar que el promedio de los valores que estima nuestro modelo es exactamente igual al promedio de los valores reales observados en la muestra).</em>
         </div>
         
         <div class="solucion">
             <h4>Solución paso a paso:</h4>
-            <p>Sabemos que el valor estimado por nuestro modelo se define como $\hat{Y}_i = \hat{\beta}_1 + \hat{\beta}_2 X_i$. Vamos a sumar ambos lados de la ecuación a lo largo de las $n$ observaciones de nuestra muestra:</p>
-            <p>$$\sum_{i=1}^n \hat{Y}_i = \sum_{i=1}^n (\hat{\beta}_1 + \hat{\beta}_2 X_i) = n\hat{\beta}_1 + \hat{\beta}_2 \sum_{i=1}^n X_i$$</p>
-            <p>Ahora, recordemos la primera ecuación normal de MCO que demostramos en el ejercicio anterior: $\sum_{i=1}^n Y_i = n\hat{\beta}_1 + \hat{\beta}_2 \sum_{i=1}^n X_i$.</p>
-            <p>Por transitividad, igualamos ambas expresiones:</p>
+            <p>Vamos a construir esta demostración desde lo más básico. Sabemos que la ecuación de nuestra recta estimada, para cualquier observación $i$, es:</p>
+            <p>$$\hat{Y}_i = \hat{\beta}_1 + \hat{\beta}_2 X_i$$</p>
+            
+            <p>Ahora, vamos a aplicar el operador de sumatoria ($\sum_{i=1}^n$) a ambos lados de la ecuación, ya que queremos llegar a un promedio que requiere la suma de todos los datos:</p>
+            <p>$$\sum_{i=1}^n \hat{Y}_i = \sum_{i=1}^n (\hat{\beta}_1 + \hat{\beta}_2 X_i)$$</p>
+            
+            <p>Aplicando las propiedades de la sumatoria al lado derecho (la sumatoria de una suma es la suma de las sumatorias, y las constantes pueden salir):</p>
+            <p>$$\sum_{i=1}^n \hat{Y}_i = \sum_{i=1}^n \hat{\beta}_1 + \hat{\beta}_2 \sum_{i=1}^n X_i$$</p>
+            
+            <p>Pregúntense: ¿qué pasa si sumo una constante $\hat{\beta}_1$ una cantidad de $n$ veces? Simplemente es $n$ multiplicado por esa constante. Entonces:</p>
+            <p>$$\sum_{i=1}^n \hat{Y}_i = n\hat{\beta}_1 + \hat{\beta}_2 \sum_{i=1}^n X_i \quad \text{--- (Ecuación A)}$$</p>
+            
+            <p>Dejemos esta Ecuación A quieta un momento. Ahora vamos a traer a la memoria la <strong>primera ecuación normal de MCO</strong> que acabamos de demostrar en el Ejercicio 1 (cuando igualamos a cero la derivada de $\beta_1$). Si distribuimos la sumatoria en $\sum_{t=1}^n (Y_t - \hat{\beta}_1 - \hat{\beta}_2 X_t) = 0$, obtenemos:</p>
+            <p>$$\sum_{i=1}^n Y_i - n\hat{\beta}_1 - \hat{\beta}_2 \sum_{i=1}^n X_i = 0$$</p>
+            <p>Despejando la sumatoria de $Y_i$ pasamos los otros términos al lado derecho:</p>
+            <p>$$\sum_{i=1}^n Y_i = n\hat{\beta}_1 + \hat{\beta}_2 \sum_{i=1}^n X_i \quad \text{--- (Ecuación B)}$$</p>
+            
+            <p>Miren bien la Ecuación A y la Ecuación B. ¡El lado derecho es idéntico! Por lo tanto, si dos cosas son iguales a una tercera, son iguales entre sí (transitividad):</p>
             <p>$$\sum_{i=1}^n \hat{Y}_i = \sum_{i=1}^n Y_i$$</p>
-            <p>Al dividir ambos lados por el tamaño de la muestra $n$, obtenemos sus promedios:</p>
-            <p>$$\frac{\sum_{i=1}^n \hat{Y}_i}{n} = \frac{\sum_{i=1}^n Y_i}{n} \implies \overline{\hat{Y}} = \overline{Y}$$</p>
-            <p>Queda demostrado. El promedio de lo que predice nuestro modelo es igual al promedio de los datos reales.</p>
-        </div>
-    </div>
-
-    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">3. Equivalencias de la Suma de Cuadrados Explicada (ESS)</h3>
-        
-        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-            <strong>Enunciado:</strong> Considere el modelo de regresión lineal simple $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ Sabemos que la suma de cuadrados explicada se define como $ESS=\sum_{t=1}^{n}(\hat{Y}_{t}-\overline{Y})^{2}$[cite: 12, 13]. Muestre que, en este modelo, se verifica que: $ESS=\sum_{t=1}^{n}(\hat{Y}_{t}-\overline{\hat{Y}})^{2}=b_{2}^{2}\sum_{t=1}^{n}(X_{t}-\overline{X})^{2}=b_{2}^{2}S_{XX}$[cite: 14, 15].
-        </div>
-        
-        <div class="solucion">
-            <h4>Solución paso a paso:</h4>
-            <ol>
-                <li>Gracias al Ejercicio 2, ya probamos que $\overline{\hat{Y}} = \overline{Y}$. Por lo tanto, la primera equivalencia de la cadena es inmediata.</li>
-                <li>Ahora, vamos a sustituir la ecuación de la recta estimada $\hat{Y}_t = b_1 + b_2 X_t$ y la ecuación de las medias $\overline{Y} = b_1 + b_2 \overline{X}$ directamente en la fórmula de ESS:
-                    <p>$$\hat{Y}_t - \overline{Y} = (b_1 + b_2 X_t) - (b_1 + b_2 \overline{X})$$</p>
-                    <p>$$\hat{Y}_t - \overline{Y} = b_2(X_t - \overline{X})$$</p>
-                </li>
-                <li>Finalmente, elevamos esta expresión al cuadrado y sumamos para todas las observaciones:
-                    <p>$$ESS = \sum_{t=1}^n (\hat{Y}_t - \overline{Y})^2 = \sum_{t=1}^n [b_2(X_t - \overline{X})]^2$$</p>
-                    <p>$$ESS = b_2^2 \sum_{t=1}^n (X_t - \overline{X})^2$$</p>
-                </li>
-            </ol>
-            <p>Sabiendo que, por notación, $S_{XX} = \sum_{t=1}^n (X_t - \overline{X})^2$, llegamos a la demostración final: $ESS = b_2^2 S_{XX}$.</p>
-        </div>
-    </div>
-
-    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">4. Modelo de Regresión sin Intercepto</h3>
-        
-        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-            <strong>Enunciado:</strong> Considere un modelo de regresión lineal de la forma $Y_{t}=\beta_{2}X_{t}+\mu_{t}$[cite: 16].<br>
-            a) Obtenga el estimador OLS para $\beta_{2}$[cite: 16].<br>
-            b) Verifique que $\sum_{t=1}^{n}Y_{t}^{2}=\sum_{t=1}^{n}\hat{Y}_{t}^{2}+\sum_{t=1}^{n}e_{t}^{2}$[cite: 17].<br>
-            c) ¿Será cierto en este modelo que $TSS=ESS+RSS?$[cite: 18].
-        </div>
-        
-        <div class="solucion">
-            <h4>Solución paso a paso:</h4>
-            <p><strong>a) Estimador OLS para $\beta_2$</strong></p>
-            <p>Minimizamos la Suma de Residuos al Cuadrado (RSS) para este modelo sin intercepto:</p>
-            <p>$$RSS = \sum_{t=1}^n e_t^2 = \sum_{t=1}^n (Y_t - \beta_2 X_t)^2$$</p>
-            <p>Derivamos respecto a $\beta_2$ e igualamos a cero:</p>
-            <p>$$\frac{\partial RSS}{\partial \beta_2} = -2\sum_{t=1}^n X_t(Y_t - b_2 X_t) = 0$$</p>
-            <p>$$\sum_{t=1}^n X_t Y_t - b_2 \sum_{t=1}^n X_t^2 = 0 \implies b_2 = \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2}$$</p>
             
-            <p><strong>b) Descomposición de la varianza no centrada</strong></p>
-            <p>Partimos de la identidad básica: $Y_t = \hat{Y}_t + e_t$. Elevamos al cuadrado y aplicamos sumatoria:</p>
-            <p>$$\sum_{t=1}^n Y_t^2 = \sum_{t=1}^n (\hat{Y}_t + e_t)^2 = \sum_{t=1}^n \hat{Y}_t^2 + \sum_{t=1}^n e_t^2 + 2\sum_{t=1}^n \hat{Y}_t e_t$$</p>
-            <p>Para que la identidad del enunciado sea cierta, tenemos que demostrar que el término cruzado es igual a cero:</p>
-            <p>$$\sum_{t=1}^n \hat{Y}_t e_t = \sum_{t=1}^n (b_2 X_t) e_t = b_2 \sum_{t=1}^n X_t e_t$$</p>
-            <p>Revisando la condición de primer orden del literal (a), vemos que $\sum_{t=1}^n X_t(Y_t - b_2 X_t) = 0$, lo que implica directamente que $\sum_{t=1}^n X_t e_t = 0$. Por lo tanto, el término cruzado desaparece y la identidad queda verificada.</p>
-
-            <p><strong>c) ¿Se cumple $TSS=ESS+RSS$?</strong></p>
-            <p><strong>No necesariamente.</strong> La descomposición tradicional $TSS = ESS + RSS$ utiliza las desviaciones de las variables respecto a su media (por ejemplo, $TSS = \sum(Y_t - \overline{Y})^2$). Esta descomposición matemática requiere obligatoriamente que la suma de los errores sea cero ($\sum e_t = 0$), una propiedad que solo se garantiza si el modelo incluye el intercepto ($\beta_1$). En un modelo pasando por el origen, debemos usar la identidad <em>no centrada</em> que demostramos en el punto (b).</p>
+            <p>El último paso es natural. Para encontrar la media (el promedio), debemos dividir la suma total entre la cantidad de datos $n$. Dividimos ambos lados por $n$:</p>
+            <p>$$\frac{\sum_{i=1}^n \hat{Y}_i}{n} = \frac{\sum_{i=1}^n Y_i}{n}$$</p>
+            
+            <p>Y por definición matemática de la media, esto se escribe como:</p>
+            <p>$$\overline{\hat{Y}} = \overline{Y}$$</p>
+            <p>Queda demostrado algebraicamente. La recta de MCO siempre, obligatoriamente, pasa por el punto de las medias $(\overline{X}, \overline{Y})$.</p>
         </div>
     </div>
 
     <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">5. Propiedades de los Ponderadores (Estimadores Lineales)</h3>
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">3.</h3>
         
         <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-            <strong>Enunciado:</strong> En el modelo de regresión lineal simple $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ con muestre $\mu_{t}\sim N(0,\sigma^{2})$[cite: 19, 20]. Se podrá afirma que los estimadores $b_{1}y~b_{2}$ son estimadores lineales para $\beta_{1}\wedge\beta_{2}$ que a) $\hat{\beta}_{2}=b_{2}=\sum_{t=1}^{n}w_{t}Y_{t}$ $w_{i}=\frac{X_{i}-\overline{X}}{\sum_{i=1}^{n}(X_{i}-\overline{X})^{2}}\wedge\hat{\beta}_{i}=b_{i}=\sum_{i=1}^{n}d_{i}Y_{i},$ $d_{t}=(\frac{1}{n}-w_{t}\overline{X})$[cite: 21, 22, 23, 24, 25].<br>
-            b) Para los coeficientes $w_{t}\wedge d_{t}$ se satisfacen las siguientes propiedades: 1. $\sum_{t=1}^{n}w_{t}=0$ ii. $\sum_{t=1}^{n}w_{t}X_{t}=1$ iii. $\sum_{t=1}^{n}d_{t}=1$ iv. $\sum_{t=1}^{n}d_{t}X_{t}=0$ V. $\sum_{t=1}^{n}w_{t}^{2}=\frac{1}{S_{xx}}$ vi. $\sum_{t=1}^{n}d_{i}^{2}=\frac{\sum_{i=1}^{n}X_{i}^{2}}{nS_{XX}}$[cite: 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36].
+            <strong>Enunciado:</strong> Considere el modelo de regresión lineal simple $Y_{t}=\beta_{1}+\beta_{2}X_{t}+\mu_{t}$ Sabemos que la suma de cuadrados explicada se define como $ESS=\sum_{t=1}^{n}(\hat{Y}_{t}-\overline{Y})^{2}$. Muestre que, en este modelo, se verifica que: $ESS=\sum_{t=1}^{n}(\hat{Y}_{t}-\overline{\hat{Y}})^{2}=b_{2}^{2}\sum_{t=1}^{n}(X_{t}-\overline{X})^{2}=b_{2}^{2}S_{XX}$.
         </div>
         
         <div class="solucion">
             <h4>Solución paso a paso:</h4>
-            <p><strong>a) Demostración de Linealidad</strong></p>
-            <p>Un estimador es lineal si se puede escribir como una suma ponderada de la variable dependiente $Y$. Vamos a comprobarlo para ambos estimadores reescribiendo sus fórmulas:</p>
+            <p>Este punto es clave para entender luego el Coeficiente de Determinación ($R^2$). Lo resolveremos armando un "rompecabezas" con las fórmulas que ya conocemos.</p>
+            
+            <p><strong>Primera parte de la igualdad:</strong></p>
+            <p>Gracias al Ejercicio 2 que acabamos de hacer, sabemos a ciencia cierta que la media poblacional estimada es igual a la real: $\overline{\hat{Y}} = \overline{Y}$. Por lo tanto, si reemplazamos esto directamente en la definición de ESS, la primera equivalencia es inmediata:</p>
+            <p>$$ESS = \sum_{t=1}^n (\hat{Y}_t - \overline{Y})^2 = \sum_{t=1}^n (\hat{Y}_t - \overline{\hat{Y}})^2$$</p>
+            
+            <p><strong>Segunda parte de la igualdad:</strong></p>
+            <p>Vamos a trabajar con el término dentro del paréntesis: $(\hat{Y}_t - \overline{Y})$. Necesitamos reemplazar estas dos variables por sus equivalentes en la ecuación de regresión.</p>
             <ul>
-                <li><strong>Para la pendiente:</strong> Sabemos que $b_2 = \frac{\sum (X_t - \overline{X})(Y_t - \overline{Y})}{\sum (X_t - \overline{X})^2}$. Usando álgebra elemental, sabemos que $\sum(X_t - \overline{X})\overline{Y} = 0$. Esto nos permite simplificar la expresión a $\sum \left( \frac{X_t - \overline{X}}{S_{XX}} \right) Y_t = \sum w_t Y_t$.</li>
-                <li><strong>Para el intercepto:</strong> Arrancamos de $b_1 = \overline{Y} - b_2\overline{X}$. Expandiendo los términos: $\frac{\sum Y_t}{n} - \overline{X}\sum w_t Y_t = \sum \left( \frac{1}{n} - \overline{X}w_t \right) Y_t = \sum d_t Y_t$.</li>
+                <li>El valor estimado es la recta: $\hat{Y}_t = b_1 + b_2 X_t$</li>
+                <li>Y como la recta pasa por las medias, sabemos que: $\overline{Y} = b_1 + b_2 \overline{X}$</li>
             </ul>
-            <p>En ambos casos, las ponderaciones $w_t$ y $d_t$ dependen exclusivamente de la variable $X$ (que consideramos fija en muestras repetidas). Por ende, sí, <strong>son estimadores lineales</strong>.</p>
-
-            <p><strong>b) Demostración de las propiedades de los ponderadores</strong></p>
             
-            <p><em>Propiedad i:</em> $\sum_{t=1}^n w_t = \sum_{t=1}^n \frac{X_t - \overline{X}}{S_{XX}} = \frac{1}{S_{XX}} \sum_{t=1}^n (X_t - \overline{X}) = \frac{1}{S_{XX}}(0) = 0$</p>
+            <p>Sustituimos esto dentro de nuestro paréntesis restando ambas expresiones con cuidado con los signos:</p>
+            <p>$$\hat{Y}_t - \overline{Y} = (b_1 + b_2 X_t) - (b_1 + b_2 \overline{X})$$</p>
             
-            <p><em>Propiedad ii:</em> $\sum_{t=1}^n w_t X_t = \sum_{t=1}^n \frac{(X_t - \overline{X})X_t}{S_{XX}}$. Aquí aplicamos un truco algebraico: sumamos y restamos $\overline{X}$ en el término $X_t$, dejándolo como $(X_t - \overline{X} + \overline{X})$. Al expandir:</p>
-            <p>$$= \frac{\sum(X_t - \overline{X})^2 + \overline{X}\sum(X_t - \overline{X})}{S_{XX}} = \frac{S_{XX} + \overline{X}(0)}{S_{XX}} = 1$$</p>
+            <p>Quitamos los paréntesis:</p>
+            <p>$$\hat{Y}_t - \overline{Y} = b_1 + b_2 X_t - b_1 - b_2 \overline{X}$$</p>
             
-            <p><em>Propiedad iii:</em> $\sum_{t=1}^n d_t = \sum_{t=1}^n \left(\frac{1}{n} - w_t \overline{X}\right) = \frac{n}{n} - \overline{X}\sum_{t=1}^n w_t = 1 - \overline{X}(0) = 1$</p>
+            <p>Noten que tenemos un $b_1$ positivo y uno negativo, por lo que se cancelan entre sí:</p>
+            <p>$$\hat{Y}_t - \overline{Y} = b_2 X_t - b_2 \overline{X}$$</p>
             
-            <p><em>Propiedad iv:</em> $\sum_{t=1}^n d_t X_t = \sum_{t=1}^n \left(\frac{1}{n} - w_t \overline{X}\right)X_t = \frac{\sum X_t}{n} - \overline{X}\sum_{t=1}^n w_t X_t = \overline{X} - \overline{X}(1) = 0$</p>
+            <p>Ahora, podemos sacar $b_2$ como factor común de ambos términos:</p>
+            <p>$$\hat{Y}_t - \overline{Y} = b_2 (X_t - \overline{X})$$</p>
             
-            <p><em>Propiedad v:</em> $\sum_{t=1}^n w_t^2 = \sum_{t=1}^n \left(\frac{X_t - \overline{X}}{S_{XX}}\right)^2 = \frac{\sum(X_t - \overline{X})^2}{S_{XX}^2} = \frac{S_{XX}}{S_{XX}^2} = \frac{1}{S_{XX}}$</p>
+            <p>¡Ya casi lo tenemos! Retomemos nuestra fórmula completa del $ESS$, que nos pide elevar toda esta expresión al cuadrado y aplicarle sumatoria:</p>
+            <p>$$ESS = \sum_{t=1}^n \left[ b_2(X_t - \overline{X}) \right]^2$$</p>
             
-            <p><em>Propiedad vi:</em> Expandimos el binomio al cuadrado: $\sum_{t=1}^n d_t^2 = \sum_{t=1}^n \left(\frac{1}{n} - w_t \overline{X}\right)^2 = \sum_{t=1}^n \left(\frac{1}{n^2} - \frac{2\overline{X}w_t}{n} + w_t^2 \overline{X}^2\right)$</p>
-            <p>Aplicando la sumatoria y las propiedades que ya probamos:</p>
-            <p>$$= \frac{n}{n^2} - \frac{2\overline{X}}{n}\sum w_t + \overline{X}^2\sum w_t^2 = \frac{1}{n} - 0 + \frac{\overline{X}^2}{S_{XX}} = \frac{S_{XX} + n\overline{X}^2}{nS_{XX}}$$</p>
-            <p>Por regla de la suma de cuadrados, sabemos que $S_{XX} = \sum X_t^2 - n\overline{X}^2$. Despejando, $S_{XX} + n\overline{X}^2 = \sum X_t^2$. Sustituimos en el numerador y terminamos la demostración:</p>
-            <p>$$\sum_{t=1}^n d_t^2 = \frac{\sum_{t=1}^n X_t^2}{nS_{XX}}$$</p>
+            <p>Por ley de exponentes, elevamos al cuadrado cada componente dentro del corchete:</p>
+            <p>$$ESS = \sum_{t=1}^n \left[ b_2^2 (X_t - \overline{X})^2 \right]$$</p>
+            
+            <p>Dado que $b_2^2$ es una constante (no depende del subíndice $t$), podemos sacarlo fuera de la sumatoria:</p>
+            <p>$$ESS = b_2^2 \sum_{t=1}^n (X_t - \overline{X})^2$$</p>
+            
+            <p>Finalmente, por pura notación estadística, sabemos que la suma de desviaciones de $X$ al cuadrado se abrevia como $S_{XX}$. Reemplazando esa notación, llegamos a nuestra demostración final:</p>
+            <p>$$ESS = b_2^2 S_{XX}$$</p>
         </div>
     </div>
 
