@@ -1720,6 +1720,104 @@ MODELO (2) RESTRINGIDO (3*beta2 + beta4 = 5)
         </ul>
     </div>
 </div>
+    <div class="ejercicio" style="margin-bottom: 50px; background: #ffffff; padding: 30px; border: 1px solid #e0e0e0; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">7. Determinantes de las Importaciones en EE.UU.</h3>
+    
+    <div class="enunciado" style="background: #fdfefe; padding: 20px; border-left: 5px solid #3498db; margin-bottom: 25px; font-size: 0.95em; line-height: 1.6;">
+        <strong>Enunciado:</strong> Se tiene la información correspondiente a las $Y_t = \text{importaciones}$, $X_{2t} = \text{PIB}$ y $X_{3t} = \text{IPC}$ de la economía de US desde 1975 hasta el 2005; para explicar las importaciones se propone el siguiente modelo:<br>
+        <p style="text-align: center;">$\ln(Y_t) = \beta_1 + \beta_2 \ln(X_{2t}) + \beta_3 \ln(X_{3t}) + \mu_t \quad (1)$</p>
+
+        <details style="margin-top: 15px;">
+            <summary style="cursor: pointer; font-weight: bold; color: #3498db;">Ver Salida de R y Resultados Adicionales</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; font-size: 0.85em; overflow-x: auto; font-family: 'Courier New', Courier, monospace;">
+MODELO NO RESTRINGIDO ESTIMADO:
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  1.4376     0.2696    5.333 1.12e-05 ***
+## lnX2t        1.8301     0.1822   10.045 8.71e-11 ***
+## lnX3t       -0.8433     0.2838   -2.971 0.00603 ** ---
+## Residual standard error: 0.07091 on 28 degrees of freedom
+## Multiple R-squared: 0.9919, Adjusted R-squared: 0.9913
+## F-statistic: 1718 on 2 and 28 DF, p-value: < 2.2e-16
+## RSS_NR: 0.1408056
+## Jarque-Bera p-value: 0.2659
+</pre>
+        </details>
+    </div>
+
+    <div class="solucion" style="line-height: 1.6;">
+        <h4 style="color: #2980b9;">a) Interpretación de Coeficientes y Normalidad</h4>
+        <p>Dado que el modelo es <strong>doble-logarítmico</strong>, los coeficientes representan elasticidades constantes:</p>
+        <ul>
+            <li><strong>$\hat{\beta}_2 = 1.83$:</strong> Es la <strong>elasticidad-ingreso</strong> de la demanda de importaciones. Un aumento del 1% en el PIB genera un incremento promedio del 1.83% en las importaciones. El signo positivo es económicamente lógico (bien normal).</li>
+            <li><strong>$\hat{\beta}_3 = -0.84$:</strong> Es la <strong>elasticidad-precio</strong>. Un incremento del 1% en el IPC (precios internos) se asocia con una disminución del 0.84% en las importaciones.</li>
+        </ul>
+        <p><strong>Verificación de Normalidad:</strong> La prueba Jarque-Bera arroja un p-valor de $0.2659$. Al ser mayor al nivel de significancia estándar ($0.05$), <strong>no se rechaza la hipótesis nula</strong>; es decir, los residuos se distribuyen de forma normal.</p>
+
+        <h4 style="color: #2980b9;">b) Intervalos de Confianza (95%)</h4>
+        <p>Para 28 grados de libertad, el valor crítico $t_{0.025}$ es aproximadamente $2.048$.</p>
+        <ul style="list-style-type: none;">
+            <li>$\beta_2: 1.8301 \pm 2.048(0.1822) \implies \mathbf{[1.457, 2.203]}$</li>
+            <li>$\beta_3: -0.8433 \pm 2.048(0.2838) \implies \mathbf{[-1.424, -0.262]}$</li>
+        </ul>
+
+        <h4 style="color: #2980b9;">c) Prueba de Restricción Lineal: $H_0: \beta_2 + \beta_3 = 1$</h4>
+        <p>Se evalúa si la suma de las elasticidades es igual a la unidad mediante la comparación de las Sumas de Cuadrados de los Residuos ($RSS$):</p>
+        <p style="text-align: center;">
+            $$F = \frac{(RSS_R - RSS_{NR}) / q}{RSS_{NR} / (n-k)} = \frac{(0.1408846 - 0.1408056) / 1}{0.1408056 / 28} \approx \mathbf{0.0157}$$
+        </p>
+        <p>El valor F calculado ($0.0157$) es significativamente menor al valor crítico ($F_{1,28} \approx 4.20$). Por lo tanto, <strong>no se rechaza $H_0$</strong>. La restricción es estadísticamente válida.</p>
+    </div>
+</div>
+
+<div class="ejercicio" style="margin-bottom: 50px; background: #ffffff; padding: 30px; border: 1px solid #e0e0e0; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #e67e22; padding-bottom: 10px;">8. Análisis de Demanda</h3>
+    
+    <div class="enunciado" style="background: #fef9f5; padding: 20px; border-left: 5px solid #e67e22; margin-bottom: 25px; font-size: 0.95em; line-height: 1.6;">
+        <strong>Enunciado:</strong> Se analiza la demanda de un artículo ($Y$) en función de su precio ($X_2$), el ingreso de los consumidores ($X_3$) y el precio de un artículo sustituto ($X_4$) entre 1971 y 2005.<br>
+        <strong>Modelo:</strong> $Y_t = \beta_1 + \beta_2 X_{2t} + \beta_3 X_{3t} + \beta_4 X_{4t} + \mu_t$
+        
+        <details style="margin-top: 15px;">
+            <summary style="cursor: pointer; font-weight: bold; color: #e67e22;">Ver Salida de R y Gráficos de Residuos</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; font-size: 0.85em; overflow-x: auto; font-family: 'Courier New', Courier, monospace;">
+ESTIMACIÓN MODELO LINEAL:
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  72.2928     6.9550   10.394 1.26e-11 ***
+## X2t          -5.8139     0.4970  -11.697 6.69e-13 ***
+## X3t           1.6672     0.7148    2.332 0.02635 * ## X4t           1.5408     0.5542    2.780 0.00915 ** ---
+## R-squared: 0.9742, Adj R-squared: 0.9718
+## Jarque-Bera p-value: 0.5058
+</pre>
+        </details>
+    </div>
+
+    <div class="solucion" style="line-height: 1.6;">
+        <h4 style="color: #d35400;">a) Interpretación del Modelo Propuesto</h4>
+        <ul>
+            <li><strong>$\hat{\beta}_2 = -5.81$:</strong> Por cada dólar que aumenta el precio, la demanda disminuye en promedio 5,813 unidades. Signo negativo esperado (Ley de Demanda).</li>
+            <li><strong>$\hat{\beta}_3 = 1.66$:</strong> Por cada mil dólares de incremento en el ingreso, la demanda sube en 1,667 unidades. El artículo es un bien normal.</li>
+            <li><strong>$\hat{\beta}_4 = 1.54$:</strong> Un incremento de un dólar en el precio del sustituto aumenta la demanda de nuestro bien en 1,540 unidades. Confirma la relación de sustituibilidad.</li>
+        </ul>
+
+        <h4 style="color: #d35400;">b) Intervalos de Confianza y Signos</h4>
+        <p>Los intervalos de confianza al 95% para los coeficientes de precio e ingreso no contienen el valor cero, lo que confirma que ambas variables son determinantes significativos. Los signos obtenidos coinciden plenamente con la teoría económica.</p>
+
+        <h4 style="color: #d35400;">c) Verificación de Normalidad</h4>
+        <p><strong>De forma analítica:</strong> El test de Jarque-Bera muestra un p-valor de $0.5058 > 0.05$, lo que indica que no hay evidencia para rechazar la normalidad.<br>
+        <strong>De forma gráfica:</strong> El histograma presenta una forma de campana simétrica y el gráfico de probabilidad normal (Q-Q plot) muestra que los residuos se ubican sobre la línea diagonal de referencia.</p>
+        
+        <h4 style="color: #d35400;">d) Prueba de Restricción: $H_0: \beta_2 + 3\beta_3 = 0$</h4>
+        <p>Evaluamos si el estimador restringido proporcionado ($\hat{\beta}_R$) satisface la condición:</p>
+        <p style="background: #f9f9f9; padding: 10px; border-radius: 5px; font-family: monospace;">
+            $\hat{\beta}_{R2} + 3\hat{\beta}_{R3} = -5.7328 + 3(1.9109) = -5.7328 + 5.7327 \approx 0$
+        </p>
+        <p>La restricción se cumple en el estimador. Dado que el $R^2$ apenas varía entre el modelo restringido y el no restringido, se concluye que la restricción es estadísticamente aceptable.</p>
+
+        <h4 style="color: #d35400;">e) Modelo de Demanda Multiplicativo</h4>
+        <p>En la estimación logarítmica (log-log), la elasticidad precio es de <strong>-0.257</strong>. Esto implica que la demanda es <strong>inelástica</strong>, ya que un cambio porcentual en el precio genera un cambio porcentual menor en la cantidad demandada. La normalidad también se verifica en este caso ($p = 0.3576$).</p>
+    </div>
+</div>
     
 </div>
 
