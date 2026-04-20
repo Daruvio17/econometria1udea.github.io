@@ -1641,6 +1641,86 @@ MODELO 2 ESTIMADO (Restricción $\beta_2 + \beta_3 = 1$)
             Comprobamos que $t^2 = (-0.755)^2 \approx 0.570 \approx F$. Ambas metodologías afirman la validez de los retornos constantes a escala.</p>
         </div>
     </div>
+
+<div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+    <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">6. Determinantes de la Mortalidad Infantil</h3>
+    
+    <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+        <strong>Enunciado:</strong> Se tiene información de 64 países sobre mortalidad infantil ($Y_t$) en relación con la tasa de alfabetismo femenina ($X_{2t}$), el PIB per cápita ($X_{3t}$) y la tasa de fertilidad ($X_{4t}$). Se proponen los siguientes modelos:<br>
+        (1) $Y_t = \beta_1 + \beta_2 X_{2t} + \beta_3 X_{3t} + \beta_4 X_{4t} + \mu_t$<br>
+        (2) $Y_t = \beta_1 + \beta_2 X_{2t} + \beta_3 X_{3t} + (5 - 3\beta_2)X_{4t} + \mu_t$<br><br>
+
+        <details>
+            <summary style="cursor: pointer; font-weight: bold; color: #3498db;">Ver Salidas de R (Haz clic para expandir)</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4; font-size: 0.85em; margin-top: 10px;">
+MODELO (1) NO RESTRINGIDO
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 168.943556  34.356347   4.917 7.57e-06 ***
+## X2t          -1.772893   0.250370  -6.862 5.00e-09 ***
+## X3t          -0.005474   0.001914  -2.860 0.00588  ** ## X4t          12.745643   4.389708   2.904 0.00521  ** ---
+## Residual standard error: 39.77 on 58 degrees of freedom
+## Multiple R-squared: 0.7469, Adjusted R-squared: 0.7338
+## F-statistic: 57.04 on 3 and 58 DF, p-value: < 2.2e-16
+## RSS_NR: 91717.03
+## Jarque-Bera p-value: 0.807
+
+MODELO (2) RESTRINGIDO (3*beta2 + beta4 = 5)
+## RSS_R: 92102.69
+## s2r (varianza estimada): 1561.063
+</pre>
+        </details><br>
+
+        <strong>Preguntas:</strong><br>
+        a) Interprete los coeficientes y signos esperados.<br>
+        b) Construya intervalos de confianza del 95% y verifique la normalidad.<br>
+        c) Pruebe $H_0: 3\beta_2 + \beta_4 = 5$ mediante pruebas F y t de Wald.<br>
+        d) Analice el modelo en logaritmos proporcionado.
+    </div>
+
+    <div class="solucion">
+        <h4>Solución paso a paso:</h4>
+        
+        <p><strong>a) Interpretación y signos esperados</strong></p>
+        <ul>
+            <li><strong>$\beta_2$ (Alfabetismo Femenino):</strong> Se espera signo negativo. A mayor educación de la madre, menor mortalidad infantil. El valor $\hat{\beta}_2 = -1.77$ confirma esto: por cada 1% adicional de alfabetismo, mueren 1.77 niños menos por cada mil nacidos.</li>
+            <li><strong>$\beta_3$ (PIB per cápita):</strong> Se espera signo negativo (mayor riqueza, mejor salud). El resultado $\hat{\beta}_3 = -0.005$ es coherente y significativo.</li>
+            <li><strong>$\beta_4$ (Fertilidad):</strong> Se espera signo positivo. Tasas de fertilidad más altas suelen asociarse con mayor mortalidad por presión sobre recursos. El valor $\hat{\beta}_4 = 12.74$ es positivo y significativo.</li>
+        </ul>
+
+        <p><strong>b) Intervalos de Confianza (95%) y Normalidad</strong></p>
+        <p>Con $gl = 58$, el valor crítico $t_{58, 0.025} \approx 2.0017$.</p>
+        <ul>
+            <li>$\beta_2: -1.772 \pm 2.0017(0.2503) \implies \mathbf{[-2.274, -1.271]}$</li>
+            <li>$\beta_3: -0.00547 \pm 2.0017(0.0019) \implies \mathbf{[-0.0093, -0.0016]}$</li>
+            <li>$\beta_4: 12.745 \pm 2.0017(4.389) \implies \mathbf{[3.959, 21.531]}$</li>
+        </ul>
+        <p><strong>Normalidad:</strong> La prueba Jarque-Bera arroja un $p = 0.807$. Al ser $> 0.05$, <strong>no se rechaza la normalidad</strong> de los residuos.</p>
+
+        <p><strong>c) Prueba de restricción lineal: $H_0: 3\beta_2 + \beta_4 = 5$</strong></p>
+        <p><em>1. Forma Matricial:</em> $\mathbf{R} = [0, 3, 0, 1]$, $\mathbf{r} = [5]$, con $q=1$ restricción.</p>
+        
+        <p><em>2. Estadístico F:</em></p>
+        <p>$$F = \frac{(RSS_R - RSS_{NR})/q}{RSS_{NR}/(n-k)} = \frac{(92102.69 - 91717.03)/1}{91717.03/58} = \frac{385.66}{1581.32} \approx 0.2438$$</p>
+        <p>Como $0.2438 < F_{crit}(4.00)$, <strong>no se rechaza $H_0$</strong>.</p>
+
+        <p><em>3. Estadístico t de Wald:</em></p>
+        <p>Evaluamos $\hat{L} = 3\hat{\beta}_2 + \hat{\beta}_4 = 3(-1.7728) + 12.7456 = 7.4272$.</p>
+        <p>$$Var(3\hat{\beta}_2 + \hat{\beta}_4) = 9Var(\hat{\beta}_2) + Var(\hat{\beta}_4) + 6Cov(\hat{\beta}_2, \hat{\beta}_4)$$</p>
+        <p>Consultando la matriz de covarianzas: $9(0.0667) + 19.269 + 6(0.7135) \approx 24.15$.</p>
+        <p>$$t = \frac{7.4272 - 5}{\sqrt{24.15}} = \frac{2.4272}{4.914} \approx 0.4938$$</p>
+        <p>Nótese que $t^2 = 0.4938^2 \approx 0.2438$, lo cual es idéntico al valor F. <strong>No se rechaza la restricción.</strong></p>
+
+        <p><strong>d) Modelo en Logaritmos (Doble-Log)</strong></p>
+        <p>En este modelo, los coeficientes son elasticidades:</p>
+        <ul>
+            <li>$\hat{\beta}_2 = -0.207$: Un aumento del 1% en el alfabetismo reduce la mortalidad en 0.20%.</li>
+            <li>$\hat{\beta}_4 = 1.221$: Un aumento del 1% en la fertilidad aumenta la mortalidad en 1.22%.</li>
+            <li><strong>Ajuste:</strong> El $R^2$ aumentó a 0.8386, sugiriendo que la forma funcional logarítmica captura mejor la relación. La normalidad también se cumple ($p=0.74$).</li>
+        </ul>
+    </div>
+</div>
+    
 </div>
 
         
