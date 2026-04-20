@@ -1259,14 +1259,13 @@
             $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + (-\beta_2-\beta_3-\beta_4)\ln X_{5t} + \mu_t \quad (3)$<br>
             $\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_5 \ln X_{5t} + \mu_t \quad (4)$<br><br>
             
-            <strong>Resultados de las estimaciones (Salidas de R):</strong>
-<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4; font-size: 0.85em;">
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; color: #3498db;">Ver Salidas de R (Haz clic para expandir)</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4; font-size: 0.85em; margin-top: 10px;">
 MODELO (1) ESTIMADO
 "Modelo multiplicativo"
 eq1_ln=lm(Lny~Lnx2+Lnx3+Lnx4+Lnx5)
 seq1_ln=summary(eq1_ln)
-## Call:
-## lm(formula = Lny ~ Lnx2 + Lnx3 + Lnx4 + Lnx5)
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)
 ## (Intercept)  -2.3232     3.0481   -0.76  0.44976
@@ -1275,14 +1274,11 @@ seq1_ln=summary(eq1_ln)
 ## Lnx4          0.1663     0.0879    1.89  0.06472 .
 ## Lnx5          0.8079     0.3215    2.51  0.01545 *
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## Residual standard error: 0.0696 on 47 degrees of freedom
 ## Multiple R-squared:  0.725, Adjusted R-squared:  0.701
 ## F-statistic:   31 on 4 and 47 DF,  p-value: 1.22e-12
 
-LA MATRIZ DE VARIANZAS DE b ES:
-"LA MATRIZ DE VARIANZAS Y COVARIANZA DEL ESTIMADOR b ES"
-(var_b_ln=vcov(eq1_ln))
+LA MATRIZ DE VARIANZAS Y COVARIANZA DEL ESTIMADOR b ES
 ##             (Intercept)     Lnx2     Lnx3     Lnx4     Lnx5
 ## (Intercept)     9.2910   0.53713 -0.0804  0.12857 -0.9372
 ## Lnx2            0.5371   0.06021 -0.0809  0.00405 -0.0417
@@ -1291,154 +1287,75 @@ LA MATRIZ DE VARIANZAS DE b ES:
 ## Lnx5           -0.9372  -0.04166 -0.0417 -0.01075  0.1033
 
 Prueba de Jarque-Bera:
-library(normtest)
-jb.norm.test(et_ln)
-## Jarque-Bera test for normality
-## data:  et_ln
 ## JB = 3, p-value = 0.1
 
 MODELO (2): Con la restricción $\beta_2 + 4\beta_4 = 0$
-"EL MODELO RESTRINGIDO CON LA RESTRICCIÓN BETA2 + 4*BETA4 = 0"
-library(restriktor)
-Res1 <- 'Lnx2+4*Lnx4 ==0;'
-eq1_ln_r1 = restriktor(eq1_ln, constraints = Res1, se = "HC0")
-summary(eq1_ln_r1)
-## Call:
-## conLM.lm(object = object, constraints = constraints, se = "HC0")
-## Restriktor: restricted linear model:
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)  -0.7831     1.6164   -0.48  0.6303
-## Lnx2         -0.8702     0.1381   -6.30 9.4e-08 ***
-## Lnx3         -0.6521     0.3201   -2.04  0.0472 *
-## Lnx4          0.2176     0.0345    6.30 9.4e-08 ***
-## Lnx5          0.6839     0.2022    3.38  0.0015 **
-## ---
-## Residual standard error: 0.0692 on 47 degrees of freedom
 ## "LA VARIANZA ESTIMADA DEL MODELO 2: RESTRINGIDO:"
-## s2r1 
 ## [1] 0.00479
 ## "EL RSS RESTRINGIDO DEL MODELO 2 ES"
 ## [1] 0.23
 
 MODELO (3): con la restricción $\beta_2 + \beta_3 + \beta_4 + \beta_5 = 0$:
-"MODELO RESTRINGIDO CON LA RESTRICCIÓN BETA2+BETA3+BETA4+BETA5=0"
-Res2 <- 'Lnx2+Lnx3+Lnx4+Lnx5 ==0;'
-eq1_ln_r2 = restriktor(eq1_ln, constraints = Res2, se = "HC0")
-summary(eq1_ln_r2)
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)  -4.131     2.195    -1.88  0.0660 .
-## Lnx2         -1.282     0.111   -11.57 2.3e-15 ***
-## Lnx3          0.310     0.147     2.11  0.0400 *
-## Lnx4          0.116     0.083     1.40  0.1685
-## Lnx5          0.855     0.247     3.46  0.0012 **
-## ---
-## Residual standard error: 0.0707 on 47 degrees of freedom
-## "LA VARIANZA ESTIMADA DEL MODELO 2: RESTRINGIDO:" (Nota: corresponde al Modelo 3)
-## s2r2
+## "LA VARIANZA ESTIMADA DEL MODELO 2: RESTRINGIDO:" 
 ## [1] 0.00499
-## "EL RSS RESTRINGIDO: MODELO 2 ES" (Nota: corresponde al Modelo 3)
+## "EL RSS RESTRINGIDO: MODELO 2 ES" 
 ## [1] 0.24
 
 MODELO (4): con la restricción $\beta_3 = \beta_4 = 0$
-"MODELO (4): CON LA RESTRICCIÓN BETA3 = BETA4 = 0"
-Res3 <- 'Lnx3 ==0;Lnx4 ==0;'
-eq1_ln_r3 = restriktor(eq1_ln, constraints = Res3, se = "HC0")
-summary(eq1_ln_r3)
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)  -5.002     2.168    -2.31  0.025 *
-## Lnx2         -1.135     0.150    -7.56 1.2e-09 ***
-## Lnx3          0.000     0.000     0.00  1.000
-## Lnx4          0.000     0.000     0.00  1.000
-## Lnx5          0.989     0.224     4.43 5.7e-05 ***
-## ---
-## Residual standard error: 0.0709 on 47 degrees of freedom
 ## s2r3
 ## [1] 0.00502
 ## "EL RSS RESTRINGIDO: MODELO 4 ES"
 ## [1] 0.24096
 </pre>
+            </details><br>
+
             <strong>Preguntas:</strong><br>
             a) Explique el significado de los coeficientes del modelo propuesto.<br>
             b) Explique los principales resultados del modelo estimado; ¿tienen los coeficientes estimados el signo esperado?<br>
             c) ¿Se podrá aceptar que la elasticidad directa-precio de la demanda de cerveza es $-1.6$? Decida con base en el valor-p usando $\alpha=0.05$.<br>
-            d) Con base en el estadístico general F, deduzca para el modelo (1) el estadístico particular F para la prueba de hipótesis $H_0: \beta_2 + 4\beta_4 = 0$ frente a $H_A: \beta_2 + 4\beta_4 \neq 0$. Obtenga la ecuación del modelo restringido para esta prueba. Haga esta misma prueba usando la estadística F. Emplee $\alpha=0.05$.<br>
-            e) ¿Será cierto, estadísticamente al 5%, que la suma de todas las elasticidades es cero? Obtenga el modelo restringido para esta prueba. Muestre claramente los pasos que le permiten responder esta pregunta. Haga la prueba usando la estadística F para una sola restricción lineal.<br>
-            f) Pruebe la siguiente hipótesis en el modelo 1: $H_0: \beta_3 = \beta_4 = 0$ vs $H_A: \beta_3 \neq 0 \lor \beta_4 \neq 0$. Exprese la hipótesis anterior en la forma $H_0: R\beta = r$ vs $H_A: R\beta \neq r$.
+            d) Con base en el estadístico general F, deduzca para el modelo (1) el estadístico particular F para la prueba de hipótesis $H_0: \beta_2 + 4\beta_4 = 0$ frente a $H_A: \beta_2 + 4\beta_4 \neq 0$. Emplee $\alpha=0.05$.<br>
+            e) ¿Será cierto, estadísticamente al 5%, que la suma de todas las elasticidades es cero? Obtenga el modelo restringido para esta prueba.<br>
+            f) Pruebe la siguiente hipótesis en el modelo 1: $H_0: \beta_3 = \beta_4 = 0$ vs $H_A: \beta_3 \neq 0 \lor \beta_4 \neq 0$. Exprese la hipótesis en la forma $H_0: R\beta = r$.
         </div>
         
         <div class="solucion">
             <h4>Solución paso a paso:</h4>
             
             <p><strong>a) Significado de los coeficientes del modelo propuesto</strong></p>
-            <p>El modelo especificado es de tipo doble-logarítmico (log-log). En estas especificaciones, la principal ventaja analítica es que los coeficientes de pendiente $\beta_j$ no representan tasas de cambio absolutas, sino que se interpretan directamente como las <strong>elasticidades</strong> de la demanda. Formalmente:</p>
+            <p>El modelo especificado es de tipo doble-logarítmico (log-log). En estas especificaciones, los coeficientes de pendiente $\beta_j$ se interpretan directamente como las <strong>elasticidades</strong> de la demanda. Formalmente:</p>
             <ul>
-                <li><strong>$\beta_2$:</strong> Es la <em>elasticidad precio-directa</em> de la demanda de cerveza. Mide el cambio porcentual en la cantidad demandada de cerveza frente a un incremento del 1% en su propio precio ($PB_t$), manteniendo el resto de las variables constantes (ceteris paribus).</li>
-                <li><strong>$\beta_3$:</strong> Corresponde a la <em>elasticidad precio-cruzada</em> con respecto a los otros licores ($PL_t$). Cuantifica en qué porcentaje varía la demanda de cerveza cuando el precio de los licores alternativos aumenta un 1%.</li>
+                <li><strong>$\beta_2$:</strong> Es la <em>elasticidad precio-directa</em> de la demanda de cerveza. Mide el cambio porcentual en la cantidad demandada frente a un incremento del 1% en su propio precio ($PB_t$), ceteris paribus.</li>
+                <li><strong>$\beta_3$:</strong> Corresponde a la <em>elasticidad precio-cruzada</em> con respecto a los otros licores ($PL_t$).</li>
                 <li><strong>$\beta_4$:</strong> Representa la <em>elasticidad precio-cruzada</em> frente al nivel de precios de los otros bienes y servicios de la economía ($PR_t$).</li>
                 <li><strong>$\beta_5$:</strong> Es la <em>elasticidad ingreso</em> de la demanda. Indica la variación porcentual en el consumo familiar de cerveza originada por un aumento del 1% en el ingreso familiar ($M_t$).</li>
             </ul>
 
             <p><strong>b) Principales resultados y signos esperados</strong></p>
-            <p>Al observar la salida del "MODELO (1) ESTIMADO", evaluamos las estimaciones $\hat{\beta}_j$:</p>
             <ul>
-                <li><strong>$\hat{\beta}_2 = -0.9821$:</strong> El signo es negativo, lo cual concuerda teóricamente con la Ley de la Demanda (relación inversa entre precio y cantidad). Es altamente significativo ($p = 0.00022 < 0.05$). Al ser un valor cercano a -1, indica una demanda aproximadamente elástica unitaria.</li>
-                <li><strong>$\hat{\beta}_3 = -0.4702$:</strong> Un signo negativo implicaría que la cerveza y los otros licores son bienes complementarios. No obstante, el valor-p es $0.38320$. Dado que $p > 0.05$, el coeficiente <strong>no es estadísticamente significativo</strong>; la evidencia muestral no es suficiente para asegurar que este parámetro difiera de cero.</li>
-                <li><strong>$\hat{\beta}_4 = 0.1663$:</strong> Presenta un signo positivo, sugiriendo una relación de sustitución débil con el resto de los bienes. Su significancia es marginal ($p = 0.06472$), por lo que no se rechaza la nulidad al nivel estricto del 5%, aunque sí al 10%.</li>
-                <li><strong>$\hat{\beta}_5 = 0.8079$:</strong> El coeficiente es positivo y estadísticamente significativo al 5% ($p = 0.01545 < 0.05$). El signo positivo es el teóricamente esperado e indica que la cerveza se comporta como un <strong>bien normal</strong>; incrementos en el ingreso disponible de las familias conducen a incrementos en su consumo.</li>
+                <li><strong>$\hat{\beta}_2 = -0.9821$:</strong> Signo negativo, concuerda con la Ley de la Demanda. Es altamente significativo ($p = 0.00022 < 0.05$). Indica una demanda aproximadamente elástica unitaria.</li>
+                <li><strong>$\hat{\beta}_3 = -0.4702$:</strong> Un signo negativo implicaría que son bienes complementarios. Sin embargo, el valor-p es $0.38320 > 0.05$, por lo que el coeficiente <strong>no es estadísticamente significativo</strong>.</li>
+                <li><strong>$\hat{\beta}_4 = 0.1663$:</strong> Presenta un signo positivo (relación de sustitución débil). Significancia marginal ($p = 0.06472$).</li>
+                <li><strong>$\hat{\beta}_5 = 0.8079$:</strong> Coeficiente positivo y significativo ($p = 0.01545 < 0.05$). Confirma que la cerveza se comporta como un <strong>bien normal</strong>.</li>
             </ul>
 
             <p><strong>c) Evaluación de la hipótesis $\beta_2 = -1.6$</strong></p>
-            <p>Se plantea el contraste bilateral: $H_0: \beta_2 = -1.6$ contra $H_A: \beta_2 \neq -1.6$.</p>
-            <p>Construimos el estadístico de prueba $t$ utilizando el estimador $\hat{\beta}_2 = -0.9821$ y su error estándar $SE(\hat{\beta}_2) = 0.2454$ provistos en la salida del Modelo 1:</p>
+            <p>Contraste bilateral: $H_0: \beta_2 = -1.6$ contra $H_A: \beta_2 \neq -1.6$.</p>
             <p>$$t_{calculado} = \frac{\hat{\beta}_2 - \beta_2^*}{SE(\hat{\beta}_2)} = \frac{-0.9821 - (-1.6)}{0.2454} = \frac{0.6179}{0.2454} \approx 2.5179$$</p>
-            <p>El modelo posee 47 grados de libertad. En una distribución $t$-Student con 47 gl y un nivel de significancia $\alpha = 0.05$ (dos colas), el valor crítico de rechazo es $t_{crítico} \approx 2.012$.</p>
-            <p>Como $|2.5179| > 2.012$, el estadístico se ubica en la región de rechazo. <strong>Se rechaza la hipótesis nula</strong>. Con un 95% de confianza, la elasticidad directa-precio difiere estadísticamente de -1.6; la demanda es significativamente menos elástica al precio de lo planteado.</p>
+            <p>Con 47 grados de libertad y $\alpha = 0.05$, el valor crítico es $t_{crítico} \approx 2.012$. Como $|2.5179| > 2.012$, <strong>se rechaza la hipótesis nula</strong>. La elasticidad difiere estadísticamente de -1.6.</p>
 
             <p><strong>d) Estadístico F para la hipótesis $H_0: \beta_2 + 4\beta_4 = 0$</strong></p>
-            <p>Para probar restricciones lineales conjuntas, se utiliza el enfoque de Sumas de Cuadrados de los Residuos del modelo Irrestricto ($RSS_{UR}$) y Restringido ($RSS_R$):</p>
-            <p>$$F = \frac{(RSS_R - RSS_{UR}) / m}{RSS_{UR} / (n-k)}$$</p>
-            
-            <p><em>Paso 1: Obtener la ecuación del modelo restringido.</em><br>
-            A partir de la restricción $\beta_2 + 4\beta_4 = 0$, despejamos $\beta_2$: $\beta_2 = -4\beta_4$. Sustituimos esta expresión en el modelo original (Modelo 1):</p>
-            <p>$$\ln Y_t = \beta_1 + (-4\beta_4)\ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + \beta_5 \ln X_{5t} + \mu_t$$</p>
-            <p>Factorizando el parámetro común $\beta_4$:</p>
-            <p>$$\ln Y_t = \beta_1 + \beta_4 (\ln X_{4t} - 4\ln X_{2t}) + \beta_3 \ln X_{3t} + \beta_5 \ln X_{5t} + \mu_t$$</p>
-            <p>Esta es la ecuación del modelo restringido (correspondiente al Modelo 2 de la salida).</p>
-
-            <p><em>Paso 2: Calcular el $RSS_{UR}$ y el $RSS_R$.</em></p>
-            <ul>
-                <li>Del Modelo 1 (Irrestricto): Se proporciona el Error Estándar Residual ($RSE = 0.0696$) con 47 grados de libertad ($n-k = 47$). Sabiendo que $RSE = \sqrt{RSS / (n-k)}$, despejamos: $RSS_{UR} = (0.0696)^2 \times 47 \approx 0.00484416 \times 47 \approx 0.22767$.</li>
-                <li>Del Modelo 2 (Restringido): La salida de R especifica explícitamente "EL RSS RESTRINGIDO DEL MODELO 2 ES: 0.23".</li>
-            </ul>
-
-            <p><em>Paso 3: Calcular el estadístico F general.</em><br>
-            El número de restricciones es $m = 1$. Evaluamos la fórmula:</p>
-            <p>$$F = \frac{(0.230 - 0.22767) / 1}{0.22767 / 47} = \frac{0.00233}{0.004844} \approx 0.481$$</p>
-            <p>El valor crítico de la distribución $F_{(1, 47)}$ al nivel $\alpha = 0.05$ es aproximadamente $4.05$. Como $0.481 < 4.05$, <strong>no se rechaza la hipótesis nula</strong>. Los datos no proveen evidencia suficiente para afirmar que la combinación lineal $\beta_2 + 4\beta_4$ difiera de cero.</p>
+            <p>Calculamos el $RSS_{UR}$ del Modelo 1: $RSS_{UR} = (0.0696)^2 \times 47 \approx 0.22767$.</p>
+            <p>Del Modelo 2 (Restringido), sabemos que $RSS_R = 0.23$. Con $m = 1$ restricción:</p>
+            <p>$$F = \frac{(0.230 - 0.22767) / 1}{0.22767 / 47} \approx 0.481$$</p>
+            <p>El valor crítico es $F_{(1, 47)} \approx 4.05$. Como $0.481 < 4.05$, <strong>no se rechaza la hipótesis nula</strong>.</p>
 
             <p><strong>e) Prueba estadística: Suma de todas las elasticidades igual a cero</strong></p>
-            <p>La hipótesis de ausencia de ilusión monetaria postula que $H_0: \beta_2 + \beta_3 + \beta_4 + \beta_5 = 0$.</p>
-            
-            <p><em>Paso 1: Obtener el modelo restringido.</em><br>
-            Despejamos el parámetro de ingresos ($\beta_5$): $\beta_5 = -\beta_2 - \beta_3 - \beta_4$. Reemplazamos en el Modelo 1:</p>
-            <p>$$\ln Y_t = \beta_1 + \beta_2 \ln X_{2t} + \beta_3 \ln X_{3t} + \beta_4 \ln X_{4t} + (-\beta_2 - \beta_3 - \beta_4)\ln X_{5t} + \mu_t$$</p>
-            <p>Agrupamos los regresores correspondientes a cada parámetro:</p>
-            <p>$$\ln Y_t = \beta_1 + \beta_2 (\ln X_{2t} - \ln X_{5t}) + \beta_3 (\ln X_{3t} - \ln X_{5t}) + \beta_4 (\ln X_{4t} - \ln X_{5t}) + \mu_t$$</p>
-            <p>Esta transformación permite estimar el modelo restringido (correspondiente al Modelo 3).</p>
-
-            <p><em>Paso 2: Calcular la estadística F para la restricción.</em><br>
-            La salida de R para el Modelo 3 indica que el $RSS_R = 0.24$. Utilizando el $RSS_{UR} = 0.22767$ previamente calculado, aplicamos la fórmula de F ($m=1$):</p>
-            <p>$$F = \frac{(0.24 - 0.22767) / 1}{0.22767 / 47} = \frac{0.01233}{0.004844} \approx 2.545$$</p>
-            <p>Al contrastar con el valor crítico $F_{(1, 47)}^{0.05} \approx 4.05$, encontramos que $2.545 < 4.05$. <strong>No se rechaza la hipótesis nula</strong>. Es estadísticamente aceptable concluir al 5% de significancia que la suma de todas las elasticidades es cero.</p>
+            <p>Hipótesis nula: $H_0: \beta_2 + \beta_3 + \beta_4 + \beta_5 = 0$. Esta restricción corresponde al Modelo 3, con $RSS_R = 0.24$.</p>
+            <p>$$F = \frac{(0.24 - 0.22767) / 1}{0.22767 / 47} \approx 2.545$$</p>
+            <p>Como $2.545 < 4.05$, <strong>no se rechaza la hipótesis nula</strong>. Es estadísticamente aceptable concluir que la suma de las elasticidades es cero (ausencia de ilusión monetaria).</p>
 
             <p><strong>f) Prueba de hipótesis $H_0: \beta_3 = \beta_4 = 0$ y notación matricial</strong></p>
-            <p>Esta hipótesis plantea la exclusión simultánea de las variables de precios cruzados. Constituye un sistema de dos restricciones lineales ($m=2$).</p>
-            
-            <p><em>Notación matricial ($R\beta = r$):</em><br>
-            Definimos el vector poblacional de parámetros como una matriz columna $\beta = [\beta_1, \beta_2, \beta_3, \beta_4, \beta_5]^T$. La matriz de restricciones $R$ tendrá dimensiones $(2 \times 5)$, ubicando un $1$ en la posición del parámetro a anular y ceros en las demás. El vector $r$ de $(2 \times 1)$ contendrá los valores escalares de las igualdades (ceros):</p>
+            <p>Notación matricial para la exclusión simultánea ($R\beta = r$):</p>
             <p>
             $$
             \begin{bmatrix}
@@ -1446,28 +1363,20 @@ summary(eq1_ln_r3)
             0 & 0 & 0 & 1 & 0
             \end{bmatrix}
             \begin{bmatrix}
-            \beta_1 \\
-            \beta_2 \\
-            \beta_3 \\
-            \beta_4 \\
-            \beta_5
+            \beta_1 \\ \beta_2 \\ \beta_3 \\ \beta_4 \\ \beta_5
             \end{bmatrix}
             =
             \begin{bmatrix}
-            0 \\
-            0
+            0 \\ 0
             \end{bmatrix}
             $$
             </p>
-
-            <p><em>Prueba estadística F:</em><br>
-            El Modelo 4 incorpora exactamente esta restricción dual. Según su salida, el $RSS_R = 0.24096$. Calculamos el estadístico con $m=2$ grados de libertad en el numerador:</p>
-            <p>$$F = \frac{(0.24096 - 0.22767) / 2}{0.22767 / 47} = \frac{0.01329 / 2}{0.004844} = \frac{0.006645}{0.004844} \approx 1.371$$</p>
-            <p>El valor crítico para la distribución $F_{(2, 47)}$ a un nivel $\alpha = 0.05$ es aproximadamente $3.20$. Dado que $1.371 < 3.20$, <strong>no se rechaza la hipótesis nula conjunta</strong>. Esto implica que la omisión de los precios de los otros licores y de los demás bienes de la economía, de forma simultánea, no deteriora significativamente el poder explicativo del modelo.</p>
+            <p>Prueba F (Modelo 4 con $RSS_R = 0.24096$ y $m=2$):</p>
+            <p>$$F = \frac{(0.24096 - 0.22767) / 2}{0.22767 / 47} \approx 1.371$$</p>
+            <p>El valor crítico es $F_{(2, 47)} \approx 3.20$. Dado que $1.371 < 3.20$, <strong>no se rechaza la hipótesis nula conjunta</strong>.</p>
         </div>
     </div>
-    
-</div>
+
     <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
         <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">2. Derivación de las Ecuaciones Normales</h3>
         
@@ -1499,8 +1408,7 @@ summary(eq1_ln_r3)
 
             <p><strong>3. Verificación con el formato matricial:</strong></p>
             <p>El sistema de ecuaciones normales de MCO se define matricialmente como $(\mathbf{X}'\mathbf{X})\mathbf{b} = \mathbf{X}'\mathbf{y}$.</p>
-            <p>Si desarrollamos el producto matricial, la matriz $\mathbf{X}'\mathbf{X}$ contiene a $n$ en la primera posición y a las sumatorias de las variables y sus productos cruzados en el resto. El vector $\mathbf{X}'\mathbf{y}$ contiene a $\sum Y_t$ y a $\sum X_{jt} Y_t$.</p>
-            <p>Al multiplicar fila por columna este sistema, la primera fila arroja exactamente nuestra Ecuación 1, y las filas subsiguientes reproducen idénticamente las Ecuaciones 2 a $k$. Por lo tanto, <strong>el sistema coincide perfectamente</strong>.</p>
+            <p>Si desarrollamos el producto matricial, la matriz $\mathbf{X}'\mathbf{X}$ contiene a $n$ en la primera posición y a las sumatorias de las variables y sus productos cruzados en el resto. El vector $\mathbf{X}'\mathbf{y}$ contiene a $\sum Y_t$ y a $\sum X_{jt} Y_t$. Al multiplicar fila por columna este sistema, la primera fila arroja exactamente nuestra Ecuación 1, y las filas subsiguientes reproducen idénticamente las Ecuaciones 2 a $k$. Por lo tanto, <strong>el sistema coincide perfectamente</strong>.</p>
         </div>
     </div>
 
@@ -1521,10 +1429,10 @@ summary(eq1_ln_r3)
             <p>$$RSS = \mathbf{e}'\mathbf{e} = (\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)'(\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)$$</p>
             
             <p><strong>2. Expansión cuadrática:</strong></p>
-            <p>Aplicando las propiedades de la transposición (el producto transpuesto invierte el orden: $(\mathbf{AB})' = \mathbf{B}'\mathbf{A}'$), distribuimos:</p>
+            <p>Aplicando las propiedades de la transposición ($(\mathbf{AB})' = \mathbf{B}'\mathbf{A}'$), distribuimos:</p>
             <p>$$RSS = (\mathbf{y}_*' - \mathbf{b}_2'\mathbf{X}_*')(\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)$$</p>
             <p>$$RSS = \mathbf{y}_*'\mathbf{y}_* - \mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2 - \mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_* + \mathbf{b}_2'\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$$</p>
-            <p>Observemos los dos términos centrales. Como el resultado de $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2$ es un escalar (un número real único, dimensión $1\times 1$), su transpuesta es idéntica a sí mismo. Por tanto, $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2 = (\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2)' = \mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_*$. Podemos agruparlos:</p>
+            <p>Observemos los dos términos centrales. Como el resultado de $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2$ es un escalar (dimensión $1\times 1$), su transpuesta es idéntica a sí mismo. Por tanto, $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2 = (\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2)' = \mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_*$. Podemos agruparlos:</p>
             <p>$$RSS = \mathbf{y}_*'\mathbf{y}_* - 2\mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_* + \mathbf{b}_2'\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$$</p>
             
             <p><strong>3. Derivación matricial:</strong></p>
@@ -1697,16 +1605,16 @@ MODELO 2 ESTIMADO (Restricción $\beta_2 + \beta_3 = 1$)
             <p>Al estar las variables transformadas mediante logaritmos, representan una función de producción Cobb-Douglas donde los $\beta$ son elasticidades producto-factor.</p>
             <ul>
                 <li><strong>Signos esperados:</strong> Acorde a la teoría microeconómica, se espera que el producto marginal del capital y del trabajo sean positivos. Por tanto, ambos coeficientes deberían ostentar signo positivo ($\beta_2 > 0$ y $\beta_3 > 0$).</li>
-                <li><strong>$\hat{\beta}_2 = 0.7308$:</strong> Elasticidad producto del capital. Por cada 1% de aumento en el stock de capital constante de 1970, la producción manufacturera griega se incrementó en promedio un 0.73%, ceteris paribus. Presenta el signo correcto y es estadísticamente muy significativo ($p < 0.001$).</li>
-                <li><strong>$\hat{\beta}_3 = 0.1220$:</strong> Elasticidad producto del trabajo. Por cada 1% de expansión laboral, la producción aumenta un 0.12%. Si bien posee el signo correcto, su valor-p ($0.640$) nos advierte que en este modelo no es estadísticamente distinto de cero al 5%.</li>
+                <li><strong>$\hat{\beta}_2 = 0.7308$:</strong> Elasticidad producto del capital. Por cada 1% de aumento en el stock de capital, la producción manufacturera griega se incrementó en promedio un 0.73%, ceteris paribus. Presenta el signo correcto y es muy significativo ($p < 0.001$).</li>
+                <li><strong>$\hat{\beta}_3 = 0.1220$:</strong> Elasticidad producto del trabajo. Por cada 1% de expansión laboral, la producción aumenta un 0.12%. Si bien posee el signo correcto, su valor-p ($0.640$) indica que no es estadísticamente distinto de cero al 5%.</li>
             </ul>
 
             <p><strong>b) Intervalos de Confianza y Supuesto de Normalidad</strong></p>
-            <p><em>Normalidad:</em> El estadístico de Jarque-Bera arrojó un valor-p de $0.17$. Dado que $p > 0.05$, no rechazamos la hipótesis nula de normalidad; el supuesto <strong>es enteramente válido</strong>, autorizando el uso de las distribuciones t y F para la inferencia.</p>
-            <p><em>Intervalos de Confianza al 95%:</em> Con $n=28$ (años 1961-1988) y $k=3$, tenemos $df=25$. El valor crítico $t_{25, 0.025} \approx 2.060$.</p>
+            <p><em>Normalidad:</em> El estadístico de Jarque-Bera arrojó un valor-p de $0.17$. Dado que $p > 0.05$, no rechazamos la hipótesis nula de normalidad; el supuesto <strong>es válido</strong>, autorizando el uso de las distribuciones t y F para la inferencia.</p>
+            <p><em>Intervalos de Confianza al 95%:</em> Con $n=28$ y $k=3$, tenemos $df=25$. El valor crítico $t_{25, 0.025} \approx 2.060$.</p>
             <ul>
                 <li>$\beta_2: 0.73085 \pm 2.060(0.07468) \implies \mathbf{[0.577, 0.884]}$</li>
-                <li>$\beta_3: 0.12203 \pm 2.060(0.25801) \implies \mathbf{[-0.409, 0.653]}$ (Contiene al cero, coherente con su no-significancia).</li>
+                <li>$\beta_3: 0.12203 \pm 2.060(0.25801) \implies \mathbf{[-0.409, 0.653]}$</li>
             </ul>
 
             <p><strong>c) Prueba de Retornos Constantes a Escala</strong></p>
@@ -1722,18 +1630,17 @@ MODELO 2 ESTIMADO (Restricción $\beta_2 + \beta_3 = 1$)
             <p><em>Prueba estadística F:</em><br>
             Usando $RSS_R = 0.2815469$, $RSS_{UR} = 0.2752623$, $df=25$ y $q=1$.
             $$F = \frac{(0.2815469 - 0.2752623) / 1}{0.2752623 / 25} = \frac{0.0062846}{0.01101} \approx 0.570$$
-            El valor crítico $F_{(0.05, 1, 25)} \approx 4.24$. Como $0.570 < 4.24$, <strong>no se rechaza la hipótesis nula</strong>. Existen retornos constantes a escala en el sector manufacturero griego durante el periodo evaluado.</p>
+            El valor crítico $F_{(0.05, 1, 25)} \approx 4.24$. Como $0.570 < 4.24$, <strong>no se rechaza la hipótesis nula</strong>. Existen retornos constantes a escala.</p>
 
             <p><em>Prueba estadística t (Wald):</em><br>
             Evaluamos $t = \frac{\hat{\beta}_2 + \hat{\beta}_3 - 1}{\sqrt{Var(\hat{\beta}_2) + Var(\hat{\beta}_3) + 2Cov(\hat{\beta}_2, \hat{\beta}_3)}}$.
-            <br>Sustituyendo los valores provistos en la matriz de varianzas:
-            $$Var(\text{Suma}) = 0.005576 + 0.066568 + 2(-0.017111) = 0.072144 - 0.034222 = 0.037922$$
-            Calculamos el error estándar extrayendo la raíz: $SE \approx 0.1947$.
+            <br>Sustituyendo los valores de la matriz:
+            $$Var(\text{Suma}) = 0.005576 + 0.066568 + 2(-0.017111) = 0.037922$$
+            El error estándar es $SE \approx 0.1947$.
             $$t_{calc} = \frac{0.73085 + 0.12203 - 1}{0.1947} = \frac{-0.14712}{0.1947} \approx -0.755$$
-            De nuevo, comprobamos que $t^2 = (-0.755)^2 \approx 0.570 \approx F$. Ambas metodologías afirman irrefutablemente la validez de los retornos constantes a escala.</p>
+            Comprobamos que $t^2 = (-0.755)^2 \approx 0.570 \approx F$. Ambas metodologías afirman la validez de los retornos constantes a escala.</p>
         </div>
     </div>
-</div>
 </div>
 
         
