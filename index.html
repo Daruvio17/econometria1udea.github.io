@@ -1466,8 +1466,275 @@ summary(eq1_ln_r3)
             <p>El valor crítico para la distribución $F_{(2, 47)}$ a un nivel $\alpha = 0.05$ es aproximadamente $3.20$. Dado que $1.371 < 3.20$, <strong>no se rechaza la hipótesis nula conjunta</strong>. Esto implica que la omisión de los precios de los otros licores y de los demás bienes de la economía, de forma simultánea, no deteriora significativamente el poder explicativo del modelo.</p>
         </div>
     </div>
+    
 </div>
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">2. Derivación de las Ecuaciones Normales</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+            <strong>Enunciado:</strong> Considere el modelo de regresión muestral de $k$ variables en el que:<br>
+            $RSS = \mathbf{e}'\mathbf{e} = \sum_{t=1}^n e_t^2 = \sum_{t=1}^n (Y_t - b_1 - b_2 X_{2t} - b_3 X_{3t} - \dots - b_k X_{kt})^2$<br>
+            Derive $RSS$ con respecto a $b_1, b_2, b_3, \dots, b_k$ y muestre que el sistema de ecuaciones resultante coincide con las ecuaciones normales.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>El principio de Mínimos Cuadrados Ordinarios (MCO u OLS) exige minimizar la suma de los residuos al cuadrado ($RSS$). Para ello, obtenemos las derivadas parciales de primer orden respecto a cada parámetro $\hat{\beta}_j$ (denotados aquí como $b_j$) y las igualamos a cero.</p>
+            
+            <p><strong>1. Derivada respecto al intercepto ($b_1$):</strong></p>
+            <p>Aplicamos la regla de la cadena. El exponente 2 baja a multiplicar y la derivada interna respecto a $b_1$ es $-1$:</p>
+            <p>$$\frac{\partial RSS}{\partial b_1} = \sum_{t=1}^n 2(Y_t - b_1 - b_2 X_{2t} - \dots - b_k X_{kt})(-1) = 0$$</p>
+            <p>Dividimos entre $-2$ y distribuimos la sumatoria para cada término:</p>
+            <p>$$\sum Y_t - \sum b_1 - b_2 \sum X_{2t} - \dots - b_k \sum X_{kt} = 0$$</p>
+            <p>Recordando que sumar una constante $b_1$ un total de $n$ veces es igual a $n b_1$, reordenamos la ecuación dejando a $Y_t$ a la izquierda:</p>
+            <p>$$\sum Y_t = n b_1 + b_2 \sum X_{2t} + \dots + b_k \sum X_{kt} \quad \text{--- (Ecuación 1)}$$</p>
 
+            <p><strong>2. Derivada respecto a una pendiente genérica ($b_j$ para $j=2,\dots,k$):</strong></p>
+            <p>Aplicamos el mismo procedimiento, pero la derivada interna respecto a $b_j$ será ahora $-X_{jt}$:</p>
+            <p>$$\frac{\partial RSS}{\partial b_j} = \sum_{t=1}^n 2(Y_t - b_1 - b_2 X_{2t} - \dots - b_k X_{kt})(-X_{jt}) = 0$$</p>
+            <p>Dividimos entre $-2$ y distribuimos la sumatoria multiplicando simultáneamente por $X_{jt}$:</p>
+            <p>$$\sum X_{jt} Y_t - b_1 \sum X_{jt} - b_2 \sum X_{2t} X_{jt} - \dots - b_k \sum X_{kt} X_{jt} = 0$$</p>
+            <p>Reordenamos dejando a la variable dependiente a un lado:</p>
+            <p>$$\sum X_{jt} Y_t = b_1 \sum X_{jt} + b_2 \sum X_{2t} X_{jt} + \dots + b_k \sum X_{kt} X_{jt} \quad \text{--- (Ecuaciones 2 a k)}$$</p>
+
+            <p><strong>3. Verificación con el formato matricial:</strong></p>
+            <p>El sistema de ecuaciones normales de MCO se define matricialmente como $(\mathbf{X}'\mathbf{X})\mathbf{b} = \mathbf{X}'\mathbf{y}$.</p>
+            <p>Si desarrollamos el producto matricial, la matriz $\mathbf{X}'\mathbf{X}$ contiene a $n$ en la primera posición y a las sumatorias de las variables y sus productos cruzados en el resto. El vector $\mathbf{X}'\mathbf{y}$ contiene a $\sum Y_t$ y a $\sum X_{jt} Y_t$.</p>
+            <p>Al multiplicar fila por columna este sistema, la primera fila arroja exactamente nuestra Ecuación 1, y las filas subsiguientes reproducen idénticamente las Ecuaciones 2 a $k$. Por lo tanto, <strong>el sistema coincide perfectamente</strong>.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">3. Ecuaciones Normales en Desviaciones</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+            <strong>Enunciado:</strong> Considere el modelo de regresión de $k$ variables en desviaciones a la media: $\mathbf{y}_* = \mathbf{X}_*\mathbf{b}_2 + \mathbf{e}$ donde $\mathbf{y}_* = \mathbf{Ay}$ es el vector $y$ en desviaciones, $\mathbf{X}_* = \mathbf{AX}_2$ es una matriz que contiene las variables explicativas en desviaciones, $\mathbf{b}_2$ contiene los $k-1$ coeficientes y $\mathbf{e}$ es el vector de errores.<br>
+            Muestre que $\partial RSS / \partial \mathbf{b}_2 = 0_{(k-1)\times 1}$ conduce al siguiente sistema de ecuaciones: $\mathbf{X}_*'\mathbf{y}_* = \mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            <p>Este procedimiento es la demostración matricial del estimador para los modelos centrados (en minúsculas), que elimina matemáticamente el intercepto del sistema.</p>
+            
+            <p><strong>1. Formulación del RSS matricial:</strong></p>
+            <p>Sabemos que el error es $\mathbf{e} = \mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2$. La suma de residuos al cuadrado se define matricialmente como el producto interno del vector de errores por sí mismo:</p>
+            <p>$$RSS = \mathbf{e}'\mathbf{e} = (\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)'(\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)$$</p>
+            
+            <p><strong>2. Expansión cuadrática:</strong></p>
+            <p>Aplicando las propiedades de la transposición (el producto transpuesto invierte el orden: $(\mathbf{AB})' = \mathbf{B}'\mathbf{A}'$), distribuimos:</p>
+            <p>$$RSS = (\mathbf{y}_*' - \mathbf{b}_2'\mathbf{X}_*')(\mathbf{y}_* - \mathbf{X}_*\mathbf{b}_2)$$</p>
+            <p>$$RSS = \mathbf{y}_*'\mathbf{y}_* - \mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2 - \mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_* + \mathbf{b}_2'\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$$</p>
+            <p>Observemos los dos términos centrales. Como el resultado de $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2$ es un escalar (un número real único, dimensión $1\times 1$), su transpuesta es idéntica a sí mismo. Por tanto, $\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2 = (\mathbf{y}_*'\mathbf{X}_*\mathbf{b}_2)' = \mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_*$. Podemos agruparlos:</p>
+            <p>$$RSS = \mathbf{y}_*'\mathbf{y}_* - 2\mathbf{b}_2'\mathbf{X}_*'\mathbf{y}_* + \mathbf{b}_2'\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$$</p>
+            
+            <p><strong>3. Derivación matricial:</strong></p>
+            <p>Procedemos a derivar con respecto al vector $\mathbf{b}_2$ e igualar al vector nulo. Usamos las reglas de derivación matricial $\frac{\partial (\mathbf{a}'\mathbf{x})}{\partial \mathbf{x}} = \mathbf{a}$ y $\frac{\partial (\mathbf{x}'\mathbf{A}\mathbf{x})}{\partial \mathbf{x}} = 2\mathbf{A}\mathbf{x}$ (siendo $\mathbf{A}$ simétrica, como lo es $\mathbf{X}_*'\mathbf{X}_*$):</p>
+            <p>$$\frac{\partial RSS}{\partial \mathbf{b}_2} = \mathbf{0} - 2\mathbf{X}_*'\mathbf{y}_* + 2\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2 = \mathbf{0}$$</p>
+            
+            <p><strong>4. Despeje del sistema:</strong></p>
+            <p>Dividimos entre 2 y reordenamos el sistema pasando el término de $y$ al lado derecho:</p>
+            <p>$$\mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2 = \mathbf{X}_*'\mathbf{y}_*$$</p>
+            <p>Al transponer esta igualdad (o leerla de izquierda a derecha), se comprueba la identidad solicitada en el enunciado: <strong>$\mathbf{X}_*'\mathbf{y}_* = \mathbf{X}_*'\mathbf{X}_*\mathbf{b}_2$</strong>.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">4. Modelo Múltiple: Demanda de Televisores</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+            <strong>Enunciado:</strong> Para los datos de demanda de televisores ($Y_t$) en miles de unidades, el precio ($X_{2t}$) en euros y la inversión en publicidad ($X_{3t}$) en miles de euros durante los últimos 48 meses se ajustaron por OLS:<br>
+            Modelo (1): $Y_t = \beta_1 + \beta_2 X_{2t} + \beta_3 X_{3t} + \mu_t$<br>
+            Modelo (2): $Y_t = \beta_1 + \beta_2 X_{2t} - \beta_2 X_{3t} + \mu_t$<br>
+
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; color: #3498db;">Ver Salidas de R (Haz clic para expandir)</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4; font-size: 0.85em; margin-top: 10px;">
+MODELO 1 ESTIMADO ("MODELO NO RESTRINGIDO")
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept) 10.3017274  0.2440101  42.218  < 2e-16 ***
+## x2t         -0.0059941  0.0001610 -37.222  < 2e-16 ***
+## x3t          0.0051071  0.0008146   6.269 1.24e-07 ***
+## ---
+## Residual standard error: 0.1642 on 45 degrees of freedom
+## Multiple R-squared:  0.9774, Adjusted R-squared:  0.9764
+## F-statistic: 973.3 on 2 and 45 DF,  p-value: < 2.2e-16
+
+La varianza del estimador b es:
+##             (Intercept)           x2t           x3t
+## (Intercept)  5.954094e-02 -3.795119e-05 -1.225574e-04
+## x2t         -3.795119e-05  2.593248e-08  5.399229e-08
+## x3t         -1.225574e-04  5.399229e-08  6.636382e-07
+
+"El RSS del modelo 1: No restringido"
+## [1] 1.21268
+
+Prueba de normalidad de Jarque-Bera:
+## JB = 1.1217, p-value = 0.48
+
+MODELO 2 ESTIMADO (Restricción $\beta_2 + \beta_3 = 0$)
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept) 10.12320749  0.27693335  36.555 < 2.2e-16 ***
+## x2t         -0.00590525  0.00018812 -31.390 < 2.2e-16 ***
+## x3t          0.00590525  0.00072913   8.099 2.47e-10 ***
+## ---
+## Residual standard error: 0.16414 on 45 degrees of freedom
+
+"EL RSS del modelo restringido es"
+## [1] 1.239267
+</pre>
+            </details><br>
+
+            <strong>Preguntas:</strong><br>
+            a) Interprete los principales resultados del modelo 1 estimado. ¿Tienen los coeficientes el signo esperado?<br>
+            b) Construya los intervalos de confianza del 95% para los coeficientes del modelo.<br>
+            c) Pruebe la hipótesis $H_0: \beta_2 + \beta_3 = 0$ vs $H_A: \beta_2 + \beta_3 \neq 0$. Exprese en forma $\mathbf{R\beta = r}$ y realice las pruebas correspondientes (F y t de Wald).
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Interpretación de resultados y signos (Modelo 1)</strong></p>
+            <p>Teóricamente, se espera que el precio ($X_2$) impacte negativamente la demanda (Ley de la demanda) y que el gasto publicitario ($X_3$) la impacte positivamente.</p>
+            <ul>
+                <li><strong>$\hat{\beta}_2 = -0.00599$:</strong> Posee el <strong>signo negativo esperado</strong>. Es altamente significativo ($p < 2e-16$). Indica que, manteniendo la publicidad constante, por cada euro que aumenta el precio, la venta de televisores disminuye en promedio 0.00599 miles de unidades (es decir, unas 6 unidades).</li>
+                <li><strong>$\hat{\beta}_3 = 0.00510$:</strong> Posee el <strong>signo positivo esperado</strong>. Es altamente significativo ($p = 1.24e-07$). Indica que, ceteris paribus, por cada mil euros adicionales invertidos en publicidad, las ventas aumentan en promedio 0.00510 miles de unidades (5.1 televisores).</li>
+                <li><strong>Ajuste y Normalidad:</strong> El $R^2 = 0.9774$ revela que el modelo explica el 97.7% de la varianza en las ventas. La prueba de Jarque-Bera ($p = 0.48 > 0.05$) confirma que los errores se distribuyen normalmente.</li>
+            </ul>
+
+            <p><strong>b) Intervalos de Confianza (95%)</strong></p>
+            <p>Con $n=48$ y $k=3$, los grados de libertad son $45$. El valor crítico de la distribución $t$-Student ($\alpha/2 = 0.025$) es $t_{45, 0.025} \approx 2.014$. Se emplea la fórmula: $\hat{\beta}_j \pm t \cdot SE(\hat{\beta}_j)$.</p>
+            <ul>
+                <li>$\beta_1: 10.3017 \pm 2.014(0.2440) \implies \mathbf{[9.810, 10.793]}$</li>
+                <li>$\beta_2: -0.005994 \pm 2.014(0.000161) \implies \mathbf{[-0.00631, -0.00566]}$</li>
+                <li>$\beta_3: 0.005107 \pm 2.014(0.000814) \implies \mathbf{[0.00346, 0.00674]}$</li>
+            </ul>
+
+            <p><strong>c) Prueba de Restricción Lineal Conjunta</strong></p>
+            <p>La hipótesis nula plantea que las magnitudes absolutas de los efectos de precio y publicidad se anulan entre sí: $H_0: \beta_2 + \beta_3 = 0$.</p>
+            
+            <p><em>Notación Matricial:</em><br>
+            Vector de parámetros: $\beta = [\beta_1, \beta_2, \beta_3]^T$. La restricción establece que $[0 \cdot \beta_1 + 1 \cdot \beta_2 + 1 \cdot \beta_3] = 0$.
+            $$
+            \mathbf{R} = [0, 1, 1], \quad \mathbf{r} = [0] \implies \mathbf{R\beta = r}
+            $$
+            </p>
+
+            <p><em>Prueba F mediante Sumas de Residuos Cuadrados:</em><br>
+            Usamos $RSS_{UR} = 1.21268$ y $RSS_R = 1.239267$. Grados de libertad del denominador $45$, y del numerador $m=1$.
+            $$F = \frac{(RSS_R - RSS_{UR}) / m}{RSS_{UR} / (n-k)} = \frac{(1.239267 - 1.21268) / 1}{1.21268 / 45} = \frac{0.026587}{0.026948} \approx 0.9866$$
+            Como $F_{critico} (0.05, 1, 45) \approx 4.05$, y $0.9866 < 4.05$, <strong>no se rechaza la hipótesis nula</strong>.
+            </p>
+
+            <p><em>Prueba t de Wald (Forma Alternativa):</em><br>
+            Para comprobar convergencia, evaluamos $t = \frac{\hat{\beta}_2 + \hat{\beta}_3}{\sqrt{Var(\hat{\beta}_2 + \hat{\beta}_3)}}$.
+            <br>La varianza de la suma de variables aleatorias requiere sus covarianzas:
+            $$Var(\hat{\beta}_2 + \hat{\beta}_3) = Var(\hat{\beta}_2) + Var(\hat{\beta}_3) + 2Cov(\hat{\beta}_2, \hat{\beta}_3)$$
+            Extrayendo los datos de notación científica de la matriz:
+            $$Var(\dots) = 2.593e^{-8} + 66.36e^{-8} + 2(5.399e^{-8}) = 79.75e^{-8}$$
+            El error estándar es $SE = \sqrt{79.75 \times 10^{-8}} \approx 0.000893$.
+            $$t_{calc} = \frac{-0.005994 + 0.005107}{0.000893} = \frac{-0.000887}{0.000893} \approx -0.993$$
+            Verificamos matemáticamente que $t^2 = (-0.993)^2 \approx 0.986 \approx F$. Ambas vías arrojan el mismo resultado: No hay evidencia para rechazar que $\beta_2 + \beta_3 = 0$.</p>
+        </div>
+    </div>
+
+    <div class="ejercicio" style="margin-bottom: 40px; background: #ffffff; padding: 25px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">5. Función Cobb-Douglas: Economía Griega</h3>
+        
+        <div class="enunciado" style="background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; font-size: 0.95em;">
+            <strong>Enunciado:</strong> Se analiza el producto ($Y_t$), capital ($K_t$) y trabajo ($L_t$) del sector manufacturero griego (1961-1988). Se estiman los modelos:<br>
+            Modelo (1): $\ln Y_t = \beta_1 + \beta_2 \ln K_t + \beta_3 \ln L_t + \mu_t$<br>
+            Modelo (2): $\ln Y_t = \beta_1 + \beta_2 \ln K_t + (1 - \beta_2) \ln L_t + \mu_t$<br>
+
+            <details>
+                <summary style="cursor: pointer; font-weight: bold; color: #3498db;">Ver Salidas de R (Haz clic para expandir)</summary>
+<pre style="background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; line-height: 1.4; font-size: 0.85em; margin-top: 10px;">
+MODELO 1 ESTIMADO ("MODELO NO RESTRINGIDO")
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -0.08540    1.40838  -0.061    0.952
+## lnk          0.73085    0.07468   9.787 4.95e-10 ***
+## lnl          0.12203    0.25801   0.473    0.640
+## ---
+## Residual standard error: 0.1049 on 25 degrees of freedom
+## Multiple R-squared:  0.9518, Adjusted R-squared:  0.9479
+
+La matriz de varianzas de b es:
+##             (Intercept)          lnk          lnl
+## (Intercept)   1.9835422  0.08657300 -0.36045162
+## lnk           0.0865730  0.00557688 -0.01711141
+## lnl          -0.3604516 -0.01711140  0.06656818
+
+"El RSS del modelo no restringido es"
+## [1] 0.2752623
+
+Prueba de normalidad de Jarque - Bera:
+## JB = 1.9645, p-value = 0.17
+
+MODELO 2 ESTIMADO (Restricción $\beta_2 + \beta_3 = 1$)
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -1.14793    0.07865 -14.595 9.71e-14 ***
+## lnk          0.68609    0.04493  15.268 3.50e-14 ***
+## lnl          0.31390    0.04493   6.985 2.53e-07 ***
+
+"LA SUMA DE CUADRADOS DE LOS ERRORES DEL MODELO RESTRINGIDO ES"
+## [1] 0.2815469
+</pre>
+            </details><br>
+
+            <strong>Preguntas:</strong><br>
+            a) Interprete los coeficientes del modelo 1, ¿Qué signo espera para esos coeficientes?<br>
+            b) Construya los intervalos de confianza del 95%. ¿Será válido el supuesto de normalidad?<br>
+            c) Pruebe la hipótesis de <em>retornos constantes a escala</em> ($H_0: \beta_2 + \beta_3 = 1$ vs $H_A: \beta_2 + \beta_3 \neq 1$). Especifique la matriz $\mathbf{R}$, el vector $\mathbf{r}$ y la cantidad de restricciones $q$. Utilice las formas F y t.
+        </div>
+        
+        <div class="solucion">
+            <h4>Solución paso a paso:</h4>
+            
+            <p><strong>a) Interpretación de coeficientes y signos (Función Cobb-Douglas)</strong></p>
+            <p>Al estar las variables transformadas mediante logaritmos, representan una función de producción Cobb-Douglas donde los $\beta$ son elasticidades producto-factor.</p>
+            <ul>
+                <li><strong>Signos esperados:</strong> Acorde a la teoría microeconómica, se espera que el producto marginal del capital y del trabajo sean positivos. Por tanto, ambos coeficientes deberían ostentar signo positivo ($\beta_2 > 0$ y $\beta_3 > 0$).</li>
+                <li><strong>$\hat{\beta}_2 = 0.7308$:</strong> Elasticidad producto del capital. Por cada 1% de aumento en el stock de capital constante de 1970, la producción manufacturera griega se incrementó en promedio un 0.73%, ceteris paribus. Presenta el signo correcto y es estadísticamente muy significativo ($p < 0.001$).</li>
+                <li><strong>$\hat{\beta}_3 = 0.1220$:</strong> Elasticidad producto del trabajo. Por cada 1% de expansión laboral, la producción aumenta un 0.12%. Si bien posee el signo correcto, su valor-p ($0.640$) nos advierte que en este modelo no es estadísticamente distinto de cero al 5%.</li>
+            </ul>
+
+            <p><strong>b) Intervalos de Confianza y Supuesto de Normalidad</strong></p>
+            <p><em>Normalidad:</em> El estadístico de Jarque-Bera arrojó un valor-p de $0.17$. Dado que $p > 0.05$, no rechazamos la hipótesis nula de normalidad; el supuesto <strong>es enteramente válido</strong>, autorizando el uso de las distribuciones t y F para la inferencia.</p>
+            <p><em>Intervalos de Confianza al 95%:</em> Con $n=28$ (años 1961-1988) y $k=3$, tenemos $df=25$. El valor crítico $t_{25, 0.025} \approx 2.060$.</p>
+            <ul>
+                <li>$\beta_2: 0.73085 \pm 2.060(0.07468) \implies \mathbf{[0.577, 0.884]}$</li>
+                <li>$\beta_3: 0.12203 \pm 2.060(0.25801) \implies \mathbf{[-0.409, 0.653]}$ (Contiene al cero, coherente con su no-significancia).</li>
+            </ul>
+
+            <p><strong>c) Prueba de Retornos Constantes a Escala</strong></p>
+            <p>La hipótesis asume que si los factores crecen en una misma proporción, la producción crecerá en idéntica proporción ($H_0: \beta_2 + \beta_3 = 1$).</p>
+            
+            <p><em>Notación Matricial:</em><br>
+            Vector de parámetros $\beta = [\beta_1, \beta_2, \beta_3]^T$. Evaluando una única restricción lineal ($q=1$):
+            $$
+            \mathbf{R} = [0, 1, 1], \quad \mathbf{r} = [1] \implies \mathbf{R\beta = r}
+            $$
+            </p>
+
+            <p><em>Prueba estadística F:</em><br>
+            Usando $RSS_R = 0.2815469$, $RSS_{UR} = 0.2752623$, $df=25$ y $q=1$.
+            $$F = \frac{(0.2815469 - 0.2752623) / 1}{0.2752623 / 25} = \frac{0.0062846}{0.01101} \approx 0.570$$
+            El valor crítico $F_{(0.05, 1, 25)} \approx 4.24$. Como $0.570 < 4.24$, <strong>no se rechaza la hipótesis nula</strong>. Existen retornos constantes a escala en el sector manufacturero griego durante el periodo evaluado.</p>
+
+            <p><em>Prueba estadística t (Wald):</em><br>
+            Evaluamos $t = \frac{\hat{\beta}_2 + \hat{\beta}_3 - 1}{\sqrt{Var(\hat{\beta}_2) + Var(\hat{\beta}_3) + 2Cov(\hat{\beta}_2, \hat{\beta}_3)}}$.
+            <br>Sustituyendo los valores provistos en la matriz de varianzas:
+            $$Var(\text{Suma}) = 0.005576 + 0.066568 + 2(-0.017111) = 0.072144 - 0.034222 = 0.037922$$
+            Calculamos el error estándar extrayendo la raíz: $SE \approx 0.1947$.
+            $$t_{calc} = \frac{0.73085 + 0.12203 - 1}{0.1947} = \frac{-0.14712}{0.1947} \approx -0.755$$
+            De nuevo, comprobamos que $t^2 = (-0.755)^2 \approx 0.570 \approx F$. Ambas metodologías afirman irrefutablemente la validez de los retornos constantes a escala.</p>
+        </div>
+    </div>
+</div>
+</div>
 
         
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
