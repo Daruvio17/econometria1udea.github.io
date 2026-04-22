@@ -1934,6 +1934,73 @@ ESTIMACIÓN MODELO LINEAL:
             Este resultado es una aplicaci&oacute;n directa del <b>Teorema de Gauss-Markov</b>.
         </div>
     </section>
+    <hr style="margin: 50px 0; border: 0; border-top: 5px double #e67e22;">
+
+        <header style="border-bottom: 4px solid #e67e22; margin-bottom: 30px; padding-bottom: 10px;">
+            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Ejercicio 2: Modelo de Regresi&oacute;n M&uacute;ltiple</h1>
+            <p style="font-style: italic; color: #7f8c8d;">An&aacute;lisis de Importaciones, PIB e IPC (Modelo Log-Log)</p>
+        </header>
+
+        <div style="background: #fdf2e9; padding: 25px; border-left: 6px solid #e67e22; margin-bottom: 40px; border-radius: 4px;">
+            <b style="color: #d35400; font-size: 1.1em;">Enunciado:</b><br>
+            Se estima la relaci&oacute;n entre Importaciones (Y), PIB (X<sub>2</sub>) e IPC (X<sub>3</sub>) mediante el modelo:<br>
+            <center style="margin: 15px 0; font-size: 1.2em;"><b>ln Y<sub>t</sub> = &beta;<sub>1</sub> + &beta;<sub>2</sub> ln X<sub>2t</sub> + &beta;<sub>3</sub> ln X<sub>3t</sub> + &mu;<sub>t</sub></b></center>
+            A partir de los resultados de R, interprete los coeficientes, realice pruebas de significancia y verifique la restricci&oacute;n <b>&beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b>.
+        </div>
+
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee;">1. Interpretaci&oacute;n de Coeficientes (Elasticidades)</h2>
+        <p>Al estar las variables en logaritmos naturales, los coeficientes representan <b>elasticidades constantes</b>:</p>
+        <ul>
+            <li><b>&beta;<sub>2</sub> (1.8301):</b> Elasticidad-Ingreso. Si el PIB aumenta en 1%, las importaciones aumentan en promedio <b>1.83%</b>. Es un bien el&aacute;stico y superior.</li>
+            <li><b>&beta;<sub>3</sub> (-0.8433):</b> Elasticidad-Precio. Si el IPC aumenta en 1%, las importaciones disminuyen en promedio <b>0.84%</b>. El signo negativo sugiere que el aumento de precios internos reduce la demanda de importaciones (o un efecto de sustituci&oacute;n).</li>
+        </ul>
+
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">2. An&aacute;lisis de Significancia e Inferencial</h2>
+        
+        <div style="background: #2c3e50; color: #f1f1f1; padding: 20px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em; margin: 20px 0;">
+            <b>Cuadro de Coeficientes (Summary):</b><br>
+            -------------------------------------------------------------<br>
+            Variable &nbsp;&nbsp; Estimaci&oacute;n &nbsp; Err. Est &nbsp; t-stat &nbsp; p-valor<br>
+            Intercepto &nbsp; 1.4376 &nbsp;&nbsp;&nbsp;&nbsp; 0.2696 &nbsp;&nbsp;&nbsp; 5.333 &nbsp;&nbsp; 0.00001<br>
+            ln PIB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.8301 &nbsp;&nbsp;&nbsp;&nbsp; 0.1822 &nbsp;&nbsp; 10.045 &nbsp;&nbsp; 0.00000<br>
+            ln IPC &nbsp;&nbsp;&nbsp;&nbsp; -0.8433 &nbsp;&nbsp;&nbsp;&nbsp; 0.2838 &nbsp;&nbsp; -2.971 &nbsp;&nbsp; 0.00603<br>
+            -------------------------------------------------------------
+        </div>
+
+        <p><b>&bull; Significancia Individual:</b> Ambos coeficientes tienen p-valores menores al 5% (&alpha; = 0.05). Por lo tanto, <b>rechazamos H<sub>0</sub></b> en ambos casos: tanto el PIB como el IPC explican significativamente las importaciones.</p>
+        
+        <p><b>&bull; Bondad de Ajuste:</b> El <b>R<sup>2</sup> ajustado es 0.9913</b>, indicando que el modelo explica el 99.13% de la variaci&oacute;n de las importaciones, lo cual es un ajuste casi perfecto.</p>
+
+        <p><b>&bull; Prueba de Normalidad (Jarque-Bera):</b> El p-valor es <b>0.2659</b>. Al ser mayor a 0.05, <b>no rechazamos</b> la normalidad de los residuos. El modelo es v&aacute;lido para inferencia.</p>
+
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">3. Prueba de Hip&oacute;tesis Restringida</h2>
+        <p>Se eval&uacute;a la hip&oacute;tesis <b>H<sub>0</sub>: &beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b>. Para esto usamos el estad&iacute;stico F de restricci&oacute;n:</p>
+        
+        <div style="background: #fdfefe; border: 1px solid #ddd; padding: 25px; border-radius: 8px; margin: 20px 0;">
+            <b>F = [ (RSS<sub>R</sub> - RSS<sub>UR</sub>) / m ] / [ RSS<sub>UR</sub> / (n - k) ]</b>
+            <br><br>
+            Donde:<br>
+            &bull; RSS No Restringido (UR) = 0.1408056<br>
+            &bull; RSS Restringido (R) = 0.1408846<br>
+            &bull; m (Restricciones) = 1<br>
+            &bull; n - k (Grados libertad) = 28
+        </div>
+
+        <p>Sustituyendo los valores del summary:</p>
+        <center style="font-size: 1.3em; background: #eee; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            F = [ (0.1408846 - 0.1408056) / 1 ] / [ 0.1408056 / 28 ] = <b>0.0157</b>
+        </center>
+
+        <p><b>Interpretaci&oacute;n de la Restricci&oacute;n:</b><br>
+        El valor F calculado (0.0157) es extremadamente bajo (el p-valor sería cercano a 0.90). Esto significa que la diferencia entre el modelo con restricción y sin restricci&oacute;n es despreciable.
+        </p>
+        
+        <div style="background: #27ae60; color: white; padding: 20px; border-radius: 8px; font-weight: bold; text-align: center;">
+            Conclusión: No se rechaza H<sub>0</sub>. La restricción &beta;<sub>2</sub> + &beta;<sub>3</sub> = 1 se cumple.
+        </div>
+        ```
+
+
 </div>
 
 
