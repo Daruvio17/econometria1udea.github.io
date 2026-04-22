@@ -1956,6 +1956,43 @@ ESTIMACIÓN MODELO LINEAL:
             CONCLUSIÓN: No rechazamos H<sub>0</sub>. Existe evidencia estadística suficiente para afirmar que la suma de las elasticidades es igual a 1 (Retornos constantes).
         </div>
     </section>
+    <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">3. Expresi&oacute;n Formal de la Hip&oacute;tesis (R&beta; = r)</h2>
+        <p>Para realizar pruebas de hip&oacute;tesis sobre varios par&aacute;metros a la vez, expresamos nuestra restricci&oacute;n <b>&beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b> en forma matricial:</p>
+        
+        <div style="background: #fdfefe; border: 1px solid #ddd; padding: 25px; border-radius: 8px; margin: 20px 0; display: flex; justify-content: center; align-items: center; gap: 20px;">
+            <div style="text-align: center;">
+                <span style="font-size: 1.2em; font-weight: bold;">R</span><br>
+                <table style="border-left: 2px solid black; border-right: 2px solid black; padding: 0 10px; display: inline-table; vertical-align: middle;">
+                    <tr><td>0</td><td>1</td><td>1</td></tr>
+                </table>
+            </div>
+            
+            <div style="text-align: center;">
+                <span style="font-size: 1.2em; font-weight: bold;">&beta;</span><br>
+                <table style="border-left: 2px solid black; border-right: 2px solid black; padding: 0 5px; display: inline-table; vertical-align: middle;">
+                    <tr><td>&beta;<sub>1</sub></td></tr>
+                    <tr><td>&beta;<sub>2</sub></td></tr>
+                    <tr><td>&beta;<sub>3</sub></td></tr>
+                </table>
+            </div>
+
+            <div style="font-size: 1.5em; font-weight: bold;"> = </div>
+
+            <div style="text-align: center;">
+                <span style="font-size: 1.2em; font-weight: bold;">r</span><br>
+                <table style="border-left: 2px solid black; border-right: 2px solid black; padding: 0 10px; display: inline-table; vertical-align: middle;">
+                    <tr><td>1</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <p><b>¿De d&oacute;nde sale esto?</b></p>
+        <ul>
+            <li><b>R (Matriz de restricci&oacute;n):</b> Indica cu&aacute;les coeficientes estamos sumando. El <b>0</b> ignora el intercepto, mientras que los <b>1</b> seleccionan a &beta;<sub>2</sub> y &beta;<sub>3</sub>.</li>
+            <li><b>&beta; (Vector de par&aacute;metros):</b> Contiene todos los coeficientes del modelo original.</li>
+            <li><b>r (Vector de resultados):</b> Es el valor al que igualamos la suma (en este caso, 1).</li>
+        </ul>
+        <p>Al multiplicar <b>R &times; &beta;</b>, obtenemos exactamente: <i>(0 &times; &beta;<sub>1</sub>) + (1 &times; &beta;<sub>2</sub>) + (1 &times; &beta;<sub>3</sub>) = 1</i>, que es nuestra hip&oacute;tesis original.</p>
 </div>
 
 
