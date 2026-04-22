@@ -1844,89 +1844,94 @@ ESTIMACIÓN MODELO LINEAL:
     
 
 
-<div id="parcial1" class="tab-content" style="display: none; padding: 20px; font-family: 'Segoe UI', Arial, sans-serif;">
+<div id="parcial1" class="tab-content" style="display: none; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     
-    <a href="javascript:void(0);" onclick="showTab('parciales')" style="color: #2c3e50; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px; font-weight: bold;">
+    <a href="javascript:void(0);" onclick="showTab('parciales')" style="color: #2c3e50; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px; font-weight: bold; border: 1px solid #ccc; padding: 8px 15px; border-radius: 5px; background: #f8f9fa;">
         &larr; Volver a parciales
     </a>
 
-    <section style="line-height: 1.8; color: #333; max-width: 950px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #ddd; border-radius: 8px;">
+    <section style="line-height: 1.8; color: #333; max-width: 1000px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
         
-        <header style="border-bottom: 4px solid #2c3e50; margin-bottom: 30px;">
-            <h1 style="margin: 0; font-size: 1.8em; color: #2c3e50;">Resolución de Examen: Ejercicio 1</h1>
-            <p style="font-style: italic; color: #666;">Análisis de Estimadores y Eficiencia Relativa</p>
+        <header style="border-bottom: 4px solid #2c3e50; margin-bottom: 30px; padding-bottom: 10px;">
+            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Solución Detallada</h1>
         </header>
 
-        <div style="background: #f9f9f9; padding: 20px; border-left: 5px solid #2c3e50; margin-bottom: 40px;">
-            <b style="color: #2c3e50;">Enunciado del Problema:</b><br>
-            Considere el modelo de regresión simple a través del origen: <i>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></i>, donde <i>X<sub>t</sub></i> es no estocástica y <i>&mu;<sub>t</sub> &sim; N(0, &sigma;<sup>2</sup>)</i>. 
-            <br><br>
-            1. Obtenga el estimador <b>b</b> de OLS y demuestre su linealidad e insesgadez.<br>
-            2. Obtenga analíticamente la varianza de <b>b</b>.<br>
-            3. Compare la eficiencia de <b>b</b> frente al estimador <i>b* = Y&#772;/X&#772;</i> mediante la razón de sus varianzas.
+        <div style="background: #f4f7f6; padding: 25px; border-left: 6px solid #2c3e50; margin-bottom: 40px; border-radius: 4px;">
+            <b style="color: #2c3e50; font-size: 1.1em;">Enunciado 1:</b><br>
+            Considere el modelo de regresión simple sin intercepto: <b>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></b>, donde:
+            <ul style="margin-top: 10px;">
+                <li><i>X<sub>t</sub></i> es una variable no estocástica (fija).</li>
+                <li><i>&mu;<sub>t</sub> &sim; N(0, &sigma;<sup>2</sup>)</i> son términos de error independientes e idénticamente distribuidos (i.i.d).</li>
+            </ul>
+            <b>Reto:</b> Obtener el estimador <b>b</b> (MCO), demostrar sus propiedades, hallar su varianza y compararlo con el estimador de promedios <b>b* = Y&#772; / X&#772;</b>.
         </div>
 
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee;">1. Estimador de Mínimos Cuadrados Ordinarios (MCO)</h2>
-        <p>Partiendo de la forma matricial <b>b = (X'X)<sup>-1</sup>X'y</b>, y sabiendo que en este modelo <b>X</b> es un vector columna de observaciones <i>X<sub>t</sub></i>:</p>
-        <div style="text-align: center; font-size: 1.3em; margin: 20px; color: #2c3e50;">
-            <b>b = &sum; (X<sub>t</sub> Y<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup></b>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px;">1. Obtención del Estimador MCO (b)</h2>
+        <p>Utilizamos el enfoque matricial para minimizar la Suma de Residuos al Cuadrado (RSS). La solución general es:</p>
+        <div style="text-align: center; background: #f1f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <span style="font-size: 1.3em;"><b>b = (X'X)<sup>-1</sup>X'y</b></span>
         </div>
-        
-        <p><b>&bull; Insesgadez:</b><br>
-        Sustituimos <i>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></i> y aplicamos esperanza matemática:</p>
-        <p style="text-align: center; background: #f8f9fa; padding: 10px;">
-            E[b] = E[ (&sum; X<sub>t</sub>(&beta;X<sub>t</sub> + &mu;<sub>t</sub>)) / &sum; X<sub>t</sub><sup>2</sup> ] = &beta; + E[ &sum; X<sub>t</sub>&mu;<sub>t</sub> / &sum; X<sub>t</sub><sup>2</sup> ] = <b>&beta;</b>
-        </p>
+        <p>Al ser un modelo de una sola variable sin constante, <b>X'X</b> es simplemente la suma de los cuadrados de X, y <b>X'y</b> es la suma del producto cruzado. Por lo tanto, el estimador escalar es:</p>
+        <div style="text-align: center; font-size: 1.5em; font-weight: bold; color: #1a5276; margin-bottom: 30px;">
+            b = &sum; (X<sub>t</sub> Y<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup>
+        </div>
 
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">2. Derivación de la Varianza de b</h2>
-        <p>Para hallar la varianza de <b>b</b>, aplicamos el operador varianza a su forma lineal:</p>
+        <p><b>&bull; Insesgadez:</b> Sustituimos <i>Y<sub>t</sub></i> en la fórmula. Al aplicar Esperanza <i>E[b]</i>, el término que contiene a <i>&mu;<sub>t</sub></i> se hace cero porque <i>E[&mu;<sub>t</sub>] = 0</i>, resultando en <b>E[b] = &beta;</b>.</p>
+
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">2. Derivación Analítica de la Varianza de b</h2>
+        <p>Para hallar la varianza, recordamos que <b>b</b> es una combinación lineal de los errores. El proceso paso a paso es:</p>
         
-        <div style="background: #f1f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <b>Paso A:</b> Definimos <i>b</i> como una suma ponderada: <i>b = &sum; w<sub>t</sub> Y<sub>t</sub></i>, donde <i>w<sub>t</sub> = X<sub>t</sub> / &sum; X<sub>j</sub><sup>2</sup></i>.<br>
-            <b>Paso B:</b> Aplicamos varianza (recordando que Var(aY) = a<sup>2</sup>Var(Y)):<br>
-            <center>Var(b) = &sum; w<sub>t</sub><sup>2</sup> Var(Y<sub>t</sub>)</center>
+        <div style="background: #fff; border: 1px solid #d6eaf8; padding: 25px; border-radius: 8px; margin: 20px 0;">
+            <b>Paso A:</b> Expresamos el estimador en función del error poblacional:<br>
+            <center><i>b = &beta; + &sum; (X<sub>t</sub> &mu;<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup></i></center>
             <br>
-            <b>Paso C:</b> Como Var(Y<sub>t</sub>) = &sigma;<sup>2</sup>, factorizamos la constante:<br>
-            <center>Var(b) = &sigma;<sup>2</sup> &sum; [ X<sub>t</sub> / &sum; X<sub>j</sub><sup>2</sup> ]<sup>2</sup></center>
+            <b>Paso B:</b> Aplicamos el operador Varianza. Como <i>&beta;</i> es una constante, su varianza es cero:<br>
+            <center><i>Var(b) = Var[ &sum; (X<sub>t</sub> &mu;<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup> ]</i></center>
             <br>
-            <b>Paso D:</b> Expandiendo el cuadrado del denominador:<br>
-            <center>Var(b) = &sigma;<sup>2</sup> [ &sum; X<sub>t</sub><sup>2</sup> / (&sum; X<sub>j</sub><sup>2</sup>)<sup>2</sup> ]</center>
+            <b>Paso C:</b> Sacamos las constantes elevadas al cuadrado y sumamos las varianzas de los errores (Homocedasticidad):<br>
+            <center><i>Var(b) = [ 1 / (&sum; X<sub>t</sub><sup>2</sup>)<sup>2</sup> ] &times; &sum; (X<sub>t</sub><sup>2</sup> &times; Var(&mu;<sub>t</sub>))</i></center>
+            <br>
+            <b>Paso D:</b> Como <i>Var(&mu;<sub>t</sub>) = &sigma;<sup>2</sup></i>, factorizamos y simplificamos:<br>
+            <center><i>Var(b) = [ &sigma;<sup>2</sup> &times; &sum; X<sub>t</sub><sup>2</sup> ] / (&sum; X<sub>t</sub><sup>2</sup>)<sup>2</sup></i></center>
         </div>
-        
-        <p>Simplificando una sumatoria del numerador con una del denominador, obtenemos la <b>Varianza de MCO</b>:</p>
-        <div style="text-align: center; font-size: 1.4em; font-weight: bold; color: #c0392b; margin: 20px;">
+
+        <p>Al simplificar una sumatoria, la <b>Varianza de MCO</b> queda definida como:</p>
+        <div style="text-align: center; font-size: 1.5em; font-weight: bold; color: #c0392b; margin: 20px 0;">
             Var(b) = &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup>
         </div>
-        
 
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">3. Comparación de Eficiencia (b vs b*)</h2>
-        <p>El estimador alternativo es <i>b* = Y&#772;/X&#772;</i>. Su varianza es:</p>
-        <center>Var(b*) = Var(Y&#772;) / X&#772;<sup>2</sup> = ( &sigma;<sup>2</sup>/n ) / X&#772;<sup>2</sup> = <b>&sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>)</b></center>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">3. Comparación de Eficiencia: b vs b*</h2>
+        <p>Se define el estimador alternativo <b>b* = Y&#772; / X&#772;</b>. Su varianza, utilizando la observación dada (<i>Var(Y&#772;) = &sigma;<sup>2</sup>/n</i>), es:</p>
+        <center style="font-size: 1.2em; margin: 20px 0;"><b>Var(b*) = &sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>)</b></center>
 
-        <p>Para comparar cuál es más eficiente, realizamos el cociente entre la varianza del estimador alternativo y la del estimador MCO:</p>
-        
-        <div style="background: #fff9e6; padding: 25px; border-radius: 8px; border: 1px solid #ffeaa7; margin-top: 20px;">
-            <center style="font-size: 1.2em;">
-                Cociente = Var(b*) / Var(b) = [ &sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>) ] / [ &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup> ]
-            </center>
+        <p>Para comparar, calculamos la raz&oacute;n de varianzas (Raz&oacute;n = Var(b*) / Var(b)):</p>
+        <div style="background: #fff9e6; padding: 25px; border-radius: 8px; border: 1px solid #ffeaa7; margin: 20px 0; text-align: center;">
+            <span style="font-size: 1.3em;">Raz&oacute;n = <b>&sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>)</b></span>
+        </div>
+
+        <h3 style="color: #2c3e50;">Descomposici&oacute;n l&oacute;gica del resultado:</h3>
+        <p>¿Por qu&eacute; esa raz&oacute;n es mayor a 1? Utilizamos la f&oacute;rmula de la varianza de los datos de X:</p>
+        <div style="background: #fdfefe; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
+            Sabemos que: <b>&sum; X<sub>t</sub><sup>2</sup> = &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> + n X&#772;<sup>2</sup></b>
+            <br><br>
+            Si sustituimos esto en el numerador de nuestra raz&oacute;n:<br>
+            <center>Raz&oacute;n = [ &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> + n X&#772;<sup>2</sup> ] / (n X&#772;<sup>2</sup>)</center>
             <br>
-            Al simplificar <i>&sigma;<sup>2</sup></i> y aplicar la "ley de la oreja", obtenemos:<br>
-            <center style="font-size: 1.3em; font-weight: bold; margin-top: 10px;">
-                Cociente = &sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>)
+            Dividiendo cada t&eacute;rmino entre el denominador:<br>
+            <center style="font-size: 1.3em; font-weight: bold; color: #27ae60;">
+                Raz&oacute;n = [ &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> / (n X&#772;<sup>2</sup>) ] + 1
             </center>
         </div>
 
-        <p><b>Análisis del Resultado:</b></p>
-        <p>Sabemos por definición que la varianza de la muestra de X es siempre positiva o cero:</p>
-        <center>Var(X) = (&sum; X<sub>t</sub><sup>2</sup> / n) - X&#772;<sup>2</sup> &ge; 0</center>
-        <p>Si despejamos, vemos que <b>&sum; X<sub>t</sub><sup>2</sup> / n &ge; X&#772;<sup>2</sup></b>, lo que implica que:</p>
-        <center><b>&sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>) &ge; 1</b></center>
+        <p style="margin-top: 20px;">
+            Como el t&eacute;rmino <i>&sum; (X<sub>t</sub> - X&#772;)<sup>2</sup></i> es una suma de cuadrados, su valor es <b>siempre positivo o cero</b>. Al sumarle <b>1</b>, el resultado total es <b>&ge; 1</b>.
+        </p>
 
-        <div style="background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-top: 30px;">
-            <b>Conclusión Final:</b><br>
-            Como el cociente es mayor o igual a 1, esto demuestra que <b>Var(b*) &ge; Var(b)</b>. 
-            Por lo tanto, el estimador <b>b</b> de MCO es más eficiente (tiene menor varianza) que el estimador de promedios <b>b*</b>. 
-            Esto confirma el Teorema de Gauss-Markov: MCO es el Mejor Estimador Lineal Insesgado (MELI).
+        <div style="background: #2c3e50; color: white; padding: 25px; border-radius: 8px; margin-top: 30px; border-left: 10px solid #2e86c1;">
+            <b>Concluci&oacute;n sobre la Eficiencia:</b><br>
+            Dado que la raz&oacute;n es mayor o igual a 1, hemos demostrado matem&aacute;ticamente que <b>Var(b*) &ge; Var(b)</b>. 
+            Esto significa que el estimador MCO (<b>b</b>) tiene una varianza menor y es, por lo tanto, <b>m&aacute;s eficiente</b>. 
+            Este resultado es una aplicaci&oacute;n directa del <b>Teorema de Gauss-Markov</b>.
         </div>
     </section>
 </div>
