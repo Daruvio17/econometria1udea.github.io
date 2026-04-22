@@ -1853,88 +1853,81 @@ ESTIMACIÓN MODELO LINEAL:
     <section style="line-height: 1.8; color: #333; max-width: 950px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #ddd; border-radius: 8px;">
         
         <header style="border-bottom: 4px solid #2c3e50; margin-bottom: 30px;">
-            <h1 style="margin: 0; font-size: 1.8em; color: #2c3e50;">Solución Detallada: Ejercicio 1 (30%)</h1>
-            <p style="font-style: italic; color: #666;">Tema: Estimadores de Mínimos Cuadrados y Eficiencia Estadística</p>
+            <h1 style="margin: 0; font-size: 1.8em; color: #2c3e50;">Resolución de Examen: Ejercicio 1</h1>
+            <p style="font-style: italic; color: #666;">Análisis de Estimadores y Eficiencia Relativa</p>
         </header>
 
         <div style="background: #f9f9f9; padding: 20px; border-left: 5px solid #2c3e50; margin-bottom: 40px;">
-            <b style="color: #2c3e50;">Enunciado:</b><br>
-            Considere el modelo <i>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></i>. 
-            Donde <i>X<sub>t</sub></i> es no estocástica y <i>&mu;<sub>t</sub> &sim; N(0, &sigma;<sup>2</sup>)</i>. 
-            Obtenga el estimador <b>b</b> de OLS, demuestre su linealidad e insesgadez, halle su varianza y compárelo con <i>b* = Y&#772;/X&#772;</i>.
+            <b style="color: #2c3e50;">Enunciado del Problema:</b><br>
+            Considere el modelo de regresión simple a través del origen: <i>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></i>, donde <i>X<sub>t</sub></i> es no estocástica y <i>&mu;<sub>t</sub> &sim; N(0, &sigma;<sup>2</sup>)</i>. 
+            <br><br>
+            1. Obtenga el estimador <b>b</b> de OLS y demuestre su linealidad e insesgadez.<br>
+            2. Obtenga analíticamente la varianza de <b>b</b>.<br>
+            3. Compare la eficiencia de <b>b</b> frente al estimador <i>b* = Y&#772;/X&#772;</i> mediante la razón de sus varianzas.
         </div>
 
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee;">1. Obtención del Estimador MCO (Camino Matricial)</h2>
-        <p>Buscamos el valor de <b>b</b> que minimice la Suma de Residuos al Cuadrado (RSS). En forma matricial, el modelo es <b>y = X&beta; + &mu;</b>.</p>
+        <h2 style="color: #1a5276; border-bottom: 1px solid #eee;">1. Estimador de Mínimos Cuadrados Ordinarios (MCO)</h2>
+        <p>Partiendo de la forma matricial <b>b = (X'X)<sup>-1</sup>X'y</b>, y sabiendo que en este modelo <b>X</b> es un vector columna de observaciones <i>X<sub>t</sub></i>:</p>
+        <div style="text-align: center; font-size: 1.3em; margin: 20px; color: #2c3e50;">
+            <b>b = &sum; (X<sub>t</sub> Y<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup></b>
+        </div>
         
-        <div style="margin: 20px 0; padding: 20px; background: #f1f8ff; border-radius: 10px;">
-            <b>A. Definición de la función:</b><br>
-            La RSS se define como el producto del vector de residuos traspuesto por sí mismo:<br>
-            <center>RSS = <b>e'e</b> = (<b>y - Xb</b>)'(<b>y - Xb</b>)</center>
-            <br>
-            <b>B. Expansión de la ecuación:</b><br>
-            Multiplicando los términos obtenemos:<br>
-            <center>RSS = <b>y'y - 2b'X'y + b'X'Xb</b></center>
-            <br>
-            <b>C. Derivación (CPO):</b><br>
-            Para minimizar, derivamos respecto a <b>b</b> e igualamos a cero:<br>
-            <center>d(RSS)/db = -2<b>X'y</b> + 2<b>X'Xb</b> = 0</center>
-        </div>
-
-        <p>Al despejar <b>b</b>, obtenemos la fórmula maestra: <b>b = (X'X)<sup>-1</sup>X'y</b>.</p>
-        
-        <p><b>Traducción a sumatorias:</b> En este modelo (sin intercepto), <b>X</b> es un vector columna. Por tanto:</p>
-        <ul style="list-style: none; padding-left: 20px;">
-            <li>&bull; <b>X'X</b> es la suma de los cuadrados: <b>&sum; X<sub>t</sub><sup>2</sup></b></li>
-            <li>&bull; <b>X'y</b> es la suma del producto cruzado: <b>&sum; X<sub>t</sub>Y<sub>t</sub></b></li>
-        </ul>
-        <div style="text-align: center; font-size: 1.4em; font-weight: bold; margin: 20px; color: #e67e22;">
-            b = (&sum; X<sub>t</sub>Y<sub>t</sub>) / (&sum; X<sub>t</sub><sup>2</sup>)
-        </div>
-
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">2. Demostración de Propiedades</h2>
-
-        <h3>A. Linealidad</h3>
-        <p>Un estimador es lineal si es una "suma ponderada" de <i>Y<sub>t</sub></i>. Si aislamos <i>Y<sub>t</sub></i> en nuestra fórmula:</p>
-        <p style="text-align: center; font-style: italic;">
-            b = &sum; [ X<sub>t</sub> / (&sum; X<sub>j</sub><sup>2</sup>) ] &times; Y<sub>t</sub>
+        <p><b>&bull; Insesgadez:</b><br>
+        Sustituimos <i>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></i> y aplicamos esperanza matemática:</p>
+        <p style="text-align: center; background: #f8f9fa; padding: 10px;">
+            E[b] = E[ (&sum; X<sub>t</sub>(&beta;X<sub>t</sub> + &mu;<sub>t</sub>)) / &sum; X<sub>t</sub><sup>2</sup> ] = &beta; + E[ &sum; X<sub>t</sub>&mu;<sub>t</sub> / &sum; X<sub>t</sub><sup>2</sup> ] = <b>&beta;</b>
         </p>
-        <p>Como el término entre corchetes son solo constantes (valores fijos de X), el estimador es una combinación lineal de la variable dependiente.</p>
 
-        <h3>B. Insesgadez</h3>
-        <p>Queremos probar que, en promedio, el estimador le atina al valor real: <b>E[b] = &beta;</b>.</p>
-        <ol>
-            <li>Sustituimos <i>Y<sub>t</sub></i> por el modelo poblacional: <i>b = &sum; X<sub>t</sub>(&beta;X<sub>t</sub> + &mu;<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup></i></li>
-            <li>Repartimos la sumatoria: <i>b = [ &beta;(&sum; X<sub>t</sub><sup>2</sup>) / &sum; X<sub>t</sub><sup>2</sup> ] + [ &sum; X<sub>t</sub>&mu;<sub>t</sub> / &sum; X<sub>t</sub><sup>2</sup> ]</i></li>
-            <li>Simplificamos: <i>b = &beta; + (&sum; X<sub>t</sub>&mu;<sub>t</sub> / &sum; X<sub>t</sub><sup>2</sup>)</i></li>
-            <li>Aplicamos Esperanza E[b]: Como E[&mu;<sub>t</sub>] = 0, el segundo término desaparece.</li>
-        </ol>
-        <p style="text-align: center; font-weight: bold; background: #eee; padding: 10px;">Resultado: E[b] = &beta; (Insesgado)</p>
-
-        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">3. Varianza y Comparación de Eficiencia</h2>
+        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">2. Derivación de la Varianza de b</h2>
+        <p>Para hallar la varianza de <b>b</b>, aplicamos el operador varianza a su forma lineal:</p>
         
-        <p>La varianza de MCO para este modelo es:</p>
-        <center><b>Var(b) = &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup></b></center>
-
-        <p>Ahora analicemos el estimador alternativo <b>b* = Y&#772; / X&#772;</b>:</p>
-        <ul style="background: #fff9e6; padding: 20px; border-radius: 8px;">
-            <li>1. Sabemos que Var(Y&#772;) = &sigma;<sup>2</sup> / n</li>
-            <li>2. Por propiedad de varianzas: Var(b*) = (1 / X&#772;<sup>2</sup>) &times; Var(Y&#772;)</li>
-            <li>3. Por tanto: <b>Var(b*) = &sigma;<sup>2</sup> / (n &times; X&#772;<sup>2</sup>)</b></li>
-        </ul>
-
-        <h3 style="color: #c0392b;">¿Por qué b es mejor que b*?</h3>
-        <p>Para que <b>b</b> sea más eficiente, su varianza debe ser menor. Esto depende de los denominadores:</p>
-        <ul>
-            <li>Denominador de b: <b>&sum; X<sub>t</sub><sup>2</sup></b></li>
-            <li>Denominador de b*: <b>n &times; X&#772;<sup>2</sup></b></li>
-        </ul>
-        <p>Por la <b>Desigualdad de Cauchy-Schwarz</b>, la suma de los cuadrados siempre es mayor o igual a <i>n</i> veces el cuadrado del promedio (<b>&sum; X<sub>t</sub><sup>2</sup> &ge; nX&#772;<sup>2</sup></b>). 
-        Como el denominador de <b>b</b> es más grande, el resultado de su varianza es <b>más pequeño</b>.</p>
+        <div style="background: #f1f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <b>Paso A:</b> Definimos <i>b</i> como una suma ponderada: <i>b = &sum; w<sub>t</sub> Y<sub>t</sub></i>, donde <i>w<sub>t</sub> = X<sub>t</sub> / &sum; X<sub>j</sub><sup>2</sup></i>.<br>
+            <b>Paso B:</b> Aplicamos varianza (recordando que Var(aY) = a<sup>2</sup>Var(Y)):<br>
+            <center>Var(b) = &sum; w<sub>t</sub><sup>2</sup> Var(Y<sub>t</sub>)</center>
+            <br>
+            <b>Paso C:</b> Como Var(Y<sub>t</sub>) = &sigma;<sup>2</sup>, factorizamos la constante:<br>
+            <center>Var(b) = &sigma;<sup>2</sup> &sum; [ X<sub>t</sub> / &sum; X<sub>j</sub><sup>2</sup> ]<sup>2</sup></center>
+            <br>
+            <b>Paso D:</b> Expandiendo el cuadrado del denominador:<br>
+            <center>Var(b) = &sigma;<sup>2</sup> [ &sum; X<sub>t</sub><sup>2</sup> / (&sum; X<sub>j</sub><sup>2</sup>)<sup>2</sup> ]</center>
+        </div>
         
-        <p style="background: #2c3e50; color: white; padding: 15px; border-radius: 5px; text-align: center;">
-            <b>Justificación Teórica:</b> El Teorema de Gauss-Markov establece que el estimador de MCO es el MELI (Mejor Estimador Lineal Insesgado), garantizando la varianza mínima.
-        </p>
+        <p>Simplificando una sumatoria del numerador con una del denominador, obtenemos la <b>Varianza de MCO</b>:</p>
+        <div style="text-align: center; font-size: 1.4em; font-weight: bold; color: #c0392b; margin: 20px;">
+            Var(b) = &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup>
+        </div>
+        
+
+        <h2 style="color: #1a5276; border-bottom: 1px solid #eee; margin-top: 40px;">3. Comparación de Eficiencia (b vs b*)</h2>
+        <p>El estimador alternativo es <i>b* = Y&#772;/X&#772;</i>. Su varianza es:</p>
+        <center>Var(b*) = Var(Y&#772;) / X&#772;<sup>2</sup> = ( &sigma;<sup>2</sup>/n ) / X&#772;<sup>2</sup> = <b>&sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>)</b></center>
+
+        <p>Para comparar cuál es más eficiente, realizamos el cociente entre la varianza del estimador alternativo y la del estimador MCO:</p>
+        
+        <div style="background: #fff9e6; padding: 25px; border-radius: 8px; border: 1px solid #ffeaa7; margin-top: 20px;">
+            <center style="font-size: 1.2em;">
+                Cociente = Var(b*) / Var(b) = [ &sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>) ] / [ &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup> ]
+            </center>
+            <br>
+            Al simplificar <i>&sigma;<sup>2</sup></i> y aplicar la "ley de la oreja", obtenemos:<br>
+            <center style="font-size: 1.3em; font-weight: bold; margin-top: 10px;">
+                Cociente = &sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>)
+            </center>
+        </div>
+
+        <p><b>Análisis del Resultado:</b></p>
+        <p>Sabemos por definición que la varianza de la muestra de X es siempre positiva o cero:</p>
+        <center>Var(X) = (&sum; X<sub>t</sub><sup>2</sup> / n) - X&#772;<sup>2</sup> &ge; 0</center>
+        <p>Si despejamos, vemos que <b>&sum; X<sub>t</sub><sup>2</sup> / n &ge; X&#772;<sup>2</sup></b>, lo que implica que:</p>
+        <center><b>&sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>) &ge; 1</b></center>
+
+        <div style="background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-top: 30px;">
+            <b>Conclusión Final:</b><br>
+            Como el cociente es mayor o igual a 1, esto demuestra que <b>Var(b*) &ge; Var(b)</b>. 
+            Por lo tanto, el estimador <b>b</b> de MCO es más eficiente (tiene menor varianza) que el estimador de promedios <b>b*</b>. 
+            Esto confirma el Teorema de Gauss-Markov: MCO es el Mejor Estimador Lineal Insesgado (MELI).
+        </div>
     </section>
 </div>
 
