@@ -110,6 +110,7 @@
         <div class="nav-links">
             <a onclick="showTab('inicio')">Inicio</a>
             <a onclick="showTab('proyectos')">Talleres</a>
+            <a onclick="showTab('parciales')">Parciales</a>
         </div>
     </nav>
 
@@ -160,7 +161,23 @@
 
 
 
-
+<div id="parciales" class="tab-content">
+            <h2 style="color: var(--secondary); margin-bottom: 10px;">Parciales pasados de referencia</h2>
+            
+             <div class="projects-grid">
+                <div class="project-card-detailed">
+                    <div class="project-header-detailed">
+                        <h3>Parcial 1</h3>
+                    </div>
+                    <div class="project-body-detailed">
+                        <p>Puntos del 1 al 8</p>
+                        <br>
+                        <a onclick="showTab('parcial1')" class="project-btn">Ver parcial 1 →</a>
+                    </div>
+                </div>
+            </div> 
+        
+        </div>
 
 
 
@@ -1822,11 +1839,82 @@ ESTIMACIÓN MODELO LINEAL:
 </div>
 
         
-<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------- Parcial 1------------------------------------------------------------------------------------------------------------------->
     
+<div id="parcial1" class="tab-content">
+    <a onclick="showTab('proyectos')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px;">
+        <i class="fas fa-arrow-left"></i> Volver a parciales
+    </a>
 
+    <section class="ejercicio-econometria" style="line-height: 1.6; color: #333;">
+        <h2 style="color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px;">Ejercicio 1: Estimadores en Regresión Simple</h2>
+        
+        <div class="enunciado" style="background: #f9f9f9; padding: 20px; border-left: 5px solid #ccc; margin-bottom: 30px;">
+            <strong>Enunciado:</strong> Considere el modelo $Y_t = \beta X_t + \mu_t$, donde $X_t$ es una variable no estocástica y $\mu_t \sim N(0, \sigma^2)$ independiente e idénticamente distribuido. Obtenga el estimador $b$ de OLS para $\beta$, muestre que es lineal e insesgado y obtenga su varianza. Compare teóricamente con el estimador alternativo $b^* = \bar{Y}/\bar{X}$.
+        </div>
 
+        <h3>1. Derivación Matricial del Estimador MCO</h3>
+        <p>Partimos de la representación compacta del modelo para los $n$ datos:</p>
+        <div style="text-align: center; margin: 20px 0;">
+            $$\mathbf{y} = \mathbf{X}\beta + \boldsymbol{\mu}$$
+        </div>
+        <p>Definimos la <strong>Función de Pérdida</strong> como la Suma de los Residuos al Cuadrado (RSS):</p>
+        <div style="background: #eee; padding: 15px; border-radius: 8px;">
+            $$RSS(b) = \mathbf{e'e} = (\mathbf{y} - \mathbf{X}b)'(\mathbf{y} - \mathbf{X}b)$$
+            $$RSS(b) = \mathbf{y'y} - 2b'\mathbf{X'y} + b'\mathbf{X'X}b$$
+        </div>
+        
+        <p>Para minimizar, aplicamos la condición de primer orden (CPO) derivando respecto a $b$:</p>
+        <p>$$\frac{\partial RSS}{\partial b} = -2\mathbf{X'y} + 2\mathbf{X'X}b = 0$$</p>
+        <p>Al despejar $b$, obtenemos la solución general: <strong>$b = (\mathbf{X'X})^{-1}\mathbf{X'y}$</strong>.</p>
 
+        <hr style="margin: 40px 0;">
+
+        <h3>2. Transición de la Forma Matricial a la Escalar</h3>
+        <p>Dado que el modelo no tiene intercepto, el vector $\mathbf{X}$ es simplemente una columna con los valores de la variable independiente. Por tanto:</p>
+        <ul>
+            <li>$\mathbf{X'X}$ se convierte en el escalar: $\sum_{t=1}^{n} X_t^2$</li>
+            <li>$\mathbf{X'y}$ se convierte en el escalar: $\sum_{t=1}^{n} X_t Y_t$</li>
+        </ul>
+        <p>Sustituyendo, el estimador $b$ para este modelo específico es:</p>
+        <div style="font-size: 1.2em; text-align: center; color: var(--primary);">
+            $$b = \frac{\sum X_t Y_t}{\sum X_t^2}$$
+        </div>
+
+        <hr style="margin: 40px 0;">
+
+        <h3>3. Propiedades Estadísticas del Estimador</h3>
+        
+        <h4>A. Linealidad</h4>
+        <p>Un estimador es lineal si es una combinación ponderada de las observaciones de la variable dependiente. Podemos reescribir $b$ como:</p>
+        <p>$$b = \sum w_t Y_t \quad \text{donde} \quad w_t = \frac{X_t}{\sum X_j^2}$$</p>
+
+        <h4>B. Insesgadez</h4>
+        <p>Sustituyendo el valor poblacional $Y_t = \beta X_t + \mu_t$ en la fórmula del estimador:</p>
+        <p>$$b = \frac{\sum X_t (\beta X_t + \mu_t)}{\sum X_t^2} = \beta + \frac{\sum X_t \mu_t}{\sum X_t^2}$$</p>
+        <p>Al aplicar el operador esperanza $E[\cdot]$ y dado que $E[\mu_t] = 0$:</p>
+        <p>$$E[b] = \beta + \frac{\sum X_t E[\mu_t]}{\sum X_t^2} = \beta$$</p>
+
+        <h4>C. Varianza</h4>
+        <p>Bajo el supuesto de homocedasticidad ($\text{var}(\mu_t) = \sigma^2$):</p>
+        <p>$$\text{var}(b) = \frac{\sigma^2}{\sum X_t^2}$$</p>
+
+        <hr style="margin: 40px 0;">
+
+        <h3>4. Comparación con el Estimador Alternativo $b^*$</h3>
+        <p>Se propone el estimador $b^* = \frac{\bar{Y}}{\bar{X}}$. Aunque se demuestra que es <strong>lineal e insesgado</strong>, su varianza es:</p>
+        <p>$$\text{var}(b^*) = \frac{\sigma^2}{n \bar{X}^2}$$</p>
+        
+        <p><strong>Justificación de Eficiencia:</strong> Según el <strong>Teorema de Gauss-Markov</strong>, el estimador MCO ($b$) es el Mejor Estimador Lineal e Insesgado (MELI). Esto implica que su varianza es mínima.</p>
+        <div style="background: #e7f3fe; padding: 15px; border-left: 5px solid #2196F3;">
+            Matemáticamente, por la desigualdad de Cauchy-Schwarz:
+            $$\sum X_t^2 \geq n \bar{X}^2$$
+            Por lo tanto, el denominador de $\text{var}(b)$ es mayor, lo que resulta en una varianza menor en comparación con $b^*$. <strong>Conclusión: $b$ es más eficiente.</strong>
+        </div>
+    </section>
+</div>
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
