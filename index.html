@@ -110,7 +110,6 @@
         <div class="nav-links">
             <a onclick="showTab('inicio')">Inicio</a>
             <a onclick="showTab('proyectos')">Talleres</a>
-            <a onclick="showTab('parciales')">Parciales</a>
         </div>
     </nav>
 
@@ -161,23 +160,7 @@
 
 
 
-<div id="parciales" class="tab-content">
-            <h2 style="color: var(--secondary); margin-bottom: 10px;">Parciales pasados de referencia</h2>
-            
-             <div class="projects-grid">
-                <div class="project-card-detailed">
-                    <div class="project-header-detailed">
-                        <h3>Parcial 1</h3>
-                    </div>
-                    <div class="project-body-detailed">
-                        <p>Puntos del 1 al 8</p>
-                        <br>
-                        <a onclick="showTab('parcial1')" class="project-btn">Ver parcial 1 →</a>
-                    </div>
-                </div>
-            </div> 
-        
-        </div>
+
 
 
 
@@ -1839,77 +1822,11 @@ ESTIMACIÓN MODELO LINEAL:
 </div>
 
         
-<!------------------------------------------------------------------------------------------- Parcial 1------------------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
-<div id="parcial1" class="tab-content" style="display: none; padding: 20px;">
-    
-    <a href="javascript:void(0);" onclick="showTab('parciales')" style="color: var(--primary); cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 25px; font-weight: bold;">
-        <i class="fas fa-arrow-left"></i> Volver a parciales
-    </a>
 
-    <section class="ejercicio-econometria" style="line-height: 1.8; color: #333; max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        
-        <header style="border-bottom: 3px solid var(--primary); margin-bottom: 30px; padding-bottom: 10px;">
-            <h2 style="margin: 0; color: var(--primary); font-size: 1.8em;">Ejercicio 1: Estimadores en Regresión Simple</h2>
-            <p style="color: #666; margin-top: 5px;">Demostración de Propiedades y Eficiencia (MCO vs. Promedios)</p>
-        </header>
-        
-        <div class="enunciado" style="background: #f8f9fa; padding: 25px; border-left: 6px solid var(--primary); margin-bottom: 35px; border-radius: 4px;">
-            <strong style="display: block; margin-bottom: 10px; color: var(--primary);">Enunciado:</strong>
-            Considere el modelo poblacional $Y_t = \beta X_t + \mu_t$, donde $X_t$ es una variable no estocástica y $\mu_t \sim N(0, \sigma^2)$ i.i.d. 
-            <br><br>
-            Obtenga el estimador $b$ de MCO para $\beta$, demuestre que es lineal e insesgado y halle su varianza. Finalmente, compare su eficiencia con el estimador $b^* = \bar{Y}/\bar{X}$.
-        </div>
 
-        <h3>1. Derivación del Estimador MCO (Enfoque Matricial)</h3>
-        <p>Definimos el modelo en términos matriciales como $\mathbf{y} = \mathbf{X}\beta + \boldsymbol{\mu}$. Para minimizar la Suma de los Residuos al Cuadrado ($RSS$):</p>
-        
-        <div style="background: #fff; padding: 15px; border: 1px solid #eee; margin: 20px 0; text-align: center;">
-            $$RSS(b) = (\mathbf{y} - \mathbf{X}b)'(\mathbf{y} - \mathbf{X}b)$$
-            $$\frac{\partial RSS}{\partial b} = -2\mathbf{X'y} + 2\mathbf{X'X}b = 0$$
-            <strong>$$b = (\mathbf{X'X})^{-1}\mathbf{X'y}$$</strong>
-        </div>
-        
-        <p>Dado que no hay intercepto, $\mathbf{X}$ es un vector columna. Traduciendo a notación de sumatorias:</p>
-        <ul style="margin-bottom: 20px;">
-            <li>$\mathbf{X'X} = \sum X_t^2$</li>
-            <li>$\mathbf{X'y} = \sum X_t Y_t$</li>
-        </ul>
-        <div style="font-size: 1.25em; text-align: center; color: #2c3e50; background: #e9ecef; padding: 15px; border-radius: 8px;">
-            $$b = \frac{\sum X_t Y_t}{\sum X_t^2}$$
-        </div>
 
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
-
-        <h3>2. Demostración de Propiedades</h3>
-        
-        <h4>A. Linealidad</h4>
-        <p>El estimador es lineal porque se puede expresar como una suma ponderada de $Y_t$:</p>
-        <p style="text-align: center;">$$b = \sum \left( \frac{X_t}{\sum X_j^2} \right) Y_t = \sum w_t Y_t$$</p>
-
-        <h4>B. Insesgadez</h4>
-        <p>Sustituyendo $Y_t = \beta X_t + \mu_t$ y aplicando esperanza matemática:</p>
-        <p style="text-align: center;">$$E[b] = \beta + E\left[ \frac{\sum X_t \mu_t}{\sum X_t^2} \right] = \beta + \frac{\sum X_t E[\mu_t]}{\sum X_t^2} = \beta$$</p>
-
-        <h4>C. Varianza de $b$</h4>
-        <p style="text-align: center;">$$\text{var}(b) = \frac{\sigma^2}{\sum X_t^2}$$</p>
-
-        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
-
-        <h3>3. Comparación con $b^* = \bar{Y}/\bar{X}$</h3>
-        <p>Calculamos la varianza del estimador alternativo utilizando la propiedad $\text{var}(\bar{Y}) = \sigma^2/n$:</p>
-        <p style="text-align: center;">$$\text{var}(b^*) = \text{var}\left( \frac{\bar{Y}}{\bar{X}} \right) = \frac{1}{\bar{X}^2} \text{var}(\bar{Y}) = \frac{\sigma^2}{n\bar{X}^2}$$</p>
-        
-        <div style="background: #fff3cd; padding: 20px; border-left: 5px solid #ffc107; margin-top: 25px;">
-            <strong>Justificación Teórica (Gauss-Markov):</strong>
-            El estimador MCO ($b$) es el <strong>MELI</strong> (Mejor Estimador Lineal Insesgado). Por la desigualdad de Cauchy-Schwarz, sabemos que $\sum X_t^2 \geq n\bar{X}^2$. 
-            <br><br>
-            Esto implica que el denominador de $\text{var}(b)$ es mayor, por lo tanto <strong>$\text{var}(b) \leq \text{var}(b^*)$</strong>. MCO siempre será más preciso.
-        </div>
-    </section>
-</div>
-
-<!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
