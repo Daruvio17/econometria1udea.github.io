@@ -1853,154 +1853,109 @@ ESTIMACIÓN MODELO LINEAL:
     <section style="line-height: 1.8; color: #333; max-width: 1000px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
         
         <header style="border-bottom: 4px solid #2c3e50; margin-bottom: 30px; padding-bottom: 10px;">
-            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Solución Detallada</h1>
+            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Solución Detallada de Examen</h1>
         </header>
 
         <div style="background: #f4f7f6; padding: 25px; border-left: 6px solid #2c3e50; margin-bottom: 40px; border-radius: 4px;">
             <b style="color: #2c3e50; font-size: 1.1em;">Enunciado 1:</b><br>
-            Considere el modelo de regresión simple sin intercepto: <b>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></b>, donde:
-            <ul style="margin-top: 10px;">
-                <li><i>X<sub>t</sub></i> es una variable no estocástica (fija).</li>
-                <li><i>&mu;<sub>t</sub> &sim; N(0, &sigma;<sup>2</sup>)</i> son términos de error independientes e idénticamente distribuidos (i.i.d).</li>
-            </ul>
-            <b>Reto:</b> Obtener el estimador <b>b</b> (MCO), demostrar sus propiedades, hallar su varianza y compararlo con el estimador de promedios <b>b* = Y&#772; / X&#772;</b>.
+            Considere el modelo de regresión simple sin intercepto: <b>Y<sub>t</sub> = &beta;X<sub>t</sub> + &mu;<sub>t</sub></b>.
+            Obtenga el estimador <b>b</b> (MCO) mediante álgebra matricial, demuestre propiedades y compare eficiencia.
         </div>
 
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px;">1. Obtención del Estimador MCO (b)</h2>
-        <p>Utilizamos el enfoque matricial para minimizar la Suma de Residuos al Cuadrado (RSS). La solución general es:</p>
-        <div style="text-align: center; background: #f1f8ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <span style="font-size: 1.3em;"><b>b = (X'X)<sup>-1</sup>X'y</b></span>
-        </div>
-        <p>Al ser un modelo de una sola variable sin constante, <b>X'X</b> es simplemente la suma de los cuadrados de X, y <b>X'y</b> es la suma del producto cruzado. Por lo tanto, el estimador escalar es:</p>
-        <div style="text-align: center; font-size: 1.5em; font-weight: bold; color: #1a5276; margin-bottom: 30px;">
-            b = &sum; (X<sub>t</sub> Y<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup>
-        </div>
-
-        <p><b>&bull; Insesgadez:</b> Sustituimos <i>Y<sub>t</sub></i> en la fórmula. Al aplicar Esperanza <i>E[b]</i>, el término que contiene a <i>&mu;<sub>t</sub></i> se hace cero porque <i>E[&mu;<sub>t</sub>] = 0</i>, resultando en <b>E[b] = &beta;</b>.</p>
-
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">2. Derivación Analítica de la Varianza de b</h2>
-        <p>Para hallar la varianza, recordamos que <b>b</b> es una combinación lineal de los errores. El proceso paso a paso es:</p>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px;">1. Derivación Matricial de MCO (Paso a Paso)</h2>
+        <p>Para obtener el estimador, partimos de la definición de la Suma de Residuos al Cuadrado (RSS) en forma matricial:</p>
         
-        <div style="background: #fff; border: 1px solid #d6eaf8; padding: 25px; border-radius: 8px; margin: 20px 0;">
-            <b>Paso A:</b> Expresamos el estimador en función del error poblacional:<br>
-            <center><i>b = &beta; + &sum; (X<sub>t</sub> &mu;<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup></i></center>
-            <br>
-            <b>Paso B:</b> Aplicamos el operador Varianza. Como <i>&beta;</i> es una constante, su varianza es cero:<br>
-            <center><i>Var(b) = Var[ &sum; (X<sub>t</sub> &mu;<sub>t</sub>) / &sum; X<sub>t</sub><sup>2</sup> ]</i></center>
-            <br>
-            <b>Paso C:</b> Sacamos las constantes elevadas al cuadrado y sumamos las varianzas de los errores (Homocedasticidad):<br>
-            <center><i>Var(b) = [ 1 / (&sum; X<sub>t</sub><sup>2</sup>)<sup>2</sup> ] &times; &sum; (X<sub>t</sub><sup>2</sup> &times; Var(&mu;<sub>t</sub>))</i></center>
-            <br>
-            <b>Paso D:</b> Como <i>Var(&mu;<sub>t</sub>) = &sigma;<sup>2</sup></i>, factorizamos y simplificamos:<br>
-            <center><i>Var(b) = [ &sigma;<sup>2</sup> &times; &sum; X<sub>t</sub><sup>2</sup> ] / (&sum; X<sub>t</sub><sup>2</sup>)<sup>2</sup></i></center>
-        </div>
-
-        <p>Al simplificar una sumatoria, la <b>Varianza de MCO</b> queda definida como:</p>
-        <div style="text-align: center; font-size: 1.5em; font-weight: bold; color: #c0392b; margin: 20px 0;">
-            Var(b) = &sigma;<sup>2</sup> / &sum; X<sub>t</sub><sup>2</sup>
-        </div>
-
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">3. Comparación de Eficiencia: b vs b*</h2>
-        <p>Se define el estimador alternativo <b>b* = Y&#772; / X&#772;</b>. Su varianza, utilizando la observación dada (<i>Var(Y&#772;) = &sigma;<sup>2</sup>/n</i>), es:</p>
-        <center style="font-size: 1.2em; margin: 20px 0;"><b>Var(b*) = &sigma;<sup>2</sup> / (n X&#772;<sup>2</sup>)</b></center>
-
-        <p>Para comparar, calculamos la raz&oacute;n de varianzas (Raz&oacute;n = Var(b*) / Var(b)):</p>
-        <div style="background: #fff9e6; padding: 25px; border-radius: 8px; border: 1px solid #ffeaa7; margin: 20px 0; text-align: center;">
-            <span style="font-size: 1.3em;">Raz&oacute;n = <b>&sum; X<sub>t</sub><sup>2</sup> / (n X&#772;<sup>2</sup>)</b></span>
-        </div>
-
-        <h3 style="color: #2c3e50;">Descomposici&oacute;n l&oacute;gica del resultado:</h3>
-        <p>¿Por qu&eacute; esa raz&oacute;n es mayor a 1? Utilizamos la f&oacute;rmula de la varianza de los datos de X:</p>
-        <div style="background: #fdfefe; border: 1px solid #ddd; padding: 20px; border-radius: 8px;">
-            Sabemos que: <b>&sum; X<sub>t</sub><sup>2</sup> = &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> + n X&#772;<sup>2</sup></b>
+        <div style="background: #f1f8ff; padding: 25px; border-radius: 8px; margin: 20px 0;">
+            <b>Paso 1: Definir la función a minimizar</b><br>
+            RSS = <b>e'e</b> = (<b>y - Xb</b>)'(<b>y - Xb</b>)
             <br><br>
-            Si sustituimos esto en el numerador de nuestra raz&oacute;n:<br>
-            <center>Raz&oacute;n = [ &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> + n X&#772;<sup>2</sup> ] / (n X&#772;<sup>2</sup>)</center>
-            <br>
-            Dividiendo cada t&eacute;rmino entre el denominador:<br>
-            <center style="font-size: 1.3em; font-weight: bold; color: #27ae60;">
-                Raz&oacute;n = [ &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> / (n X&#772;<sup>2</sup>) ] + 1
-            </center>
+            <b>Paso 2: Expandir el producto</b><br>
+            Al distribuir la transpuesta (recordando que <i>(A-B)' = A'-B'</i>):<br>
+            RSS = (<b>y' - b'X'</b>)(<b>y - Xb</b>) = <b>y'y - y'Xb - b'X'y + b'X'Xb</b>
+            <br><br>
+            Como <b>y'Xb</b> es un escalar, es igual a su transpuesta (<b>b'X'y</b>). Simplificamos:<br>
+            RSS = <b>y'y - 2b'X'y + b'X'Xb</b>
+            <br><br>
+            <b>Paso 3: Derivar e igualar a cero (CPO)</b><br>
+            Derivamos respecto al vector de parámetros <b>b</b>:<br>
+            &part;RSS / &part;b = -2<b>X'y</b> + 2<b>X'Xb</b> = 0
+            <br><br>
+            <b>Paso 4: Despejar b</b><br>
+            2<b>X'Xb</b> = 2<b>X'y</b> &nbsp;&rarr;&nbsp; <b>X'Xb</b> = <b>X'y</b><br>
+            Multiplicamos por la inversa <b>(X'X)<sup>-1</sup></b> a ambos lados:<br>
+            <center><b>b = (X'X)<sup>-1</sup>X'y</b></center>
         </div>
 
-        <p style="margin-top: 20px;">
-            Como el t&eacute;rmino <i>&sum; (X<sub>t</sub> - X&#772;)<sup>2</sup></i> es una suma de cuadrados, su valor es <b>siempre positivo o cero</b>. Al sumarle <b>1</b>, el resultado total es <b>&ge; 1</b>.
-        </p>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">2. Varianza e Insesgadez</h2>
+        <p>Sustituyendo <b>y = X&beta; + &mu;</b> en la fórmula del estimador:</p>
+        <p style="text-align: center;"><i>b = (X'X)<sup>-1</sup>X'(X&beta; + &mu;) = &beta; + (X'X)<sup>-1</sup>X'&mu;</i></p>
+        <p>Como <i>E[&mu;] = 0</i>, entonces <b>E[b] = &beta;</b> (Insesgado). <br>
+        La varianza se calcula como: <i>Var(b) = E[(b-&beta;)(b-&beta;)'] = E[(X'X)<sup>-1</sup>X'&mu;&mu;'X(X'X)<sup>-1</sup>]</i>. <br>
+        Asumiendo <i>E[&mu;&mu;'] = &sigma;<sup>2</sup>I</i>, llegamos a: <b>Var(b) = &sigma;<sup>2</sup>(X'X)<sup>-1</sup></b>.</p>
 
-        <div style="background: #2c3e50; color: white; padding: 25px; border-radius: 8px; margin-top: 30px; border-left: 10px solid #2e86c1;">
-            <b>Concluci&oacute;n sobre la Eficiencia:</b><br>
-            Dado que la raz&oacute;n es mayor o igual a 1, hemos demostrado matem&aacute;ticamente que <b>Var(b*) &ge; Var(b)</b>. 
-            Esto significa que el estimador MCO (<b>b</b>) tiene una varianza menor y es, por lo tanto, <b>m&aacute;s eficiente</b>. 
-            Este resultado es una aplicaci&oacute;n directa del <b>Teorema de Gauss-Markov</b>.
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px;">3. Eficiencia: Comparación Var(b) vs Var(b*)</h2>
+        <div style="background: #fff9e6; padding: 25px; border-radius: 8px; border: 1px solid #ffeaa7; margin: 20px 0;">
+            <b>Raz&oacute;n = Var(b*) / Var(b) = [ &sum; (X<sub>t</sub> - X&#772;)<sup>2</sup> / (n X&#772;<sup>2</sup>) ] + 1</b>
+            <br><br>
+            Como la suma de cuadrados <i>&sum;(X<sub>t</sub> - X&#772;)<sup>2</sup></i> es siempre &ge; 0, la razón es &ge; 1. <br>
+            Esto implica que <b>Var(b*) &ge; Var(b)</b>, demostrando que MCO es más eficiente por el teorema de Gauss-Markov.
         </div>
-    </section>
-    <hr style="margin: 50px 0; border: 0; border-top: 5px double #e67e22;">
+
+        <hr style="margin: 60px 0; border: 0; border-top: 8px double #e67e22;">
 
         <header style="border-bottom: 4px solid #e67e22; margin-bottom: 30px; padding-bottom: 10px;">
-            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Ejercicio 2: Modelo de Regresi&oacute;n M&uacute;ltiple</h1>
-            <p style="font-style: italic; color: #7f8c8d;">An&aacute;lisis de Importaciones, PIB e IPC (Modelo Log-Log)</p>
+            <h1 style="margin: 0; font-size: 2em; color: #2c3e50;">Ejercicio 2: Modelo Log-Log y Pruebas de Hipótesis</h1>
         </header>
 
         <div style="background: #fdf2e9; padding: 25px; border-left: 6px solid #e67e22; margin-bottom: 40px; border-radius: 4px;">
-            <b style="color: #d35400; font-size: 1.1em;">Enunciado:</b><br>
-            Se estima la relaci&oacute;n entre Importaciones (Y), PIB (X<sub>2</sub>) e IPC (X<sub>3</sub>) mediante el modelo:<br>
-            <center style="margin: 15px 0; font-size: 1.2em;"><b>ln Y<sub>t</sub> = &beta;<sub>1</sub> + &beta;<sub>2</sub> ln X<sub>2t</sub> + &beta;<sub>3</sub> ln X<sub>3t</sub> + &mu;<sub>t</sub></b></center>
-            A partir de los resultados de R, interprete los coeficientes, realice pruebas de significancia y verifique la restricci&oacute;n <b>&beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b>.
+            <b style="color: #d35400; font-size: 1.1em;">Enunciado 2:</b><br>
+            Se estima el modelo: <b>ln Y<sub>t</sub> = &beta;<sub>1</sub> + &beta;<sub>2</sub> ln X<sub>2t</sub> + &beta;<sub>3</sub> ln X<sub>3t</sub> + &mu;<sub>t</sub></b>.<br>
+            Utilice el reporte de software adjunto para realizar las inferencias pertinentes.
         </div>
 
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee;">1. Interpretaci&oacute;n de Coeficientes (Elasticidades)</h2>
-        <p>Al estar las variables en logaritmos naturales, los coeficientes representan <b>elasticidades constantes</b>:</p>
-        <ul>
-            <li><b>&beta;<sub>2</sub> (1.8301):</b> Elasticidad-Ingreso. Si el PIB aumenta en 1%, las importaciones aumentan en promedio <b>1.83%</b>. Es un bien el&aacute;stico y superior.</li>
-            <li><b>&beta;<sub>3</sub> (-0.8433):</b> Elasticidad-Precio. Si el IPC aumenta en 1%, las importaciones disminuyen en promedio <b>0.84%</b>. El signo negativo sugiere que el aumento de precios internos reduce la demanda de importaciones (o un efecto de sustituci&oacute;n).</li>
-        </ul>
-
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">2. An&aacute;lisis de Significancia e Inferencial</h2>
-        
-        <div style="background: #2c3e50; color: #f1f1f1; padding: 20px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em; margin: 20px 0;">
-            <b>Cuadro de Coeficientes (Summary):</b><br>
-            -------------------------------------------------------------<br>
-            Variable &nbsp;&nbsp; Estimaci&oacute;n &nbsp; Err. Est &nbsp; t-stat &nbsp; p-valor<br>
-            Intercepto &nbsp; 1.4376 &nbsp;&nbsp;&nbsp;&nbsp; 0.2696 &nbsp;&nbsp;&nbsp; 5.333 &nbsp;&nbsp; 0.00001<br>
-            ln PIB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.8301 &nbsp;&nbsp;&nbsp;&nbsp; 0.1822 &nbsp;&nbsp; 10.045 &nbsp;&nbsp; 0.00000<br>
-            ln IPC &nbsp;&nbsp;&nbsp;&nbsp; -0.8433 &nbsp;&nbsp;&nbsp;&nbsp; 0.2838 &nbsp;&nbsp; -2.971 &nbsp;&nbsp; 0.00603<br>
-            -------------------------------------------------------------
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee;">1. Reporte Completo del Software (R Summary)</h2>
+        <div style="background: #2c3e50; color: #f1f1f1; padding: 25px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 0.85em; margin: 25px 0; overflow-x: auto; line-height: 1.4;">
+            Call: lm(formula = lny ~ lnx2t + lnx3t)<br><br>
+            Coefficients:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Estimate Std. Error t value Pr(>|t|)<br>
+            (Intercept) &nbsp;1.43763 &nbsp;&nbsp;&nbsp;0.26965 &nbsp;&nbsp;5.331 &nbsp;1.12e-05 ***<br>
+            lnx2t &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.83011 &nbsp;&nbsp;&nbsp;0.18223 &nbsp;10.043 &nbsp;8.71e-11 ***<br>
+            lnx3t &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-0.84332 &nbsp;&nbsp;&nbsp;0.28384 &nbsp;-2.971 &nbsp;0.00603 ** <br>
+            ---<br>
+            Signif. codes: &nbsp;0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1<br><br>
+            Residual standard error: 0.07091 on 28 degrees of freedom<br>
+            Multiple R-squared: &nbsp;0.9919, &nbsp;Adjusted R-squared: &nbsp;0.9913<br>
+            F-statistic: 1718 on 2 and 28 DF, &nbsp;p-value: &lt; 2.2e-16<br>
+            RSS No Restringido (RSS_UR): 0.1408056
         </div>
 
-        <p><b>&bull; Significancia Individual:</b> Ambos coeficientes tienen p-valores menores al 5% (&alpha; = 0.05). Por lo tanto, <b>rechazamos H<sub>0</sub></b> en ambos casos: tanto el PIB como el IPC explican significativamente las importaciones.</p>
-        
-        <p><b>&bull; Bondad de Ajuste:</b> El <b>R<sup>2</sup> ajustado es 0.9913</b>, indicando que el modelo explica el 99.13% de la variaci&oacute;n de las importaciones, lo cual es un ajuste casi perfecto.</p>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">2. Interpretación y Significancia</h2>
+        <p>&bull; <b>Elasticidades:</b> Un aumento del 1% en el PIB (X<sub>2</sub>) incrementa las importaciones en 1.83%. Un aumento del 1% en el IPC (X<sub>3</sub>) las reduce en 0.84%.</p>
+        <p>&bull; <b>Significancia Individual:</b> Dado que los p-valores (Pr(>|t|)) son menores a 0.05, ambas variables son estadísticamente significativas.</p>
+        <p>&bull; <b>Jarque-Bera:</b> Con un p-valor de 0.2659, los residuos son normales (no rechazamos H<sub>0</sub>).</p>
 
-        <p><b>&bull; Prueba de Normalidad (Jarque-Bera):</b> El p-valor es <b>0.2659</b>. Al ser mayor a 0.05, <b>no rechazamos</b> la normalidad de los residuos. El modelo es v&aacute;lido para inferencia.</p>
-
-        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">3. Prueba de Hip&oacute;tesis Restringida</h2>
-        <p>Se eval&uacute;a la hip&oacute;tesis <b>H<sub>0</sub>: &beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b>. Para esto usamos el estad&iacute;stico F de restricci&oacute;n:</p>
+        <h2 style="color: #2e86c1; border-bottom: 2px solid #eee; margin-top: 40px;">3. Prueba de Hipótesis Restringida (Profundización)</h2>
+        <p>Evaluamos si <b>&beta;<sub>2</sub> + &beta;<sub>3</sub> = 1</b>. El modelo restringido arrojó un <b>RSS<sub>R</sub> = 0.1408846</b>.</p>
         
         <div style="background: #fdfefe; border: 1px solid #ddd; padding: 25px; border-radius: 8px; margin: 20px 0;">
-            <b>F = [ (RSS<sub>R</sub> - RSS<sub>UR</sub>) / m ] / [ RSS<sub>UR</sub> / (n - k) ]</b>
-            <br><br>
-            Donde:<br>
-            &bull; RSS No Restringido (UR) = 0.1408056<br>
-            &bull; RSS Restringido (R) = 0.1408846<br>
-            &bull; m (Restricciones) = 1<br>
-            &bull; n - k (Grados libertad) = 28
+            <b style="color: #2c3e50;">Cálculo Exacto del Estadístico F:</b><br><br>
+            F = [ (RSS<sub>R</sub> - RSS<sub>UR</sub>) / m ] / [ RSS<sub>UR</sub> / (n - k) ]<br><br>
+            F = [ (0.1408846 - 0.1408056) / 1 ] / [ 0.1408056 / 28 ]<br>
+            F = [ 0.000079 ] / [ 0.0050287 ]<br>
+            <center><b style="font-size: 1.4em; color: #d35400;">F<sub>calc</sub> = 0.0157</b></center>
         </div>
 
-        <p>Sustituyendo los valores del summary:</p>
-        <center style="font-size: 1.3em; background: #eee; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            F = [ (0.1408846 - 0.1408056) / 1 ] / [ 0.1408056 / 28 ] = <b>0.0157</b>
-        </center>
+        <h3 style="color: #2c3e50;">¿Por qué NO rechazamos la hipótesis nula?</h3>
+        <ol>
+            <li><b>Comparación con F Crítico:</b> Para 1 grado de libertad en el numerador y 28 en el denominador, el <i>F<sub>0.05</sub>(1, 28)</i> es aproximadamente <b>4.19</b>.</li>
+            <li><b>Regla de Decisión:</b> Como <b>F<sub>calc</sub> (0.0157) < F<sub>crit</sub> (4.19)</b>, caemos en la zona de no rechazo.</li>
+            <li><b>Análisis del P-valor:</b> Un estadístico F tan cercano a cero indica que imponer la restricción casi no aumentó el error del modelo. El p-valor exacto para este F es <b>0.901</b>.</li>
+        </ol>
 
-        <p><b>Interpretaci&oacute;n de la Restricci&oacute;n:</b><br>
-        El valor F calculado (0.0157) es extremadamente bajo (el p-valor sería cercano a 0.90). Esto significa que la diferencia entre el modelo con restricción y sin restricci&oacute;n es despreciable.
-        </p>
-        
-        <div style="background: #27ae60; color: white; padding: 20px; border-radius: 8px; font-weight: bold; text-align: center;">
-            Conclusión: No se rechaza H<sub>0</sub>. La restricción &beta;<sub>2</sub> + &beta;<sub>3</sub> = 1 se cumple.
+        <div style="background: #27ae60; color: white; padding: 25px; border-radius: 8px; font-weight: bold; text-align: center; margin-top: 20px;">
+            CONCLUSIÓN: No rechazamos H<sub>0</sub>. Existe evidencia estadística suficiente para afirmar que la suma de las elasticidades es igual a 1 (Retornos constantes).
         </div>
-        ```
-
-
+    </section>
 </div>
 
 
